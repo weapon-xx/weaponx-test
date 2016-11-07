@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>promise</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+    window.onload = function(){
+      function ps1(){
+        return new Promise(function(resolve,reject){
+          setTimeout(function(){
+            console.log('执行任务1');
+            resolve('执行任务1成功');
+          },1000)
+        })
+      }
+
+      function ps2(){
+        return new Promise(function(resolve,reject){
+          setTimeout(function(){
+            console.log('执行任务2');
+            resolve('执行任务2成功');
+          },1000)
+        })
+      }
+
+      ps1()
+      .then(function(data){
+        console.log(data);
+        return ps2();
+      })
+      .then(function(data){
+        console.log(data);
+        return 'done'
+      })
+      .then(function(data){
+        console.log(data);
+      })
+
+    
+    }
+    </script>
+  </body>
+</html>

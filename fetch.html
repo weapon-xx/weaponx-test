@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      fetch('https://cnodejs.org/api/v1/topics').then(function(res){
+        //response.status表示响应的http状态码
+       if(res.status === 200){
+         //json是返回的response提供的一个方法,会把返回的json字符串反序列化成对象,也被包装成一个Promise了
+         return res.json();
+       }else{
+         return {}
+       }
+     }).then(function(data){
+       console.log(data);
+       fetch('https://cnodejs.org/api/v1/topic/57ea257b3670ca3f44c5beb6').then(function(res){
+         if(res.status == 200){
+           return res.json()
+         }else{
+           return {}
+         }
+       }).then(function(data){
+         console.log('get topics/:id');
+         console.log(data);
+       })
+     })
+    </script>
+  </body>
+</html>
