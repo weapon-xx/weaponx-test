@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Generator </title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function* helloGenerator() {
+        yield 'hello';
+        yield 'world';
+        return 'ending';
+      }
+
+      const hg = helloGenerator();
+      console.log(hg.next()); // {value: "hello", done: false}
+      console.log(hg.next()); // {value: "world", done: false}
+      console.log(hg.next()); // {value: "ending", done: true}
+
+      let myIterable  = {};
+      myIterable [Symbol.iterator] = function* (){
+        yield 1;
+        yield 2;
+        yield 3;
+      }
+
+      console.log([...myIterable]);
+
+      function* bar(){
+
+      }
+
+      var b = bar();
+      console.log(b[Symbol.iterator]() === b);    // bar 是一个Generator函数，调用它会生成一个遍历器对象b。它的Symbol.iterator属性，也是一个遍历器对象生成函数，执行后返回它自己。
+      console.log(b[Symbol.iterator] === bar);    // false
+
+      function* foo(x) {
+        var y = 2 * (yield (x + 1));
+        var z = yield (y / 3);
+        return (x + y + z);
+      }
+
+      var a = foo(5);
+      a.next() // Object{value:6, done:false}
+      a.next() // Object{value:NaN, done:false}
+      a.next() // Object{value:NaN, done:true}
+
+      var b = foo(5);
+      b.next() // { value:6, done:false }
+      b.next(12) // { value:8, done:false }
+      b.next(13) // { value:42, done:true }
+
+      //注意，由于next方法的参数表示上一个yield语句的返回值，所以第一次使用next方法时，不能带有参数。
+      //V8引擎直接忽略第一次使用next方法时的参数，只有从第二次使用next方法开始，参数才是有效的。
+      //从语义上讲，第一个next方法用来启动遍历器对象，所以不用带有参数。
+
+      function* dataConsumer() {
+        console.log('Started');
+        console.log(`1. ${yield}`);
+        console.log(`2. ${yield}`);
+        return 'result';
+      }
+
+      var genObj = dataConsumer();
+      console.log(genObj.next('a'));  // Started
+      console.log(genObj.next('b'));  // 1. b
+      console.log(genObj.next('c'));  // 2. c
+
+      function *foo() {
+        yield 1;
+        yield 2;
+        yield 3;
+        yield 4;
+        yield 5;
+        return 6;
+      }
+
+      for (let v of foo()) {
+        console.log(v); // 1 2 3 4 5
+      }
+      // for...of循环可以自动遍历Generator函数时生成的Iterator对象，且此时不再需要调用next方法。
+
+      var err = function* (){
+        try{
+          yield
+        }catch(e){
+          console.log(e);
+        }
+      }
+
+      var e = err();
+      console.log(e.next());
+      e.throw(new Error('出错了'));
+
+
+      function* gen(){
+        yield 1;
+        yield 2;
+        yield 3;
+      }
+
+      var g = gen();
+      console.log(g.next());
+      console.log(g.return('foo'));   // Generator函数返回的遍历器对象，还有一个return方法，可以返回给定的值，并且终结遍历Generator函数。
+      console.log(g.next());
+
+      function* outer(){
+        yield 'open'
+        yield* inner(); // 如果yield命令后面跟的是一个遍历器对象，需要在yield命令后面加上星号，表明它返回的是一个遍历器对象。这被称为yield*语句。
+        yield 'close'
+      }
+
+      function* inner(){
+        yield 'hello inner'
+      }
+
+      var obj = outer();
+      console.log(obj.next());  // {value: "open", done: false}
+      console.log(obj.next());  // {value: "hello inner", done: false}
+      console.log(obj.next());  // {value: "close", done: false}
+
+      let delegatedIterator = (function* () {
+        yield 'Hello!';
+        yield 'Bye!';
+      }());
+
+      let delegatingIterator = (function* () {
+        yield 'Greetings!';
+        yield* delegatedIterator;
+        yield 'Ok, bye.';
+      }());
+
+      for(let value of delegatingIterator) {
+        console.log(value); // Greetings,Hello,Bye,Ok, bye.
+      }
+
+      function* foo(){
+        yield 2;
+        yield 3;
+        return 'foo'  // 如果被代理的Generator函数有return语句，那么就可以向代理它的Generator函数返回数据。
+      }
+
+      function* bar(){
+        yield 1;
+        var v = yield* foo();
+        console.log(`v:${v}`);
+        yield 4;
+      }
+
+      var it = bar();
+      console.log(it.next()); // {value: 1, done: false}
+      console.log(it.next()); // {value: 2, done: false}
+      console.log(it.next()); // {value: 3, done: false} v:foo
+      console.log(it.next()); // {value: 4, done: false}
+
+      function* genFuncWithReturn(){
+        yield console.log('a');
+        yield console.log('b');
+        return 'the result'
+      }
+
+      function* logReturned(genObj){
+        let result = yield* genObj;
+        console.log(result);
+      }
+
+      [...logReturned(genFuncWithReturn())] // a b the result
+
+      function* iterTree(tree) {
+        if (Array.isArray(tree)) {
+          for(let i=0; i < tree.length; i++) {
+            yield* iterTree(tree[i]); // 递归算法，yield*命令可以很方便地取出嵌套数组的所有成员。
+          }
+        } else {
+          yield tree;
+        }
+      }
+
+      const tree = [1,[2,3],[4,5]];
+
+      for(let x of iterTree(tree)) {
+        console.log(x); // 1,2,3,4,5
+      }
+
+      function* main() {
+        var result = yield request();
+        console.log(result);
+      }
+
+      function request(url) {
+        setTimeout(function(){
+          it.next('ajax');      // 模拟ajax请求
+          //return 'ajax';
+        },1000)
+      }
+
+      var it = main();
+      it.next();
+
+      // 部署Iterator接口 §
+      function* iterEntries(obj){
+        var keys = Object.keys(obj);
+        for(var i=0;i<keys.length;i++){
+            var key = keys[i];
+            yield [key,obj[key]]
+        }
+      }
+
+      let myObj = { foo: 3, bar: 7 };
+
+      for(let [key,value] of iterEntries(myObj)){
+        console.log(`key:${key},value:${value}`);
+      }
+
+
+    </script>
+  </body>
+</html>
