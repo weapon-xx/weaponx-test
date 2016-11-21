@@ -21,6 +21,7 @@
   "homepage": "https://github.com/weapon-xx/weaponx-test#readme",
   "devDependencies": {
     "co": "^4.6.0",
+    "ejs": "^2.5.2",
     "ejs-mate": "^2.3.0",
     "eslint": "^3.10.2",
     "eslint-config-airbnb-base": "^10.0.1",
