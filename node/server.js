@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const resolve = file => path.resolve(__dirname, file)
-app.use('/dist', express.static(resolve('../static')))
+app.use('/dist', express.static(resolve('./views')))
 
-app.set('static', path.join(__dirname, './static'));
+app.set('static', path.join(__dirname, './views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs-mate'));
 
