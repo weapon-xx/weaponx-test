@@ -34,27 +34,34 @@ gulp.task('webpack',['clean'], function(cb) {
 });
 
 gulp.task('rev',function(){
-  const revCssJs = gulp.src(['./dist/*.css','./dist/*.js'])
+  const revStatic = gulp.src(['./dist/*.css','./dist/*.js'])
              .pipe(rev())
              .pipe(gulp.dest('./dist'))
              .pipe(rev.manifest())
-             .pipe(gulp.dest('./rev'))
+             .pipe(gulp.dest('./rev/static'))
 
    const revImg = gulp.src(['./src/public/img/*'])
               .pipe(rev())
               .pipe(gulp.dest('./dist/public/img'))
               .pipe(rev.manifest())
-              .pipe(gulp.dest('./rev'))
+              .pipe(gulp.dest('./rev/img'))
 
-  return mergeStream(revCssJs,revImg)
+  // mergeStream
+  return mergeStream(revStatic,revImg)
 })
 
+/**
+ *  版本替换
+ */
 gulp.task('revCollector',['rev'],function(){
-  gulp.src(['./rev/rev-manifest.json','./src/*.html'])
+  gulp.src(['./rev/*/*.json','./src/*.html'])
       .pipe(revCollector())
       .pipe(gulp.dest('./dist/'))
 })
 
+/**
+ *  复制
+ */
 gulp.task('copy',function(){
   gulp.src(['./src/**'])
       .pipe(gulp.dest('./dist/'))
