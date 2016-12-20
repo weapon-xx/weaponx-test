@@ -6,7 +6,6 @@
   </head>
   <body>
     <script type="text/javascript">
-    window.onload = function(){
       function ps1(){
         return new Promise(function(resolve,reject){
           setTimeout(function(){
@@ -32,14 +31,17 @@
       })
       .then(function(data){
         console.log(data);
-        return 'done'
+        return new Promise(function(resolve,reject){
+          setTimeout(function(){
+            resolve('done')
+          },1000)
+        })
       })
       .then(function(data){
         console.log(data);
       })
 
-    
-    }
+
     </script>
   </body>
 </html>

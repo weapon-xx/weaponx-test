@@ -212,6 +212,21 @@
         console.log(`key:${key},value:${value}`);
       }
 
+      function* genFunc(){
+        yield function(){
+          return '213'
+        }
+        yield function(value){
+          return value
+        }
+        return 'done'
+      }
+
+      var test = genFunc();
+      var val;
+      val = test.next().value()
+      console.info(val)
+      console.info(test.next().value(val))
 
     </script>
   </body>
