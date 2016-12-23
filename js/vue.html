@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      {{message}}
+    </div>
+    <script type="text/javascript" src="./vue.js"></script>
+    <script type="text/javascript">
+      const vm = new Vue({
+        el : '#app',
+        data(){
+          return{
+            message : 'test'
+          }
+        }
+      })
+
+      var data = {name : 'xx'}
+      observe(data)
+
+      function observe(data){
+        if(!data || typeof data !== 'object'){
+          return
+        }
+        Object.keys(data).forEach(function(key){
+          defineReactive(data,key,data[key])
+        })
+      }
+
+      function defineReactive(data,key,val){
+        var dep = new Dep();
+        observe(val)
+        Object.defineProperty(data,key,{
+          enumerable : true,
+          configurable : false,
+          get : function(){
+            return val
+          },
+          set : function(newVal){
+            console.log(`oldVal : ${val};newVal : ${newVal}`);
+            if(val === newVal){
+              return
+            }
+            dep.notify()
+            console.log('data is change');
+            val = newVal
+          }
+        })
+      }
+
+      function Dep(){
+        this.subs = []
+      }
+
+      Dep.prototype = {
+        addSub : function(sub){
+          this.subs.push(sub)
+        },
+        notify : function(){
+          this.subs.forEach(function(sub){
+            sub.update()
+          })
+        }
+      }
+    </script>
+  </body>
+</html>
