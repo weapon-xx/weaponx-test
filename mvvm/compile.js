@@ -118,10 +118,10 @@ const compileUtil = {
 
   },
   html(node,vm,exp){
-    this.bind(node,vm,exp,'html')
+    this.bind(node,vm,exp,'html');
   },
-  class(){
-
+  class(node,vm,exp){
+    this.bind(node,vm,exp,'class');
   },
   text(node,vm,exp){
     this.bind(node ,vm ,exp , 'text');
@@ -135,8 +135,13 @@ const updater = {
   htmlUpdater(node,value){
     node.innerHTML = typeof value === 'undefined' ? '' : value
   },
-  classUpdater(){
+  classUpdater(node,value,oldValue){
+    var className = node.className;
+    // 替换旧类名
+    className = className.replace(oldValue,'').replace(/\s$/,'');
 
+    const space = className && String(value) ? ' ' : '';
+    node.className = className + space + value;
   },
   modelUpdater(){
 

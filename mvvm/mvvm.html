@@ -9,6 +9,7 @@
 <div id="mvvm-app">
   <p v-text="someStr"></p>
   <h2 v-html="someHtml"></h2>
+  <p v-class="someClass" v-text="someClass"></p>
 </div>
 
 <!-- <script src="http://cdn.bootcss.com/vue/1.0.25/vue.js"></script> -->
@@ -21,7 +22,8 @@
         el: '#mvvm-app',
         data: {
             someStr: 'hello',
-            someHtml : '<p>v-html</p>'
+            someHtml : '<p>v-html</p>',
+            someClass : 'test'
         },
         methods: {
             clickBtn: function(e) {
