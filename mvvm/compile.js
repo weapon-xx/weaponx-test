@@ -14,6 +14,7 @@ Compile.prototype = {
     var fragment = document.createDocumentFragment();
     var child;
 
+    // 将原生节点拷贝到fragment
     while(child = el.firstChild){
       fragment.appendChild(child)
     }
@@ -33,6 +34,7 @@ Compile.prototype = {
             reg  = /\{\{(.*)\}\}/;
 
       if(_this.isElementNode(node)){
+        // 解析元素节点
         _this.compile(node);
       }else if(_this.isTextNode(node) && reg.test(text)){
         // 解析差值表达式
@@ -115,8 +117,8 @@ const compileUtil = {
   eventHandler(){
 
   },
-  html(){
-
+  html(node,vm,exp){
+    this.bind(node,vm,exp,'html')
   },
   class(){
 
@@ -130,8 +132,8 @@ const updater = {
   textUpdater(node ,value){
     node.textContent = typeof value === 'undefined' ? '' : value
   },
-  htmlUpdater(){
-
+  htmlUpdater(node,value){
+    node.innerHTML = typeof value === 'undefined' ? '' : value
   },
   classUpdater(){
 

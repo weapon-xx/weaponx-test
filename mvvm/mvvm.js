@@ -8,11 +8,9 @@ function Mvvm(options){
     _this._proxy(key)
   })
 
-  debugger
   observe(data,this)
 
   this.$compile = new Compile(options.el || document.body,this)
-
 }
 
 Mvvm.prototype = {
@@ -20,6 +18,7 @@ Mvvm.prototype = {
     new Watch(this,key,cb)
   },
   _proxy(key){
+    // 属性代理
     var _this = this;
     Object.defineProperty(_this,key,{
       enumerable: true,

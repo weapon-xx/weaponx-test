@@ -15,8 +15,8 @@ Observe.prototype = {
   //   this.defineReactive(this.data,key,val)
   // },
   defineReactive(data,key,val){
-    const dep = new Dep(),
-          childObj = observe(val);
+    const dep = new Dep();
+    var childObj = observe(val);
 
     Object.defineProperty(data,key,{
       enumerable : true,
@@ -59,6 +59,7 @@ Dep.prototype = {
     this.subs.push(sub);
   },
   depend(){
+    // Watcher.addDep
     Dep.target.addDep(this);
   },
   removeSub(sub){

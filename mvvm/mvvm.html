@@ -8,6 +8,7 @@
 
 <div id="mvvm-app">
   <p v-text="someStr"></p>
+  <h2 v-html="someHtml"></h2>
 </div>
 
 <!-- <script src="http://cdn.bootcss.com/vue/1.0.25/vue.js"></script> -->
@@ -19,12 +20,8 @@
     var vm = new Mvvm({
         el: '#mvvm-app',
         data: {
-            someStr: 'hello ',
-            className: 'btn',
-            htmlStr: '<span style="color: #f00;">red</span>',
-            child: {
-                someStr: 'World !'
-            }
+            someStr: 'hello',
+            someHtml : '<p>v-html</p>'
         },
         methods: {
             clickBtn: function(e) {
