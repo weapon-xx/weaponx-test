@@ -30,7 +30,7 @@ Compile.prototype = {
 
     // 遍历子节点
     Array.prototype.slice.call(childNodes).forEach(function(node){
-      const text = node.textNode,
+      const text = node.textContent,
             reg  = /\{\{(.*)\}\}/;
 
       if(_this.isElementNode(node)){
@@ -63,7 +63,11 @@ Compile.prototype = {
           compileUtil.eventHandler(node,_this.$vm,exp,dir);
         }else{
           // 普通指令
-          compileUtil[dir] && compileUtil[dir](node,_this.$vm,exp)
+          if(dir === 'for'){
+            compileUtil['forHandler'](node,_this.$vm,exp,_this)
+            return
+          }
+          compileUtil[dir] && compileUtil[dir](node,_this.$vm,exp,_this)
         }
 
         // 移除 vue 指令
@@ -114,7 +118,25 @@ const compileUtil = {
     })
     return val
   },
-  eventHandler(){
+  _setVMVal(vm,exp,value){
+    var val = vm._data;
+    exp = exp.split('.');
+    exp.forEach(function(key,i){
+      // 非最后一个key，更新val的值
+       if (i < exp.length - 1) {
+           val = val[key];
+       } else {
+           val[key] = value;
+       }
+    })
+  },
+  eventHandler(node,vm,exp,dir){
+    var eventType = dir.split(':')[1],
+        fn = vm.$options.methods && vm.$options.methods[exp];
+
+    if(eventType && fn){
+        node.addEventListener(eventType,fn.bind(vm),false);
+    }
 
   },
   html(node,vm,exp){
@@ -125,6 +147,41 @@ const compileUtil = {
   },
   text(node,vm,exp){
     this.bind(node ,vm ,exp , 'text');
+  },
+  model(node,vm,exp){
+    this.bind(node,vm,exp,'model');
+
+    var _this = this,
+        val = this._getVMVal(vm,exp);
+
+    node.addEventListener('input',function(e){
+      var newValue = e.target.value;
+      if(val === newValue){
+        return
+      }
+      _this._setVMVal(vm,exp,newValue)
+    })
+  },
+  forHandler(node,vm,exp,com){
+    var itemName = exp.split('in')[0].replace(/\s+/g,'');
+    var arrName = exp.split('in')[1].replace(/\s+/g,'');
+    var arr = vm._data;
+    arrName.split('.').forEach(function(value,key){
+      arr = arr[arrName.split('.')[key]]
+    })
+
+    var parentNode = node.parentNode;
+
+    var reg = new RegExp(itemName,'g');
+
+    arr.forEach(function(item,key){
+      var cloneNode = node.cloneNode(true);
+      cloneNode.removeAttribute('v-for');
+      cloneNode.textContent = cloneNode.textContent.replace(reg,arrName+'['+ key+']')
+      parentNode.insertBefore(cloneNode,node);
+      com.compileElement(cloneNode)
+    })
+    parentNode.removeChild(node)
   }
 }
 
@@ -143,7 +200,7 @@ const updater = {
     const space = className && String(value) ? ' ' : '';
     node.className = className + space + value;
   },
-  modelUpdater(){
-
+  modelUpdater(node,value,oldValue){
+    node.value = typeof value == 'undefined' ? '' : value;
   }
 }
