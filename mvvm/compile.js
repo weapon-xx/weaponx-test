@@ -5,17 +5,20 @@ function Compile(el,vm){
   if(this.$el){
     this.$fragment = this.node2Fragment(this.$el);
     this.init();
+    // 插入文档片段
     this.$el.appendChild(this.$fragment);
   }
 }
 
 Compile.prototype = {
   node2Fragment(el){
+    // 生成文档片段
     var fragment = document.createDocumentFragment();
     var child;
 
     // 将原生节点拷贝到fragment
     while(child = el.firstChild){
+      console.log(child);
       fragment.appendChild(child)
     }
 
