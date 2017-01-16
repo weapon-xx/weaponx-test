@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      li{
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        list-style: none;
+      }
+      div{
+        width: 200px;
+        height: 200px;
+        background-color: #eee;
+        position: relative;
+      }
+      div::before, div::after{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        opacity: 0;
+        content: '';
+        transition: all .35s;
+      }
+      div::before{
+        transform: scale(1,0);
+        border-right: 1px solid #5CC9F5;
+        border-left: 1px solid #5CC9F5;
+      }
+      div::after{
+        transform: scale(0,1);
+        border-top: 1px solid #5CC9F5;
+        border-bottom: 1px solid #5CC9F5;
+      }
+      li:hover div::before,li:hover div::after{
+        transform: scale(1);
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>
+        <div class="">
+
+        </div>
+      </li>
+    </ul>
+  </body>
+</html>
