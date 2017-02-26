@@ -152,6 +152,7 @@ const compileUtil = {
     this.bind(node ,vm ,exp , 'text');
   },
   model(node,vm,exp){
+    debugger
     this.bind(node,vm,exp,'model');
 
     var _this = this,

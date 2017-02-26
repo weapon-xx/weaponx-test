@@ -5,7 +5,6 @@
     <title>MVVM</title>
 </head>
 <body>
-
 <div id="mvvm-app">
   <p v-text="someStr"></p>
   <h2 v-html="someHtml"></h2>
@@ -13,11 +12,7 @@
   <input type="text" name="" value="" v-model="someModel">
   <p>{{someModel}}</p>
   <button v-on:click="clickHandler">Click</button>
-  <ul>
-    <li v-for="item in someArr.arr">{{item}}</li>
-  </ul>
 </div>
-
 <!-- <script src="http://cdn.bootcss.com/vue/1.0.25/vue.js"></script> -->
 <script src="./observe.js"></script>
 <script src="./watcher.js"></script>

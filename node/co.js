@@ -5,7 +5,6 @@ co(function* (){
     console.log(data)
     msg = data
   })
-
   yield task2(msg).then( data =>{
     console.log(data)
   });

@@ -2,7 +2,6 @@ function Mvvm(options){
   this.$options = options;
   var data = this._data = this.$options.data;
   var _this = this;
-
   //
   Object.keys(data).forEach(function(key){
     _this._proxy(key)
