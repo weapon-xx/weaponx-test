@@ -25,10 +25,14 @@
 
       var c
 
+      var c = $.extend({}, a, b)
+      console.log(c);
 
-      debugger
-      c = $.extend(true, a, b)
-      console.log(c)
+      
+      c.job = {}
+      console.log(a);
+      console.log(b);
+
     </script>
   </body>
 </html>

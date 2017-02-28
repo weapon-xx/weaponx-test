@@ -28,7 +28,6 @@ Observe.prototype = {
         return val
       },
       set(newVal){
-        debugger
         if(newVal === val){
           return
         }
