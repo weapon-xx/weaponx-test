@@ -5,6 +5,25 @@
     <title></title>
   </head>
   <body>
-    
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+    <script type="text/javascript">
+      const $li = document.querySelectorAll('li')
+      for(var i = 0, length = $li.length; i < length; i++){
+        $li[i].addEventListener('click', clickHandle(i), false)
+      }
+
+    function clickHandle(i){
+        return function(){
+          console.log(i);
+        }
+      }
+    </script>
   </body>
 </html>
