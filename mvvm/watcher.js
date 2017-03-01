@@ -21,13 +21,14 @@ Watcher.prototype = {
     }
   },
   addDep(dep){
-    // 添加依赖
+    // 如果之前没有依赖则添加依赖
     if(!this.depIds.hasOwnProperty(dep.id)){
       dep.addSub(this)
-      this.depIds[dep.id] = dep;
+      this.depIds[dep.id] = dep
     }
   },
   get(){
+    // 传递watcher实例
     Dep.target = this;
     // 触发get
     const value = this.getVMVal();

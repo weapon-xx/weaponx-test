@@ -56,6 +56,7 @@ function Dep(){
 
 Dep.prototype = {
   addSub(sub){
+    // 添加 subscript
     this.subs.push(sub);
   },
   depend(){
@@ -69,6 +70,7 @@ Dep.prototype = {
     }
   },
   notify(){
+    // 遍历执行更新
     this.subs.forEach(function(sub){
       sub.update();
     })
