@@ -5,6 +5,12 @@
     <title></title>
   </head>
   <body>
+    <div class="" style="width:200px;height: 200px;">
+      <div class="" style="width:200px;height: 100px;padding-top: 20%;background-color: red">
+
+      </div>
+    </div>
+
     <ul>
       <li>1</li>
       <li>2</li>
@@ -24,6 +30,43 @@
           console.log(i);
         }
       }
+
+      var fn=function(a,b,c){
+        return a+b+c
+      }
+
+      // 需要写一个函数，满足
+      // curry(fn)(1)(2)(3) //6
+
+      function curry(fn){
+        var arr = []
+        var cb = function(){
+          arr.push(arguments[0])
+          if(arr.length >=3){
+            return fn.apply(null, arr)
+          }else{
+            return cb
+          }
+        }
+        return cb
+      }
+
+      console.log(curry(fn)(1)(2)(3));  // 6
+
+      // 使用原生JS实现：
+      // (10).add(10).reduce(2).add(10) //28
+
+      Number.prototype.add = function(num){
+        return this + num
+      }
+
+      Number.prototype.reduce = function(num){
+        return this - num
+      }
+
+      console.log((10).add(10).reduce(2).add(10));
+
+
     </script>
   </body>
 </html>

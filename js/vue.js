@@ -2354,6 +2354,7 @@ function renderMixin (Vue) {
     val,
     render
   ) {
+    debugger
     var ret, i, l, keys, key;
     if (Array.isArray(val)) {
       ret = new Array(val.length);

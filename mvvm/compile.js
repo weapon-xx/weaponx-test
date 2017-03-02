@@ -65,11 +65,6 @@ Compile.prototype = {
           // 事件指令
           compileUtil.eventHandler(node,_this.$vm,exp,dir);
         }else{
-          // 普通指令
-          if(dir === 'for'){
-            compileUtil['forHandler'](node,_this.$vm,exp,_this)
-            return
-          }
           compileUtil[dir] && compileUtil[dir](node,_this.$vm,exp,_this)
         }
 
@@ -164,6 +159,12 @@ const compileUtil = {
       }
       _this._setVMVal(vm,exp,newValue)
     })
+  },
+  for: function(node,vm,exp){
+    console.log(node);
+    console.log(exp);
+
+    console.log(exp.split(' in '))
   },
   forHandler(node,vm,exp,com){
     var itemName = exp.split('in')[0].replace(/\s+/g,'');
