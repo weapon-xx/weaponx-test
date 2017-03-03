@@ -67,6 +67,29 @@
       console.log((10).add(10).reduce(2).add(10));
 
 
+      var data = {
+        arr: [1,2,3,4,5,6]
+      }
+
+      Object.keys(data).forEach(function(key){
+        defineReactive(data, key, data[key])
+      })
+
+      function defineReactive(data, key, val){
+        Object.defineProperty(data, key, {
+          enumerable: true,
+          configurable: false,
+          get(){
+            console.log('get');
+            return val
+          },
+          set(newVal){
+            console.log('set');
+            val = newVal
+            return val
+          }
+        })
+      }
     </script>
   </body>
 </html>
