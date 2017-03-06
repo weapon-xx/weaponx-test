@@ -17,6 +17,18 @@
       console.log(millionFormat(1231231231.123123))
 
 
+      function splitStr(str){
+        var newStr = ''
+        str.replace(/\w(?!=\s)/g, function(m){
+          if(m !== str.charAt(str.length-1)){
+            newStr += m + ' '
+          }else{
+            newStr += m
+          }
+        })
+        return newStr
+      }
+      console.log(splitStr('abcde'));
     </script>
   </body>
 </html>
