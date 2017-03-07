@@ -6,8 +6,7 @@
   </head>
   <body>
     <script type="text/javascript">
-      var arr = [1,4,6,3,2,7,9,8]
-
+      // 快排
       function quickSort(arr){
         if(arr.length <= 1){
           return arr
@@ -27,7 +26,33 @@
         return quickSort(left).concat(middleNum, quickSort(right))
       }
 
-      console.log(quickSort(arr))
+      // 数组sort
+      function arraySort(arr) {
+        return arr.sort((x, y) => {
+          return x - y
+        })
+      }
+
+      // 冒泡
+      function propagtionSort(arr) {
+        var cache
+        var length = arr.length - 1
+        for(var i = 0; i < length; i++) {
+          for(var j = 0; j < length - i; j++) {
+            if(arr[j] > arr[j + 1]) {
+              cache = arr[j]
+              arr[j] = arr[j + 1]
+              arr[j + 1] = cache
+            }
+          }
+        }
+        return arr
+      }
+
+      console.log(quickSort([1,4,6,3,2,7,9,8]))
+      console.log(arraySort([1,4,6,3,2,7,9,8]));
+      console.log(propagtionSort([1,4,6,3,2,7,9,8]));
+
     </script>
   </body>
 </html>
