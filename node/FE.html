@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p>test</p>
+    <script type="text/javascript" src="./jquery-3.1.1.js"></script>
+    <script type="text/javascript">
+      function cb(data){
+        console.log(data);
+      }
+
+      console.log($);
+
+      $.ajax({
+        url: 'http://127.0.0.1:8080/cors',
+        type: 'get',
+        data: {
+          name: 'xx'
+        },
+        success: function(data) {
+
+        },
+        error: function() {
+
+        }
+      })
+
+    </script>
+    <!-- 1、利用图片的src可以实现跨域，但是无法拿到响应体 -->
+    <img src="http://localhost:8080/jsonp?callback=cb" />
+    <!-- iframe可以实现跨域和拿到响应体，响应体会被嵌套在iframe页面的body里 -->
+    <iframe src="http://localhost:8080/jsonp?callback=cb" width="" height=""></iframe>
+    <script type="text/javascript" src="http://localhost:8080/jsonp?callback=cb"></script>
+  </body>
+</html>
