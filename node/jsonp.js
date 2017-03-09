@@ -14,7 +14,7 @@ app.get('/jsonp', function(req, res){
   res.end('cb(' + JSON.stringify(data) + ')')
 })
 
-app.all('/cors' ,(req, res)=>{
+app.post('/cors' ,(req, res)=>{
   console.log(req.query);
   console.log(req.body);
 

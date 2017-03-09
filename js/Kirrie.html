@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function convertArray(arr) {
+        if(!arr instanceof Array) {
+          return
+        }
+        return Array.prototype.slice.call(arr)
+      }
+
+      var obj = {
+        valueOf: function() {
+          console.log('调用了valueOf方法');
+          return
+        },
+        toString: function() {
+          console.log('调用了toString方法');
+          return
+        }
+      }
+
+      // alert(obj) // 调用了toString方法
+      // obj + 1 // 调用了valueOf方法
+
+      function Kirrie() {
+        var args = convertArray(arguments)
+
+        var fn = function() {
+          var args_fn = convertArray(arguments)
+          return Kirrie.apply(null, args.concat(args_fn))
+        }
+
+        fn.valueOf = function() {
+          return args.reduce((acc, value)=>{
+            return acc + value
+          })
+        }
+
+        return fn
+      }
+
+      console.log(Kirrie(1, 2, 3, 4));
+      console.log(Kirrie(1)(2)(3));
+      console.log(Kirrie(1, 2, 3)(2)(3));
+
+    </script>
+  </body>
+</html>
