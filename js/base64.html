@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="file" name="" value="" id="file">
+    <img src="" alt="" id="showImg" style="width: 300px;">
+
+      <script type="text/javascript">
+        $file = document.querySelector('#file')
+        $img = document.querySelector('#showImg')
+
+        var fileReader = new FileReader()
+
+        console.log(fileReader);
+
+        // convert image to base64 string
+        $file.addEventListener('change', function(e) {
+          var file = e.target.files[0]
+
+
+          fileReader.onload = function(e) {
+            console.log(e);
+            changeImgSrc(e.target.result)
+          }
+
+          fileReader.readAsDataURL(file)
+        }, false)
+
+        function changeImgSrc(src) {
+          $img.setAttribute('src', src)
+        }
+
+
+        function Parent() {
+          this.a = 1;
+          this.b = [1, 2, this.a];
+          this.c = { demo: 5 }
+          this.show = function() {
+            document.write(this.a + '' + this.c.demo + ";" + this.b + '<br>')
+          }
+        }
+
+        function Child() {
+          this.a = 2;
+          this.change = function() {
+            this.b.push(this.a);
+            this.a = this.b.length;
+            this.c.demo = this.a++;
+          }
+        }
+
+        Child.prototype  = new Parent();
+        var parent = new Parent();
+        var child1 = new Child();
+        var child2 = new Child();
+        child1.a = 11;
+        child2.a = 12;
+        parent.show();
+        child1.show();
+        child2.show();
+        child1.change();
+        child2.change();
+        parent.show();
+        child1.show();
+        child2.show();
+
+        var str = 'abc345efgabcab'
+
+        console.log(str.replace(/[abc]*/g, ''));
+        console.log(str.replace(/\d/g, function(m){
+            return '[' + m + ']'
+        }));
+
+        console.log(str.replace(/\d/g, function(m){
+            return m * 2
+        }));
+
+      </script>
+  </body>
+</html>
