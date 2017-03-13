@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var obj = (function() {
+        var Private = 0;
+        return {
+          add: function(n) {
+            return Private += n
+          },
+          less: function(n) {
+            return Private -= n
+          },
+          getPrivate: function() {
+            return Private
+          }
+        }
+      })()
+
+      obj.add(10)
+      console.log(obj.getPrivate())
+      obj.less(5)
+      console.log(obj.getPrivate())
+
+      obj.multiply = function(n) {
+        return Private *= n
+      }
+
+      obj.multiply()    // Private is not defined 保护了私有变量
+
+
+    </script>
+  </body>
+</html>
