@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>functional coding</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="./underscore.js"></script>
+    <script type="text/javascript">
+      /*
+      *
+      * 集合
+      *
+      */
+      // _.reduce(list, iteratee, [memo], [context]) 把list中元素归结为一个单独的数值
+      console.log(_.reduce([1, 2, 3], function(memo, num) {
+        return memo + num
+      }, 0));   // 6
+
+      // _.find(list, predicate, [context])
+      // 在list中逐项查找，返回第一个通过predicate迭代函数真值检测的元素值，如果没有值传递给测试迭代器将返回undefined。 如果找到匹配的元素，函数将立即返回，不会遍历整个list。
+      console.log(_.find(['a' , 'b', 3, 'd' , 6], _.isNumber)) // 3
+
+      // _.filter(list, predicate, [context]) 遍历list中的每个值，返回包含所有通过predicate真值检测的元素值
+      console.log(_.filter(['a' , 'b', 3, 'd' , 6], _.isNumber)) // [3, 6]
+
+      // _.reject(list, predicate, [context]) 返回list中没有通过predicate真值检测的元素集合，与filter相反。
+      console.log(_.reject(['a' , 'b', 3, 'd' , 6], _.isNumber)) // ['a', 'b', 'd']
+
+      // _.pluck(list, propertyName)  萃取数组对象中某属性值，返回一个数组。
+      console.log(_.pluck([{name: 'xx', age: '21'}, {name: 'john', age: '26'}], 'name')) // ["xx", "john"]
+
+      // _.sortBy(list, iteratee, [context]) 传递iteratee参数，iteratee将作为list中每个值的排序依据
+      console.log(_.sortBy([{name: 'john', age: 26}, {name: 'xx', age: 21}], function(item) { return item.age }));
+
+      // _.countBy(list, iteratee, [context]) 排序一个列表组成一个组，并且返回各组中的对象的数量的计数
+      console.log(_.countBy([{job: 'fe'}, {job: 'be'}, {job: 'fe'}], (item) =>{return item.job})); // {fe: 2, be: 1}
+
+      // _.toArray(list) 把list(任何可以迭代的对象)转换成一个数组，在转换 arguments 对象时非常有用。
+      console.log((function(){ return _.toArray(arguments) })(1, 2, 3, 4)) // [1, 2, 3, 4]
+
+      // _.where(list, properties) 遍历list中的每一个值，返回一个数组，这个数组包含properties所列出的属性的所有的 键 - 值对
+      console.log(_.where([{name: 'xx', age: '21'}, {name: 'john', age: '26'}], {name: 'xx'})) // [{name: 'xx', age: '21'}]
+
+      //
+      /*
+      *
+      * 对象
+      *
+      */
+      // _.has(object, key) 等同于object.hasOwnProperty(key)
+      console.log(_.has({name: 'xx', age: '21'}, 'name')) // true
+
+      // _.omit(object, *keys) 返回一个object副本，只过滤出除去keys(有效的键组成的数组)参数指定的属性值
+      console.log(_.omit({name: 'xx', age: '21'}, 'name')) // {age: '21'}
+
+      // _.pick(object, *keys) 返回一个object副本，只过滤出keys(有效的键组成的数组)参数指定的属性值
+      console.log(_.pick({name: 'xx', age: '21'}, 'name'))  // {name: 'xx'}
+
+      // _.keys(object)  检索object拥有的所有可枚举属性的名称。
+      console.log(_.keys({name: 'xx', age: '21'})) // ["name", "age"]
+
+      // _.values(object) 返回object对象所有的属性值。
+      console.log(_.values({name: 'xx', age: '21'})) // ["xx", "21"]
+
+      // _.pairs(object)  把一个对象转变为一个[key, value]形式的数组。
+      console.log(_.pairs({name: 'xx', age: '21'})) // [['name', 'xx'], ['age', '21']]
+
+
+      /*
+      *
+      * 数组
+      *
+      */
+      // _.first(array, [n]) 返回数组第一个下标值, 传递 n参数将返回数组中从第一个元素开始的n个元素
+      console.log(_.first([1, 2, 3, 4, 5, 6])) // 1
+
+      // _.last(array, [n])  返回array（数组）的最后一个元素
+      console.log(_.last([1, 2, 3, 4, 5, 6])); // 6
+
+      // _.rest(array, [index])  默认返回数组中除了第一个元素外的其他全部元素。传递 index 参数将返回从index开始的剩余所有元素 。
+      console.log(_.rest([5, 4, 3, 2, 1])); // [4, 3, 2, 1]
+
+      // _.object(list, [values]) 将数组转换为对象。传递任何一个单独[key, value]对的列表，或者一个键的列表和一个值得列表
+      console.log(_.object(['name', 'age'], ['xx', '21'])) // {name: 'xx', age: '21'}
+
+      // _.without(array, *values)  返回一个删除所有values值后的 array副本。
+      console.log(_.without([1, 2, 3, 4, 5, 6, 1], 1)); // [2, 3, 4, 5, 6]
+
+      // _.range([start], stop, [step]) 创建整数灵活编号的列表的函数，便于each 和 map循环。如果省略start则默认为 0；step 默认为 1.返回一个从start 到stop的整数的列表，用step来增加 （或减少）独占
+      console.log(_.range(0, 11, 5)); // [0, 5, 10]
+      console.log(_.range(5)) // [0, 1, 2, 3, 4]
+
+    </script>
+  </body>
+</html>
