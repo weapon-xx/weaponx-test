@@ -14,7 +14,7 @@ app.get('/login' ,(req, res)=>{
   res.end('login success')
 })
 
-app.get('/test', (req, res)=>{
+app.post('/test', (req, res)=>{
   console.log(req.hostname)
   console.log(req.cookies.name)
 

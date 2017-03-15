@@ -91,6 +91,29 @@
       console.log(_.range(0, 11, 5)); // [0, 5, 10]
       console.log(_.range(5)) // [0, 1, 2, 3, 4]
 
+      /*
+      *
+      * 使用功能
+      *
+      */
+      // _.identity(value) 返回与传入参数相等的值. 相当于数学里的: f(x) = x
+      var str = '123'
+      console.log(str === _.identity(str));   // true
+
+      function finder(valueFn, bestFun, coll) {
+        return _.reduce(coll, function(best, current) {
+          var bestValue = valueFn(best)
+          var currentValue = valueFn(current)
+
+          return (bestValue === bestFun(bestValue, currentValue)) ? best : current
+        })
+      }
+
+      console.log(finder(_.identity, Math.max, [1,2,3,4,5,3]));
+
+
+
+
     </script>
   </body>
 </html>
