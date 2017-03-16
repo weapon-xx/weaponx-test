@@ -112,7 +112,9 @@
       console.log(finder(_.identity, Math.max, [1,2,3,4,5,3]));
 
 
-
+      console.log(_.reduce([1, 2, 3, null, 5], function(total, n){
+        return total * n
+      }));
 
     </script>
   </body>
