@@ -16,6 +16,7 @@
             this ||
             {};
 
+
   // Save the previous value of the `_` variable.
   var previousUnderscore = root._;
 

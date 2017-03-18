@@ -42,6 +42,10 @@
       // _.where(list, properties) 遍历list中的每一个值，返回一个数组，这个数组包含properties所列出的属性的所有的 键 - 值对
       console.log(_.where([{name: 'xx', age: '21'}, {name: 'john', age: '26'}], {name: 'xx'})) // [{name: 'xx', age: '21'}]
 
+      // _.map(list, iteratee, [context]) 通过转换函数(iteratee迭代器)映射列表中的每个值产生价值的新数组
+      console.log(_.map([1, 2, 3,], function(num) {
+        return num * 3
+      }));  // [3, 6, 9]
       //
       /*
       *
@@ -93,12 +97,14 @@
 
       /*
       *
-      * 使用功能
+      * 实用功能
       *
       */
       // _.identity(value) 返回与传入参数相等的值. 相当于数学里的: f(x) = x
       var str = '123'
       console.log(str === _.identity(str));   // true
+
+      // _.iteratee(value, [context])
 
       function finder(valueFn, bestFun, coll) {
         return _.reduce(coll, function(best, current) {
