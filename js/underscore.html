@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>functional coding</title>
+    <title>functional progammming</title>
   </head>
   <body>
     <script type="text/javascript" src="./underscore.js"></script>
@@ -46,6 +46,13 @@
       console.log(_.map([1, 2, 3,], function(num) {
         return num * 3
       }));  // [3, 6, 9]
+
+      // _.each(list, iteratee, [context]) 遍历list中的所有元素，按顺序用遍历输出每个元素。
+      console.log(_.each([1, 2, 3], function(num) {
+        return num * 3
+      }, 12312));
+
+
       //
       /*
       *
@@ -104,7 +111,8 @@
       var str = '123'
       console.log(str === _.identity(str));   // true
 
-      // _.iteratee(value, [context])
+      // _.iteratee(value, [context]) 一个重要的内部函数用来生成可应用到集合中每个元素的回调， 返回想要的结果 - 无论是等式，任意回调，属性匹配，或属性访问。
+      console.log(_.map([{age: 21}, {age: 22}], _.iteratee('age')));  // [21, 22]
 
       function finder(valueFn, bestFun, coll) {
         return _.reduce(coll, function(best, current) {
@@ -122,6 +130,71 @@
         return total * n
       }));
 
+
+
+      function fnull(fun /* , defaults */) {
+        var defaults = _.rest(arguments)
+
+        return function() {
+          var args = _.map(arguments, function(e, i) {
+            return e !== void 0 ? e : defaults[i]
+          })
+
+          return fun.apply(null, args)
+        }
+      }
+
+      function defaults(defaultObj) {
+        return function(obj, key) {
+          var val = fnull(_.identity, defaultObj[key])
+          return obj && val(obj[key])
+        }
+      }
+
+      function dosomething(config) {
+
+        var lookup = defaults({'test': 111})
+        return lookup(config, 'test')
+      }
+
+
+      console.log(dosomething({'test': 123}));
+      console.log(dosomething({}));
+
+
+      function checker() {
+        var validators = _.toArray(arguments)
+        return function(obj) {
+          return _.reduce(validators, function(errs, check) {
+            if(check(obj)) {
+              return errs
+            }else {
+              return _.chain(errs).push(check.message).value()
+            }
+          }, [])
+        }
+      }
+
+      function validator(msg, fn) {
+        var f = function() {
+          return fn.apply(fn, arguments)
+        }
+        f.message = msg
+        return f
+      }
+
+      function amap(obj) {
+        return _.isObject(obj)
+      }
+
+      var checkCommand = checker(validator('must be a map', amap))
+      console.log(checkCommand({}));
+      console.log(checkCommand(42));
+
+
+
     </script>
+    <!-- <script type="text/javascript" src="./xx-underscore.js"></script> -->
+
   </body>
 </html>
