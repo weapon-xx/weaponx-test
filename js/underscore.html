@@ -187,9 +187,23 @@
         return _.isObject(obj)
       }
 
-      var checkCommand = checker(validator('must be a map', amap))
+      function hasKeys() {
+        var keys = _.toArray(arguments)
+
+        var fn = function(obj) {
+          return _.every(keys, function(k) {
+            return _.has(obj, k)
+          })
+        }
+
+        fn.message = ['Must have values for keys:'].concat(keys).join('')
+        return fn
+      }
+
+      var checkCommand = checker(validator('must be a map', amap), hasKeys('msg', 'type'))
       console.log(checkCommand({}));
       console.log(checkCommand(42));
+      console.log(checkCommand({msg: 'test', type: 'test'}));
 
 
 
