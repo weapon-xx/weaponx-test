@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <ul class="ul">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+    <script type="text/javascript">
+      // 隐式绑定
+      var obj = {
+        name: 'jackson',
+        show: () => {
+          console.log(this.name); //
+        },
+        _show: function() {
+          console.log(this.name); // jackson
+        }
+      }
+
+      obj.show()
+      obj._show()
+
+      function Test() {
+        this.name = 'jackson'
+      }
+
+      Test.prototype.show = () => {
+        console.log(this.name); //
+      }
+
+      Test.prototype._show = function() {
+        console.log(this.name); // jackson
+      }
+
+      var test = new Test()
+      test.show()
+      test._show()
+
+      var $lis = document.querySelectorAll('.ul li')
+      console.log($lis)
+
+      for(var i=0, length = $lis.length; i < length; i++) {
+        $lis[i].addEventListener('click', (e) => {
+          console.log(this);  // window
+        }, false)
+      }
+
+      function Fn(name) {
+        this.name = name
+        this.show = () => {
+          console.log(this.name);
+        }
+        this._show = function() {
+          console.log(this.name);
+        }
+      }
+
+      var foo = new Fn('john')
+      foo.show()
+
+      var bar = new Fn('jackson')
+      bar.show()
+
+    </script>
+  </body>
+</html>
