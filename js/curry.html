@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>柯里化</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function curry(a, b, c) {
+        return function(b, c) {
+          return function(c) {
+            return a + b + c
+          }
+        }
+      }
+
+      console.log(curry(1)(2)(3));
+
+    </script>
+  </body>
+</html>
