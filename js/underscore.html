@@ -206,6 +206,43 @@
       console.log(checkCommand({msg: 'test', type: 'test'}));
 
 
+      function partial1(fun, arg1) {
+        return function() {
+          // var args = _.toArray(arg1).concat(_.toArray(arguments))
+          return fun.call(fun, arg1, arguments[0])
+        }
+      }
+
+      function contidition() {
+        var validators = _.toArray(arguments)
+        return function(fun, arg) {
+          // var errors = _.map(validators, function(isValid) {
+          //   return isValid(arg) ? [] : isValid['message']
+          // })
+
+          var errors = _.reduce(validators, function(errs, check) {
+            if(check(arg)) {
+              return errs
+            }else {
+              return _.chain(errs).push(check.message).value()
+            }
+          }, [])
+          if(!_.isEmpty(errors)) {
+            throw new Error(errors.join(', '))
+          }
+          return fun(arg)
+        }
+      }
+
+      var validateCommand = contidition(
+        validator('arg must be a object', _.isObject),
+        validator('arg must have corrent keys', hasKeys('msg', 'name'))
+      )
+
+      var createCommand = partial1(validateCommand, _.identity)
+      console.log(createCommand({msg: '123'}));
+
+
 
     </script>
     <!-- <script type="text/javascript" src="./xx-underscore.js"></script> -->
