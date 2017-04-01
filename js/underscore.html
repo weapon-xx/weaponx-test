@@ -240,8 +240,17 @@
       )
 
       var createCommand = partial1(validateCommand, _.identity)
-      console.log(createCommand({msg: '123'}));
+      // console.log(createCommand({msg: '123'}));
 
+      function myLength(arr) {
+        if(_.isEmpty(arr)) {
+          return 0
+        } else {
+          return 1 + myLength(_.rest(arr))
+        }
+      }
+
+      console.log(myLength([1,2,3,4]));
 
 
     </script>
