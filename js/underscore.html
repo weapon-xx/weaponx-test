@@ -253,6 +253,24 @@
       console.log(myLength([1,2,3,4]));
 
 
+      // 生成器
+      function generator(seed, current, step) {
+        return {
+          head: current(seed),
+          tail: function() {
+            return generator(step(seed), current, seed)
+          }
+        }
+      }
+
+      function genHead(gen) { return gen.head }
+      function genTail(gen) { return gen.tail() }
+
+      var init = generator(0, _.identity, function(n) { return n + 1 ;})
+
+      console.log(genHead(init))
+      console.log(genTail(init))
+
     </script>
     <!-- <script type="text/javascript" src="./xx-underscore.js"></script> -->
 
