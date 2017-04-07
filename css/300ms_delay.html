@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title</title>
+    <style media="screen">
+      html{
+        touch-action: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <button type="button" name="button">click</button>
+    <p>Delay was <span></span> milliseconds</p>
+    <script type="text/javascript">
+      const btn = document.querySelector('button')
+      const span = document.querySelector('span')
+      var delay
+
+      btn.addEventListener('touchend', function() {
+        delay = Date.now()
+        console.log('touchstart: ' + Date.now());
+      }, false)
+
+
+      btn.addEventListener('click', function() {
+        console.log('click: ' + Date.now());
+        span.innerHTML = Date.now() - delay
+      }, false)
+
+
+    </script>
+  </body>
+</html>
