@@ -52,6 +52,8 @@
         return num * 3
       }, 12312));
 
+      // _.pluck(list, propertyName)  pluck也许是map最常使用的用例模型的简化版本，即萃取数组对象中某属性值，返回一个数组。
+      console.log(_.pluck([{name: 'jackson'}, {name: 'john'}], 'name')); // ["jackson", "john"]
 
       //
       /*
@@ -113,6 +115,13 @@
 
       // _.iteratee(value, [context]) 一个重要的内部函数用来生成可应用到集合中每个元素的回调， 返回想要的结果 - 无论是等式，任意回调，属性匹配，或属性访问。
       console.log(_.map([{age: 21}, {age: 22}], _.iteratee('age')));  // [21, 22]
+
+      // _.chain(obj)  返回一个封装的对象. 在封装的对象上调用方法会返回封装的对象本身, 直道 value 方法调用为止.
+      console.log(_.chain([{name: 'curly', age: 25}, {name: 'moe', age: 21}, {name: 'larry', age: 23}])
+                   .sortBy(function(stooge){ return stooge.age; })
+                   .map(function(stooge){ return stooge.name + ' is ' + stooge.age; })
+                   .first()
+                   .value()); // moe is 21
 
       function finder(valueFn, bestFun, coll) {
         return _.reduce(coll, function(best, current) {

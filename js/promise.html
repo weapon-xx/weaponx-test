@@ -42,9 +42,15 @@
       })
 
 
-      Promise.resolve('success').then(function(value) {
+      function request(str) {
+        return Promise.resolve(str).then(function(value) {
+          return Promise.resolve(value)
+        })
+      }
+
+      request('test').then(function(value) {
         console.log(value);
-      })
+      });
 
 
     </script>
