@@ -280,6 +280,29 @@
       console.log(genHead(init))
       console.log(genTail(init))
 
+
+      function LazyChain(obj) {
+        this._call = [];
+        this._target = obj;
+      }
+
+      LazyChain.prototype.invoke = function(methodName) {
+        var args = _.rest(arguments);
+
+        this._call.push(function(target) {
+          var meth = target[methodName];
+          return meth.apply(target, args);
+        })
+        return this;
+      }
+
+      LazyChain.prototype.force = function() {
+        _.reduce(this._calls, function(target, thunk) {
+          return thunk(target)
+        }, this._target)
+      }
+      console.log(new LazyChain([2, 1, 3]).invoke('sort').force());
+
     </script>
     <!-- <script type="text/javascript" src="./xx-underscore.js"></script> -->
 
