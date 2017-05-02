@@ -1,0 +1,161 @@
+relationAct: {
+            items: [{
+                label: '项目ID：',
+                labelClassName: "col-xs-2",
+                name: 'projectId',
+                id: 'projectId',
+                type: 'textBox',
+                placeholder: '填写项目ID',
+                errormessage: '* 项目ID不能为空',
+                rangeoverflowerrormessage: '* 你输入的字数超过了10个',
+                validate: 'required,maxSize[10]'
+            }, {
+                label: '按钮列表：',
+                labelClassName: "col-xs-2",
+                name: 'listSub',
+                id: 'listSub',
+                type: 'combox',
+                directives: [{
+                    name: 'resource', //固定，resource指令
+                    value: {
+                        module: 'util/amsServer',
+                        op: 'getListSubByPid',
+                        relation: { //支持依赖
+                            param: 'projectId => projectId',
+                            //param : '() => {p1 : link, p2 : actName}',
+                        },
+                        output: { //输出的格式
+                            path: 'data.list',
+                            id: 'id',
+                            text: 'name',
+                            game: 'game'
+                        }
+                    },
+                    modifiers: {
+                        nocache : true
+                    }
+                }]
+            }, {
+                label: '按钮名称：',
+                labelClassName: "col-xs-2",
+                name: 'actName',
+                id: 'relationActName',
+                type: 'textBox',
+                placeholder: '请填写按钮名称',
+                errormessage: '* 按钮名称不能为空',
+                rangeoverflowerrormessage: '* 你输入的字数超过了10个',
+                validate: 'required,maxSize[10]'
+            }],
+            children: [{
+                label: '检测安装游戏：',
+                labelClassName: "col-xs-2",
+                name: 'checkinstall',
+                type: 'combox',
+                id: 'checkinstall',
+                validate: 'required',
+                data: [{
+                    id: '1',
+                    text: '是(默认)'
+                }, {
+                    id: '0',
+                    text: '否'
+                }]
+            }, {
+                label: '选区服：',
+                labelClassName: "col-xs-2",
+                name: 'autosvr',
+                type: 'combox',
+                id: 'autosvr',
+                validate: 'required',
+                data: [{
+                    id: '1',
+                    text: '自动判断(默认)'
+                }, {
+                    id: '0',
+                    text: '否'
+                }],
+                key : 'getAward_autosvr'
+            }, {
+                label: '屏蔽弹框右按钮：',
+                labelClassName: "col-xs-2",
+                name: 'rightbtn',
+                type: 'combox',
+                id: 'rightbtn',
+                validate: 'required',
+                data: [{
+                    id: '1',
+                    text: '否(默认)'
+                }, {
+                    id: '0',
+                    text: '是'
+                }]
+            }, {
+                label: '手游大区列表：',
+                labelClassName: "col-xs-2",
+                name: 'serverlist',
+                type: 'textBox',
+                id: 'serverlist',
+                placeholder: '非必填',
+                rangeoverflowerrormessage: '* 你输入的字数超过了10个',
+                validate: 'required,maxSize[10]'
+            }],
+            showCfg: false, //是否显示配置列表
+            opList: ['null'],  //op列表
+            isAddOperId: true,//是否添加operid
+            func: function () {
+                page.on('relationAct', function (params) {
+                    var nowjsonid = page.jsonid,
+                        nowAmd = window['AMD_' + nowjsonid];
+
+                    var hasNotBind = true,
+                        jsonid = +params.projectId,
+                        needBind = jsonid && (nowjsonid != jsonid);
+
+                    var args = {
+                            mode: false,
+                            game: page.game,
+                            actid: params['listSub'],
+                            checkInstall: !!( + params['checkinstall']),
+                            autosvr: !!( + params['autosvr']),
+                            rightbtn: !!( + params['rightbtn']),
+                            serverList: params['serverlist']
+                        };
+
+                    if (!args.actid) {
+                        return
+                    }
+
+                    if (needBind && hasNotBind) {
+                        page.require("//imgcache.gtimg.cn/ACT/vip_act/act_data/" + jsonid + ".json.js",
+                            function() {
+                                nowAmd.cfg = nowAmd.cfg || {};
+                                nowAmd.cfg.act = nowAmd.cfg.act || {};
+                                $.extend(nowAmd.cfg.act, window["AMD_" + jsonid].cfg.act);
+                                nowAmd.msg = nowAmd.msg || {};
+                                $.extend(nowAmd.msg, window["AMD_" + jsonid].msg);
+                                hasNotBind = false;
+                                zHttp.syrequest(args);
+                            })
+                    } else {
+                        zHttp.syrequest(args);
+                    }
+
+                    OZ && OZ.report({
+                        operID: params.operid,
+                        operDesc: params.actName || ''
+                    });
+                })
+            },
+            validate: function () {
+                return [];
+            }
+        }
+
+        {
+            name: 'relationAct',
+            text: '关联活动',
+            defaultBus: 'relationAct',
+            tpl: `<a style="width: 100px; height: 50px; text-indent: 1px;" href="javascript:void(0)" class="mce-tpl act-btn btn-edit-border btn-edit custom-btn">
+                ${deleteBtnHtml}${dragBtnHtml}
+            </a>`
+        }
