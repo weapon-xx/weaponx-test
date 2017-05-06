@@ -1,9 +1,9 @@
 const co = require('co');
 co(function* (){
-  var msg
-  yield task1().then( data =>{
+
+  var msg = yield task1().then( data =>{
     console.log(data)
-    msg = data
+    return data
   })
   yield task2(msg).then( data =>{
     console.log(data)

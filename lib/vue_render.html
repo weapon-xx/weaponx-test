@@ -6,7 +6,7 @@
   </head>
   <body>
     <div id="example">
-      <panel :level="1" :items="items">1231231</panel>
+      <panel :items="items">1231231</panel>
       <h3>{{items}}</h3>
     </div>
     <script type="text/javascript" src="./vue.js"></script>
@@ -14,7 +14,7 @@
 
       Vue.component('textbox', {
         template: `
-        <input :value="value"/>
+          <input :value="value"/>
         `,
         data() {
           return {
@@ -22,6 +22,20 @@
           }
         },
         props: ['value']
+      })
+
+      Vue.component('myselect', {
+        template: `
+          <select>
+            <option v-for="option in options" :value="option.val">{{option.text}}</option>
+          </select>
+        `,
+        data() {
+          return {
+
+          }
+        },
+        props: ['options']
       })
 
       Vue.component('panel', {
@@ -44,22 +58,13 @@
             },
             this.items.map((item) => {
               return createElement(item.type, {
-                on: {
-                  input: function (e) {
-                    me.value = e.target.value;
-                    me.$emit('input', e.target.value);
-                  }
-                },
+                on: item.on,
                 props: item.props
               })
             })
           )
         },
         props: {
-          level: {
-            type: Number,
-            required: true
-          },
           items: {
             type: Array,
             default: []
@@ -76,18 +81,27 @@
               type: 'textbox',
               props: {
                 value: '1'
-              },
-              clickHandler(e) {
-                console.log(e)
               }
             }, {
               text: '2',
               type: 'textbox',
               props: {
                 value: '2'
+              }
+            }, {
+              text: '3',
+              type: 'myselect',
+              on: {
+                change: function () {
+                  console.log(12312)
+                }
               },
-              clickHandler() {
-                console.log(this)
+              props: {
+                options: [
+                  {text: 1, val: 1},
+                  {text: 2, val: 2},
+                  {text: 3, val: 3}
+                ]
               }
             }]
           }

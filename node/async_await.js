@@ -1,5 +1,3 @@
-const git = require('shell').git;
-
 (async function(){
   const commitMsg = '...';
 
