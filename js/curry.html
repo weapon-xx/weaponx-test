@@ -16,6 +16,49 @@
 
       console.log(curry(1)(2)(3));
 
+      const words = ['foo', 'bar', 'test', 'some'];
+      const filter = words => {
+        let arr = [];
+        for(let i = 0, { length } = words; i < length; i++) {
+          const word = words[i];
+          if(word.length !== 4) {
+            arr.push(word);
+          }
+        }
+        return arr;
+      }
+
+
+      const startWith = words => {
+        let arr = [];
+        debugger
+
+        for(let i = 0, { length } = words; i < length; i++) {
+          const word = words[i];
+          if(word.indexOf('b') !== 0) {
+            arr.push(word);
+          }
+        }
+        return arr;
+      }
+
+
+      const reduce = (reducer, init, arr) => {
+        let acc = init;
+        for(let i = 0,{ length } = arr; i < length; i++) {
+          acc = reducer(acc, arr[i]);
+        }
+        return acc;
+      }
+
+      const func = (fn ,arr) => {
+        return reduce((acc, curr) => fn(curr) ? acc.concat([curr]) : acc, [], arr)
+      }
+
+
+
+      console.log(func(word => word.length !== 4, words)); // ['foo', 'bar']
+
     </script>
   </body>
 </html>

@@ -6,21 +6,19 @@
   </head>
   <body>
     <script type="text/javascript">
-    var test;
-    var obj = new Proxy({}, {
-      get: function (target, key, receiver) {
-        console.log(`getting ${key}!`);
-        return 35
-      }
-    });
+      let p = new Proxy({}, {
+        get (target, name) {
+          return target[name] || '123'
+        },
+        set (target, name, value) {
+          target[name] = value || 'default'
+        }
+      })
 
-    var target = {};
-    var handler = {};
-    var proxy = new Proxy(target, handler);
+      p.a = 1;
+      p.b = undefined;
 
-    proxy.name = 'xx';
-    console.log(target);
-
+      console.log(p.a, p.b, p.c)
 
     </script>
   </body>

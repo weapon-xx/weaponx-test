@@ -6,15 +6,16 @@
   </head>
   <body>
     <div id="app">
-      {{message}}
+      {{$message}}
     </div>
     <script type="text/javascript" src="./vue.js"></script>
     <script type="text/javascript">
+    debugger
       const vm = new Vue({
         el : '#app',
-        data(){
-          return{
-            message : 'test'
+        data () {
+          return {
+            $message : 'test'
           }
         }
       })
@@ -66,6 +67,7 @@
           })
         }
       }
+
     </script>
   </body>
 </html>

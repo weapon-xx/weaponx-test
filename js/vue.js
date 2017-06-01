@@ -1381,6 +1381,7 @@ function stateMixin (Vue) {
       );
     };
   }
+
   Object.defineProperty(Vue.prototype, '$data', dataDef);
 
   Vue.prototype.$set = set;

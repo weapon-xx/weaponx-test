@@ -10,7 +10,7 @@ function ajax () {
 //   console.log(data)
 // })
 
-const rq = async () => {
+async function rq() {
   console.log(1)
 
   var data = await ajax().then(data => {
@@ -23,4 +23,6 @@ const rq = async () => {
   return 'done'
 }
 
-rq()
+console.log(rq())
+
+console.log('next')
