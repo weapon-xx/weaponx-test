@@ -1,50 +1,52 @@
-function Observe(data){
+function Observe(data) {
   this.data = data;
   this.walk(data);
 }
 
 Observe.prototype = {
-  walk(data){
+  walk(data) {
     const _this = this;
-    Object.keys(data).forEach(function(key){
+    // 遍历对象所有属性
+    Object.keys(data).forEach(function(key) {
       // _this.convert(key,data[key])
-      _this.defineReactive(data,key,data[key])
+      _this.defineReactive(data, key, data[key]);
     })
   },
   // convert(key,val){
   //   this.defineReactive(this.data,key,val)
   // },
-  defineReactive(data,key,val){
+  defineReactive(data, key, val) {
     const dep = new Dep();
     var childObj = observe(val);
 
-    Object.defineProperty(data,key,{
-      enumerable : true,
-      configurable : false,
-      get(){
-        if(Dep.target){
+    // 访问器劫持
+    Object.defineProperty(data, key, {
+      enumerable: true,
+      configurable: false,
+      get() {
+        if(Dep.target) {
           dep.depend();
         }
         return val
       },
-      set(newVal){
-        if(newVal === val){
+      set(newVal) {
+        if(newVal === val) {
           return
         }
         val = newVal;
-        childObj = observe(newVal)
+        childObj = observe(newVal);
         // 通知
-        dep.notify()
+        dep.notify();
       }
     })
   }
 }
 
-function observe(value,vm){
-  if(!value || typeof value !== 'object'){
-    return
-  }
-  return new Observe(value)
+function observe(value,vm) {
+  // 判断属性是否为对象
+  if(!value || typeof value !== 'object') return
+  // 是的话继续监听
+  return new Observe(value);
 }
 
 var uid = 0;

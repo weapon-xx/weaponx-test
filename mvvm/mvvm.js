@@ -7,6 +7,7 @@ function Mvvm(options){
     _this._proxy(key)
   })
 
+  // 观察对象
   observe(data,this)
 
   this.$compile = new Compile(options.el || document.body,this)
