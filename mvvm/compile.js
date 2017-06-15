@@ -1,8 +1,8 @@
-function Compile(el,vm){
+function Compile(el,vm) {
   this.$vm = vm;
   this.$el = this.isElementNode(el) ? el : document.querySelector(el);
 
-  if(this.$el){
+  if(this.$el) {
     this.$fragment = this.node2Fragment(this.$el);
     this.init();
     // 插入文档片段
@@ -11,7 +11,7 @@ function Compile(el,vm){
 }
 
 Compile.prototype = {
-  node2Fragment(el){
+  node2Fragment(el) {
     // 生成文档片段
     var fragment = document.createDocumentFragment();
     var child;

@@ -1,16 +1,16 @@
-function Mvvm(options){
+function Mvvm(options) {
   this.$options = options;
   var data = this._data = this.$options.data;
   var _this = this;
   //
-  Object.keys(data).forEach(function(key){
+  Object.keys(data).forEach(function(key) {
     _this._proxy(key)
   })
 
   // 观察对象
-  observe(data,this)
+  observe(data, this)
 
-  this.$compile = new Compile(options.el || document.body,this)
+  this.$compile = new Compile(options.el || document.body, this)
 }
 
 Mvvm.prototype = {
