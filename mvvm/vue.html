@@ -10,17 +10,14 @@
         <li v-for="item in arr">{{item}}</li>
       </ul>
     </div>
-    <script type="text/javascript" src="../js/vue.js">
-
-    </script>
+    <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
       console.log(Vue);
+      debugger
       var vm = new Vue({
         el: '.container',
-        data(){
-          return {
-            arr: [1,2,3,4,5]
-          }
+        data: {
+          arr: [1,2,3,4,5]
         }
       })
     </script>
