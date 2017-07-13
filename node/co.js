@@ -1,16 +1,25 @@
 const co = require('co');
-co(function* (){
+(function() {
+  co(function* (){
 
-  var msg = yield task1().then( data =>{
-    console.log(data)
-    return data
+    var msg = yield task1().then( data =>{
+      console.log(data)
+      return data
+    })
+    yield task2(msg).then( data =>{
+      console.log(data)
+    });
+    return Promise.resolve(111);
+  }).then(json => {
+    console.log(json)
+  }).catch((err) => {
+    console.log(err)
   })
-  yield task2(msg).then( data =>{
-    console.log(data)
-  });
-}).catch((err) => {
-  console.log(err)
-})
+  console.log(2);
+})()
+
+
+console.log(1)
 
 function task1() {
   return new Promise((resolve,reject) => {
