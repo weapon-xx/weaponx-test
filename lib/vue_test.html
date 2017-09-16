@@ -18,7 +18,7 @@
             props: ['name'],
             template: '<span>{{ name }}</span>'
           });
-          const vm = new Vue({
+          window.vm = new Vue({
             el: '.container',
             data: {
               index: 1,
@@ -27,34 +27,34 @@
               people: {name: 'xx'}
             },
             watch: {
-                people(nval, oval) {
-                    console.log(nval)
-                    console.log(oval)
-                },
-                // people: {
-                //   handler: function (nval,oval) {
+                // people(nval, oval) {
                 //     console.log(nval)
                 //     console.log(oval)
-                //   },
-                //   deep: true
-                // }
+                // },
+                people: {
+                  handler: function (nval,oval) {
+                    console.log(nval)
+                    console.log(oval)
+                  },
+                  deep: true
+                }
             },
             methods: {
               clickHandler() {
-                  this.people = {name: this.index++}
+                  this.people = {name: '一张劵'};
                   // this.$set(this.people, 'name', this.index++)
                   // this.arr.push(this.index++)
               }
             }
           });
 
-          vm.$watch('people', (nval, oval) => {
-            console.log(nval)
-            console.log(oval)
-          }, {
-            deep: true
-          })
-          vm.people.name = 123
+          // vm.$watch('people', (nval, oval) => {
+          //   console.log(nval)
+          //   console.log(oval)
+          // }, {
+          //   deep: true
+          // })
+          // vm.people.name = 123
         })()
       </script>
   </body>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript" src="../lib/dataCenter.js"></script>
+    <script type="text/javascript">
+      function cb(val) {
+        console.log('cb:')
+        console.log(val)
+      }
+      dataCenter.on('people', cb)
+      dataCenter.on('people', cb)
+
+
+      dataCenter.set('people', {name: 'xx'})
+      // dataCenter.get('people', cb)
+      // dataCenter.set('people', {name: 'jackson'})
+
+      function getList() {
+        var multiples = {};
+        var arr = [];
+        var all = new Array(1000);
+        for(let i = 0; i< 1000; i++) {
+          all[i] = i;
+        }
+
+        function getBiggerNum(x, y, multiple) {
+          var _result
+          for(multiple; y * multiple < 1000; multiple++) {
+              if(y * multiple > x) {
+                  _result = {
+                    multiple: multiple,
+                    num: y * multiple
+                  }
+                  break
+              }
+          }
+          if(_result) {
+            return _result
+          } else {
+            console.warn('something wrong')
+          }
+        }
+
+        for(let i = 0, length = arguments.length; i < length; i++) {
+            if(!multiples[arguments[i]]) {
+              multiples[arguments[i]] = 1
+            }
+            var _result = getBiggerNum(arr[arr.length -1] || 0, arguments[i], multiples[arguments[i]])
+            arr.push(_result['num'])
+            multiples[arguments[i]] = _result['multiple']
+        }
+
+        return all.splice(arr[0], arr[arr.length - 1] - arr[0] +1)
+      }
+
+      console.log(getList(6,3,2,1))
+
+    </script>
+  </body>
+</html>
