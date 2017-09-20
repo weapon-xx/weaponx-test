@@ -23,7 +23,7 @@ function resolveAfter2Seconds(x) {
   });
 };
 
-var add1 = async (x) => {
+async function add1(x) {
   console.log(1);
   var a = await resolveAfter2Seconds(20);
   console.log(`a: ${a}`);

@@ -6,51 +6,70 @@
   </head>
   <body>
     <script type="text/javascript">
-      function ps1(){
-        return new Promise(function(resolve,reject){
-          setTimeout(function(){
-            console.log('执行任务1');
-            resolve('执行任务1成功');
-          },1000)
+      function promise1() {
+        return new Promise((resolve, rejected) => {
+          setTimeout(() => {
+              resolve('this is promise1 return value')
+          }, 1000)
         })
       }
 
-      function ps2(){
-        return new Promise(function(resolve,reject){
-          setTimeout(function(){
-            console.log('执行任务2');
-            resolve('执行任务2成功');
-          },1000)
+      function promise2() {
+        return new Promise((resolve, rejected) => {
+          setTimeout(() => {
+              resolve('this is promise2 return value')
+          }, 500)
         })
       }
 
-      ps1()
-      .then(function(data){
-        console.log(data);
-        return ps2();
-      })
-      .then(function(data){
-        console.log(data);
-        return new Promise(function(resolve,reject){
-          setTimeout(function(){
-            resolve('done')
-          },1000)
-        })
-      })
-      .then(function(data){
-        console.log(data);
+      promise1().then(data => {
+        console.log(data)
+        return promise2()
+      }).then(data => {
+        console.log(data)
       })
 
+      function promise_reslove() {
+        return Promise.resolve('this is promise2 return value')
+      }
 
-      function request(str) {
-        return Promise.resolve(str).then(function(value) {
-          return Promise.resolve(value)
+      promise_reslove().then(data => {
+        console.log(data)
+      })
+
+      function promise_reject() {
+        return Promise.reject('this is promise reject')
+      }
+
+      promise_reject().then(data => {
+        console.log(data)   // 不会被调用
+      }).catch(res => {
+        console.log(res)    // catch 跑出的错误信息
+      })
+
+      function promise_all() {
+        return Promise.all([promise1(), promise2()]).then(data => {
+          return Promise.resolve(data)
         })
       }
 
-      request('test').then(function(value) {
-        console.log(value);
-      });
+      promise_all().then(data => {
+        console.log('promise_all: ')
+        console.log(data)
+      })
+
+      function promise_race() {
+        return Promise.race([promise1(), promise2()]).then(data => {
+          return Promise.resolve(data)
+        })
+      }
+
+      promise_race().then(data => {
+        console.log('promise_rase: ')
+        console.log(data)
+      })
+
+
 
 
     </script>

@@ -19,45 +19,38 @@
       // dataCenter.get('people', cb)
       // dataCenter.set('people', {name: 'jackson'})
 
-      function getList() {
-        var multiples = {};
-        var arr = [];
-        var all = new Array(1000);
-        for(let i = 0; i< 1000; i++) {
-          all[i] = i;
-        }
-
-        function getBiggerNum(x, y, multiple) {
-          var _result
-          for(multiple; y * multiple < 1000; multiple++) {
-              if(y * multiple > x) {
-                  _result = {
-                    multiple: multiple,
-                    num: y * multiple
-                  }
-                  break
-              }
-          }
-          if(_result) {
-            return _result
-          } else {
-            console.warn('something wrong')
-          }
-        }
-
-        for(let i = 0, length = arguments.length; i < length; i++) {
-            if(!multiples[arguments[i]]) {
-              multiples[arguments[i]] = 1
-            }
-            var _result = getBiggerNum(arr[arr.length -1] || 0, arguments[i], multiples[arguments[i]])
-            arr.push(_result['num'])
-            multiples[arguments[i]] = _result['multiple']
-        }
-
-        return all.splice(arr[0], arr[arr.length - 1] - arr[0] +1)
+      function InverseFizzBuzz(list) {
+        this.list = list;
       }
 
-      console.log(getList(6,3,2,1))
+      InverseFizzBuzz.prototype.sequence = function() {
+        this.list = this.translate();
+
+        if(this.list.length === 1) {
+          return this.list
+        }
+
+
+      };
+
+      InverseFizzBuzz.prototype.translate = function() {          
+        return this.list.map(item => {
+          if(item === 'fizz') {
+            return 3
+          } else {
+            return 5
+          }
+        })
+      }
+
+      InverseFizzBuzz.prototype.findShortest = function() {
+
+      }
+
+      inverseFizzBuzz = new InverseFizzBuzz(['fizz', 'buzz', 'fizz'])
+
+      console.log(inverseFizzBuzz.sequence())
+
 
     </script>
   </body>

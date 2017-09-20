@@ -228,6 +228,39 @@
       console.info(val)
       console.info(test.next().value(val))
 
+
+      console.warn('------------')
+
+      function co(gene) {
+        var ctx = this;
+        var args = Array.prototype.slice.call(arguments, 1);
+
+        return new Promise((resolve, reject) => {
+          gene = gene.apply(ctx, args);
+          if (!gene || typeof gene.next !== 'function') return resolve(gen);
+          var ret;
+          try {
+              ret = gene.next()
+          } catch(e) {
+              return reject(e)
+          }
+          if(ret.done) {
+            return resolve(ret.value)
+          }
+        })
+      }
+
+      co(function* () {
+        var res = yield new Promise(resolve => {
+          resolve('1231231')
+        }).then(data => {
+          return data
+        })
+        consoel.log(res);
+      })
+
+
+
     </script>
   </body>
 </html>
