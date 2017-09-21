@@ -247,6 +247,19 @@
           if(ret.done) {
             return resolve(ret.value)
           }
+          debugger
+          return ret.value.then(onFulfilled)
+
+          function onFulfilled(res) {
+            var ret;
+            try {
+              debugger
+              ret = gene.next(res);
+            } catch (e) {
+              return reject(e);
+            }
+            next(ret);
+          }
         })
       }
 
@@ -256,9 +269,8 @@
         }).then(data => {
           return data
         })
-        consoel.log(res);
+        console.log(res);
       })
-
 
 
     </script>

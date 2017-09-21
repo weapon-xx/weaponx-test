@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>co demo</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function co(gen) {
+        const ctx = this;
+        const args = Array.prototype.slice(arguments, 1);
+        return new Promise((resolve, reject) => {
+          gen = gen.apply(ctx, arguments);
+
+          onFulfilled();
+
+          function onFulfilled(res) {
+            // onFulfilled 处理函数
+            // 当 Promise 对象状态变更为 onFulfilled 时触发
+            var ret;
+            try{
+              ret = gen.next(res);
+            } catch(e) {
+              reject(e);
+            }
+            next(ret);
+          }
+
+          function next(ret) {
+            // 判断 gen 对象是否完成
+            if(ret.done) {
+              return resolve(ret.value);
+            }
+            // 没有的话进行绑定状态处理函数
+            return ret.value.then(onFulfilled)
+          }
+        })
+      }
+
+      co(function * () {
+        var res = yield new Promise(resolve => {
+          setTimeout(() => {
+            resolve('this is Promise return value')
+          }, 500)
+        }).then(data => {
+          return data
+        })
+        console.log(res)
+        console.log(123123)
+      }).then(data => {
+        debugger
+      })
+    </script>
+  </body>
+</html>
