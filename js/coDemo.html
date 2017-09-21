@@ -29,7 +29,7 @@
           function next(ret) {
             // 判断 gen 对象是否完成
             if(ret.done) {
-              return resolve(ret.value);
+              return resolve(ret.value);  // 当 generator 完全处理完成时
             }
             // 没有的话进行绑定状态处理函数
             return ret.value.then(onFulfilled)
@@ -47,8 +47,9 @@
         })
         console.log(res)
         console.log(123123)
+        return 'done'
       }).then(data => {
-        debugger
+        console.log(data);  // done
       })
     </script>
   </body>
