@@ -1,26 +1,34 @@
 function Promise(func) {
-  const _this = this;
+  if(typeof Promise.instance === 'object') {
+    func(resolve, reject);
+    return Promise.instance;
+  }
+  Promise.instance = this;  // 单例
+
   this._resolve = {};
   this._reject = {};
   this.fulfilled = [];
   this.rejected = [];
+
   function resolve(res) {
-    debugger
-    if(typeof _this.fulfilled.length !== 0) {
-        _this.fulfilled.shift()(res);
+    if(typeof Promise.instance.fulfilled.length !== 0) {
+        Promise.instance.fulfilled.shift()(res);
+        return Promise.instance;
     }
   }
   function reject(err) {
-    if(typeof _this.rejected.length !== 0) {
-        _this.rejected.shift()(err);
+    if(typeof Promise.instance.rejected.length !== 0) {
+        Promise.instance.rejected.shift()(res);
+        return Promise.instance;
     }
   }
+
   func(resolve, reject);
 }
 
 
 Promise.prototype.then = function(func) {
-  this.fulfilled.push(func);
+  this.fulfilled.push(func);   // push 到 fulfilled 函数队列
   return this;
 }
 
@@ -35,14 +43,12 @@ new Promise((resolve, reject) => {
     resolve('123');
   }, 1000)
 }).then(function(res) {
-  debugger
   console.log(res);
   return new Promise((resolve) => {
     setTimeout(() => {
-      debugger
       resolve('456');
     }, 1000)
   })
 }).then(res => {
-  debugger
+  console.log(res)
 })
