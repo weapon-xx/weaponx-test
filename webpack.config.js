@@ -2,13 +2,13 @@
 
 const path = require('path')
 const webpack = require("webpack")
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const ExtractTextPlugin = require("extract-text-webpack-plugin")    // 分离 css 样式文件
 const isProduction = function () {
     return process.env.NODE_ENV === 'production'
 }
 
 //webpack插件
-var plugins = [
+const plugins = [
     //提公用js到common.js文件中
     new webpack.optimize.CommonsChunkPlugin('common.js'),
     //将样式统一发布到style.css中
@@ -25,23 +25,24 @@ var plugins = [
     ])
 ];
 
-var entry = ['./src/index'],
+    const  entry = [
+      './js/rxjs_demo.js'
+    ],
     cdnPrefix = "",
     buildPath = "/dist/",
     publishPath = cdnPrefix + buildPath;
 //生产环境js压缩和图片cdn
 if (isProduction()) {
-    plugins.push(new webpack.optimize.UglifyJsPlugin());
-    cdnPrefix = "";
-    publishPath = cdnPrefix;
+    plugins.push(new webpack.optimize.UglifyJsPlugin())
+    cdnPrefix = ""
+    publishPath = cdnPrefix
 }
 //编译输出路径
 module.exports = {
-    debug: true,
-      entry: entry,
+    entry: entry,
     output: {
         path: __dirname + buildPath,
-        filename: 'build.js',
+        filename: '[name].build.js',
         publicPath: publishPath,
         chunkFilename:"[id].build.js?[chunkhash]"
     },
@@ -64,7 +65,7 @@ module.exports = {
         }, {
             test: /\.js$/,
             exclude: /node_modules|vue\/dist/,
-            loader: 'babel'
+            loader: 'babel-loader',
         },{
             test: /\.(jpg|png|gif)$/,
             loader: "file-loader?name=images/[hash].[ext]"
@@ -82,14 +83,7 @@ module.exports = {
             loader: 'html-loader'
         },{ test: /iview\\.*?js$/, loader: 'babel' }]
     },
-    babel: {
-        presets: ['es2015', 'stage-0'],
-        plugins: ['transform-runtime']
-    },
     resolve: {
-        // require时省略的扩展名，如：require('module') 不需要module.js
-        extension: ['', '.js'],
-        //别名
         alias: {
             filter: path.join(__dirname, 'src/filters'),
             vue: 'vue/dist/vue.js'
