@@ -1,7 +1,7 @@
 function Promise(func) {
   if(typeof Promise.instance === 'object') {
     func(resolve, reject);
-    return Promise.instance;
+    return Promise.instance;  // 显示返回实例对象
   }
   Promise.instance = this;  // 单例
 
@@ -37,6 +37,12 @@ Promise.prototype.catch = function(func) {
   return this;
 }
 
+Promise.resolve = function(data) {
+    return new Promise(resolve => {
+      resolve(data);
+    })
+}
+
 
 new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -49,6 +55,9 @@ new Promise((resolve, reject) => {
       resolve('456');
     }, 1000)
   })
+}).then(res => {
+  console.log(res)
+  return Promise.resolve('789')
 }).then(res => {
   console.log(res)
 })
