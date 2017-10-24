@@ -6150,11 +6150,49 @@ const bar = __WEBPACK_IMPORTED_MODULE_0_rxjs_Rx___default.a.Observable.create(ob
 });
 
 var observer = {
-  next: x => console.log('Observer got a next value: ' + x),
-  error: err => console.error('Observer got an error: ' + err),
-  complete: () => console.log('Observer got a complete notification')
+  next(x) {
+    console.log('Observer got a next value: ' + x);
+  }
 };
+
 foo.subscribe(observer);
+
+// subject 主体 既是 observables 也是 observer
+var subject = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Rx___default.a.Subject();
+
+subject.subscribe({
+  next: v => {
+    console.log(`observerA: ${v}`);
+  }
+});
+
+subject.subscribe({
+  next(v) {
+    console.log(`observerB: ${v}`);
+  }
+});
+
+subject.next(1); // observerA: 1
+// observerB: 1
+
+// const baz = Rx.Observable.from([1, 2, 3])
+// baz.subscribe(subject)
+
+
+var source = __WEBPACK_IMPORTED_MODULE_0_rxjs_Rx___default.a.Observable.from([1, 2, 3]);
+var subject = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Rx___default.a.Subject();
+var multicasted = source.multicast(subject);
+
+// 在底层使用了 `subject.subscribe({...})`:
+multicasted.subscribe({
+  next: v => console.log('observerA: ' + v)
+});
+multicasted.subscribe({
+  next: v => console.log('observerB: ' + v)
+});
+
+// 在底层使用了 `source.subscribe(subject)`:
+multicasted.connect();
 
 /***/ }),
 /* 71 */

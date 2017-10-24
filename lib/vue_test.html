@@ -22,7 +22,7 @@
             el: '.container',
             data: {
               index: 1,
-              parentMsg: 123123,
+              parentMsg: undefined,
               arr: [],
               people: {name: 'xx'}
             },
@@ -45,6 +45,15 @@
                   // this.$set(this.people, 'name', this.index++)
                   // this.arr.push(this.index++)
               }
+            },
+            beforeCreate() {
+              this.parentMsg = 'beforeCreate'
+            },
+            created() {
+              this.parentMsg = 'created'
+            },
+            mounted() {
+              console.log(this.parentMsg)
             }
           });
 
