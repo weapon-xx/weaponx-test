@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="./sleepCss1.css" >
+  </head>
+  <body>
+  <!--
+    开发者熟知的一条性能优化策略是将 link 标签放在头部，script 文件放在 body 尾部
+    在这个例子中我们将 css 文件返回延迟了三秒时间
+  -->
+  <!--
+  1、css 会阻塞页面渲染吗？
+  答：会，因为浏览器会进行解析 html 生成 dom-tree，解析 css 生成样式规则，然后结合两者生成渲染树再一次性渲染到页面上。所以当 css 被挂起时，浏览器会等待
+  css 文件加载并解析完成后，才会进行实际渲染，避免了重绘影响用户体验，在样式加载完成之前一直是处于白屏状态。
+  -->
+  <div class="test">
+    123123121
+  </div>
+  <div class="">
+    22222
+  </div>
+  <div class="">
+    33333
+  </div>
+  <div class="">
+    44444
+  </div>
+  <script type="text/javascript" src="./js1.js"></script>
+  </body>
+</html>
