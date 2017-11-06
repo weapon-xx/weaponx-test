@@ -47,10 +47,10 @@
               }
             },
             beforeCreate() {
+              debugger
               this.parentMsg = 'beforeCreate'
             },
             created() {
-              this.parentMsg = 'created'
             },
             mounted() {
               console.log(this.parentMsg)
