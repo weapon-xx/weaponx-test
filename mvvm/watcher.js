@@ -1,4 +1,4 @@
-function Watcher(vm,exp,cb){
+function Watcher(vm, exp, cb) {
   this.cb = cb;
   this.vm = vm;
   this.exp = exp;
@@ -7,27 +7,27 @@ function Watcher(vm,exp,cb){
 }
 
 Watcher.prototype = {
-  update(){
+  update() {
     this.run();
   },
-  run(){
+  run() {
     const value = this.get(),
           oldVal = this.value;
 
-    if(value !== oldVal){
+    if(value !== oldVal) {
       this.value = value;
       // 更新回调函数
-      this.cb.call(this.vm,value,oldVal);
+      this.cb.call(this.vm, value, oldVal);
     }
   },
-  addDep(dep){
+  addDep(dep) {
     // 如果之前没有依赖则添加依赖
-    if(!this.depIds.hasOwnProperty(dep.id)){
+    if(!this.depIds.hasOwnProperty(dep.id)) {
       dep.addSub(this)
       this.depIds[dep.id] = dep
     }
   },
-  get(){
+  get() {
     // 传递watcher实例
     Dep.target = this;
     // 触发get
@@ -35,11 +35,11 @@ Watcher.prototype = {
     Dep.target = null;
     return value
   },
-  getVMVal(){
+  getVMVal() {
     var exp = this.exp.split('.'),
         value = this.vm._data;
 
-    exp.forEach(function(key){
+    exp.forEach(key => {
       value = value[key];
     })
     return value

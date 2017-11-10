@@ -1,8 +1,8 @@
 const express = require('express')
 const app = new express()
 
-app.get('/test', (req, res) => {
-  const fileNum = req.query.num;
+app.get('/test/:num', (req, res) => {
+  const fileNum = req.params.num;
   res.sendFile(__dirname + `/test-${fileNum}.html`);
 })
 
@@ -23,7 +23,7 @@ app.get('/sleepCss1.css', (req, res) => {
   })
 })
 
-app.get('/js.js', (req, res) => {
+app.get('/js1.js', (req, res) => {
     res.sendFile(__dirname + '/js1.js');
 })
 

@@ -7,14 +7,10 @@ Observe.prototype = {
   walk(data) {
     const _this = this;
     // 遍历对象所有属性
-    Object.keys(data).forEach(function(key) {
-      // _this.convert(key,data[key])
+    Object.keys(data).forEach(key => {
       _this.defineReactive(data, key, data[key]);
     })
   },
-  // convert(key,val){
-  //   this.defineReactive(this.data,key,val)
-  // },
   defineReactive(data, key, val) {
     const dep = new Dep();
     var childObj = observe(val);
@@ -51,29 +47,29 @@ function observe(value,vm) {
 
 var uid = 0;
 
-function Dep(){
+function Dep() {
   this.id = uid++;
   this.subs = [];
 }
 
 Dep.prototype = {
-  addSub(sub){
+  addSub(sub) {
     // 添加 subscript
     this.subs.push(sub);
   },
-  depend(){
+  depend() {
     // Watcher.addDep
     Dep.target.addDep(this);
   },
-  removeSub(sub){
+  removeSub(sub) {
     const index = this.subs.indexOf(sub);
-    if(index === -1){
+    if(index === -1) {
       this.subs.splice(indx,1);
     }
   },
   notify(){
     // 遍历执行更新
-    this.subs.forEach(function(sub){
+    this.subs.forEach(sub => {
       sub.update();
     })
   }
