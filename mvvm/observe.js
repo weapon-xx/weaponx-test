@@ -38,7 +38,7 @@ Observe.prototype = {
   }
 }
 
-function observe(value,vm) {
+function observe(value, vm) {
   // 判断属性是否为对象
   if(!value || typeof value !== 'object') return
   // 是的话继续监听
@@ -67,7 +67,7 @@ Dep.prototype = {
       this.subs.splice(indx,1);
     }
   },
-  notify(){
+  notify() {
     // 遍历执行更新
     this.subs.forEach(sub => {
       sub.update();

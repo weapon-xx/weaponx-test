@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      new Promise((resolve, reject) => {
+        resolve(123)
+      }).then(data => {
+        console.log(data)
+        return 456
+      }).then(data => {
+        console.log(data)
+        return new Error('error')
+      }).then(data => {
+        console.log(data) // Error: error
+        // return 出来的 error 不会被 catch 捕捉
+        // 应该写成 return Promise.reject('error') 或者 throw new Error('error')
+      }).catch(e => console.warn(e))
+
+      new Promise((resolve, reject) => {
+          resolve('right')
+      }).then(data => {
+        console.log(`right: ${data}`)
+        return Promise.resolve('error')
+      }).catch(e => {
+        console.warn(`error: ${e}`)   // catch 会捕捉在她之前所有抛出的错误
+      }).then(data => {
+        console.log(`second then: ${data}`)
+        throw new Error('error')
+      }).catch(e => console.warn(e))
+    </script>
+  </body>
+</html>

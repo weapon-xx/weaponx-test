@@ -3,7 +3,7 @@ function Mvvm(options) {
   var data = this._data = this.$options.data;
   var _this = this;
   //
-  Object.keys(data).forEach(function(key) {
+  Object.keys(data).forEach(key => {
     _this._proxy(key)
   })
 
@@ -14,19 +14,19 @@ function Mvvm(options) {
 }
 
 Mvvm.prototype = {
-  $watch(key,cb,options){
-    new Watch(this,key,cb)
+  $watch(key, cb, options) {
+    new Watch(this, key, cb)
   },
-  _proxy(key){
+  _proxy(key) {
     // 属性代理
     var _this = this;
-    Object.defineProperty(_this,key,{
+    Object.defineProperty(_this, key, {
       enumerable: true,
-      configurable : false,
-      get(){
-        return _this._data[key]
+      configurable: false,
+      get() {
+        return _this._data[key];
       },
-      set(newVal){
+      set(newVal) {
         _this._data[key] = newVal;
       }
     })
