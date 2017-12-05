@@ -31,6 +31,10 @@
         console.log(`second then: ${data}`)
         throw new Error('error')
       }).catch(e => console.warn(e))
+
+      new Promise((resolve, rejcet) => {
+          resolve('穿透');
+      }).then(2).then(console.log)  // .then 或者 .catch 的参数期望是函数，传入非函数则会发生值穿透。
     </script>
   </body>
 </html>

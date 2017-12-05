@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="">
+        {{title}}
+      </div>
+      <ul>
+        <li v-for="(item, index) in list" @click="click(index)">
+          {{item.text}}
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+
+      const vm = new Vue({
+        el: '.container',
+        data() {
+          return {
+            title: 'test vue loader',
+            list: [
+              {text: 1},
+              {text: 2},
+              {text: 3},
+              {text: 4},
+            ]
+          }
+        },
+        methods: {
+          click(index) {
+            console.log(index);
+          }
+        },
+        render() {with(this){return _c('div',{staticClass:"container"},[_c('div',{},[_v("\n    "+_s(title)+"\n  ")]),_v(" "),_c('ul',_l((list),function(item,index){return _c('li',{on:{"click":function($event){click(index)}}},[_v("\n      "+_s(item.text)+"\n    ")])}))])}}
+      })
+    </script>
+  </body>
+</html>
