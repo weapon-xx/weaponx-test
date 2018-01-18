@@ -72,16 +72,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var say = exports.say = function say() {
-  var name = 'xx';
+  var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'xx';
+
   console.log(name);
+};
+
+var talk = exports.talk = function talk() {
+  console.log(123);
 };
 },{}],2:[function(require,module,exports) {
 "use strict";
 
-var _util = require("./util");
+var _util = require("./util.js");
 
 (0, _util.say)();
-},{"./util":3}],0:[function(require,module,exports) {
+},{"./util.js":3}],0:[function(require,module,exports) {
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
@@ -99,7 +104,7 @@ function Module() {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent) {
-  var ws = new WebSocket('ws://localhost:57124/');
+  var ws = new WebSocket('ws://localhost:59085/');
   ws.onmessage = function(event) {
     var data = JSON.parse(event.data);
 

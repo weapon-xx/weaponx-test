@@ -1,3 +1,3 @@
-import { say } from './util';
+import {say, talk} from './util.js';
 
 say();

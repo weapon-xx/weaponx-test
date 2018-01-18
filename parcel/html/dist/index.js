@@ -66,7 +66,7 @@ require = (function (modules, cache, entry) {
   // Override the current require with this new one
   return newRequire;
 })({2:[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=exports.say=function(){};
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=exports.say=function(){arguments.length>0&&void 0!==arguments[0]&&arguments[0]},t=exports.talk=function(){};
 },{}],1:[function(require,module,exports) {
-"use strict";var r=require("./util");(0,r.say)();
-},{"./util":2}]},{},[1])
+"use strict";var r=require("./util.js");(0,r.say)();
+},{"./util.js":2}]},{},[1])

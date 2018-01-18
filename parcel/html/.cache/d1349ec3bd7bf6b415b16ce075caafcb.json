@@ -1,1 +1,1 @@
-{"dependencies":[{"name":"./util","loc":{"line":1,"column":20}}],"generated":{"js":"\"use strict\";\n\nvar _util = require(\"./util\");\n\n(0, _util.say)();"},"hash":"ec86096be9ecb41816a2fc16041492d1"}
+{"dependencies":[{"name":"./util.js"}],"generated":{"js":"\"use strict\";\n\nvar _util = require(\"./util.js\");\n\n(0, _util.say)();"},"hash":"937f2323bc823bce01a8f9c5639ed6c5"}
