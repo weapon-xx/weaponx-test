@@ -5,9 +5,29 @@
     <title></title>
   </head>
   <body>
-    <script type="text/javascript" src="./Promise_demo.js"></script>
+    <script type="text/javascript" src="./promise_demo.js"></script>
     <script type="text/javascript">
-      
+      (global => {
+          const p1 = new xxPromise((resolved, rejected) => {
+            setTimeout(() => {
+              resolved(`first promise`);
+            }, 1000)
+          });
+
+          const p2 = p1.then(data => {
+            console.log(data);
+            return new xxPromise((resolved, rejected) => {
+              setTimeout(() => {
+                resolved(`second promise`);
+              }, 2000)
+            })
+          });
+
+          p2.then(data => {
+            debugger
+          });
+
+      })(window)
     </script>
   </body>
 </html>

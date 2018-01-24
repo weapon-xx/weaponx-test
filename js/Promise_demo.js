@@ -16,6 +16,7 @@ class xxPromise {
         case 'pending':
           _this.resolvedHandler = (typeof resolvedHandler === 'function') ? resolvedHandler : null;
           _this.rejectedHandler = (typeof rejectedHandler === 'function') ? rejectedHandler : null;
+          return this._promise;
           break;
         case 'resolved':
           if(typeof resolvedHandler === 'function') {
@@ -41,7 +42,7 @@ class xxPromise {
       _this.state = 'rejected';
       _this.reason = err;
       if(typeof _this.rejectedHandler === 'function') {
-        __this.rejectedHandler();
+        _this.rejectedHandler();
       }
     }
 
@@ -52,5 +53,5 @@ class xxPromise {
 }
 
 xxPromise.all = () => {
-  
+
 }
