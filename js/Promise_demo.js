@@ -16,8 +16,8 @@ function judgeType(obj, type) {
 
 // promise 状态 PENDING -> resolved 或者 PENDING -> REJECTED
 const PENDING = 0;
-const FULFILLED = 0;
-const REJECTED = 0;
+const FULFILLED = 1;
+const REJECTED = 2;
 
 function xxPromise(resolver) {
   if(!judgeType(resolver, 'function')) {
@@ -26,8 +26,9 @@ function xxPromise(resolver) {
 
   this.state = PENDING;
   this.value = void 666;
+  this.queue = [];
 
-  if(resolved !== EMPTYFUNCTION) {
+  if(resolver !== EMPTYFUNCTION) {
     safelyResolveThen(this, resolver);
   }
 }
@@ -95,15 +96,17 @@ function getThen(obj) {
   }
 }
 
-xxPromise.prototype.then = (onFulfilled, onRejected) => {
+// then 方法生成一个新的 promise 对象并返回
+// 如果状态发生改变，则调用 unwrap 否则就将新 promise push 到 queue 队列中去
+xxPromise.prototype.then = function(onFulfilled, onRejected) {
   if(!judgeType(onFulfilled, 'function') && this.state === FULFILLED ||
-     !judgeType(onRejected, 'function' && this.state === REJECTED)) {
+     !judgeType(onRejected, 'function') && this.state === REJECTED) {
        return this;
   }
-  const promise = new this.constructor(EMPTYFUNCTION);
+  const promise = new this.constructor(EMPTYFUNCTION);  // 传入空函数
   if(this.state !== PENDING) {
     const resolver = this.state === FULFILLED ? onFulfilled : onRejected;
-    unwrap(promise, resolver, this,value);
+    unwrap(promise, resolver, this.value);
   } else {
     this.queue.push(new QueueItem(promise, onFulfilled, onRejected));
   }
@@ -112,4 +115,41 @@ xxPromise.prototype.then = (onFulfilled, onRejected) => {
 
 xxPromise.prototype.catch = (onRejected) => {
   return this.then(null, onRejected);
+}
+
+
+function unwrap(promise, func, value) {
+  // immediate(function() {
+    let returnValue;
+    try {
+      returnValue = func(value);
+    } catch(error) {
+      doReject(promise, error);
+    }
+    if(returnValue === promise) {
+      doReject(promise, new TypeError('Cannot resolve promise with itself'));
+    } else {
+      doResolve(promise, returnValue);
+    }
+  // })
+}
+
+function QueueItem(promise, onFulfilled, onRejected) {
+  this.promise = promise;
+  this.callFulfilled = function(value) {
+    doResolve(this.promise, value);
+  }
+  this.callRejected = function(error) {
+    doReject(this.promise, error);
+  }
+  if(judgeType(onFulfilled, 'function')) {
+    this.callFulfilled = function(value) {
+      unwrap(this.promise, onFulfilled, value);
+    }
+  }
+  if(judgeType(onRejected, 'function')) {
+    this.callRejected = function(error) {
+      unwrap(this.promise, onRejected, error);
+    }
+  }
 }
