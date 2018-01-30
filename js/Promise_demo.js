@@ -28,15 +28,17 @@ function xxPromise(resolver) {
   this.value = void 666;
   this.queue = [];
 
+  // 假如 resolver 是空函数，则不执行
   if(resolver !== EMPTYFUNCTION) {
     safelyResolveThen(this, resolver);
   }
 }
 
-// called 控制 resolve 和 reject 只能执行一次
+// called 控制 resolve 或 reject 只能执行一次
 function safelyResolveThen(self, resolver) {
   let called = false;
   try {
+    // 执行 promise 函数
     resolver(function(data) {
       if(called) {
         return
@@ -63,7 +65,7 @@ function doResolve(self, value) {
   try {
     const then = getThen(value);
     if(then) {
-      safelyResolveThen(self, value);
+      safelyResolveThen(self, value);   // 假如返回值是 promise 则继续调用
     } else {
       self.state = FULFILLED;
       self.value = value;
