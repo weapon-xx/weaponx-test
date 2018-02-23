@@ -16,7 +16,12 @@
         });
 
 
-        promise.then(data => {
+        promise.then(function(data) {
+          console.log(data);
+          return new xxPromise(resolve => {
+            resolve('new promise')
+          })
+        }).then(function(data) {
           console.log(data);
         })
       })(window)

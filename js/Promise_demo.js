@@ -28,7 +28,9 @@ function xxPromise(resolver) {
   this.value = void 666;
   this.queue = [];
 
-  // 假如 resolver 是空函数，则不执行
+  // 在 then 中新产生的 promise 的回调是空函数，这个新 pormise 可以被认为是内部 promise
+  // 需要根据外部的 promise 的状态和值去产生自身的状态和值，而外部的 promise 需要传入回调去
+  // 去决定内部的 promise 的状态和值
   if(resolver !== EMPTYFUNCTION) {
     safelyResolveThen(this, resolver);
   }
@@ -103,9 +105,10 @@ function getThen(obj) {
 xxPromise.prototype.then = function(onFulfilled, onRejected) {
   if(!judgeType(onFulfilled, 'function') && this.state === FULFILLED ||
      !judgeType(onRejected, 'function') && this.state === REJECTED) {
-       return this;
+       return this;   // 实现值穿透
   }
   const promise = new this.constructor(EMPTYFUNCTION);  // 传入空函数
+  // 如果状态发生改变，则调用 unwrap，否则将生成新的 promise 加入到当前 promise 的回调队列 queue 中
   if(this.state !== PENDING) {
     const resolver = this.state === FULFILLED ? onFulfilled : onRejected;
     unwrap(promise, resolver, this.value);
