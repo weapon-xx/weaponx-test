@@ -36,9 +36,8 @@ function xxPromise(resolver) {
   }
 }
 
-// called 控制 resolve 或 reject 只能执行一次
 function safelyResolveThen(self, resolver) {
-  let called = false;
+  let called = false; // called 控制 resolve 或 reject 只能执行一次
   try {
     // 执行 promise 函数
     resolver(function(data) {
@@ -67,7 +66,7 @@ function doResolve(self, value) {
   try {
     const then = getThen(value);
     if(then) {
-      safelyResolveThen(self, value);   // 假如返回值是 promise 则继续调用
+      safelyResolveThen(self, then);   //** 假如返回值是 promise 则继续调用 **
     } else {
       self.state = FULFILLED;
       self.value = value;
@@ -92,7 +91,7 @@ function doReject(self, error) {
 
 function getThen(obj) {
   const then = obj && obj.then;
-  // 如果 then 是函数则将 obj 作为函数 this 调用
+  // 如果返回值为 promise 的话，则返回 then 函数，并且 then 函数的 this 指向了返回的 promise 也就是 obj
   if(obj && (judgeType(obj, 'object') || judgeType(obj, 'function')) && judgeType(then, 'function')) {
     return function appyThen() {
       then.apply(obj, arguments);
@@ -101,13 +100,12 @@ function getThen(obj) {
 }
 
 // then 方法生成一个新的 promise 对象并返回
-// 如果状态发生改变，则调用 unwrap 否则就将新 promise push 到 queue 队列中去
 xxPromise.prototype.then = function(onFulfilled, onRejected) {
   if(!judgeType(onFulfilled, 'function') && this.state === FULFILLED ||
      !judgeType(onRejected, 'function') && this.state === REJECTED) {
        return this;   // 实现值穿透
   }
-  const promise = new this.constructor(EMPTYFUNCTION);  // 传入空函数
+  const promise = new this.constructor(EMPTYFUNCTION);  // 子 promise 传入空函数作为回调
   // 如果状态发生改变，则调用 unwrap，否则将生成新的 promise 加入到当前 promise 的回调队列 queue 中
   if(this.state !== PENDING) {
     const resolver = this.state === FULFILLED ? onFulfilled : onRejected;
@@ -131,9 +129,11 @@ function unwrap(promise, func, value) {
     } catch(error) {
       doReject(promise, error);
     }
+    // 返回值不能为 promise 本身，不然会造成死循环
     if(returnValue === promise) {
       doReject(promise, new TypeError('Cannot resolve promise with itself'));
     } else {
+      // 继续解子 promise
       doResolve(promise, returnValue);
     }
   // })

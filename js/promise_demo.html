@@ -9,19 +9,23 @@
     <script type="text/javascript" src="./immediate.js"></script>
     <script type="text/javascript">
       (global => {
-        var promise = new xxPromise((resolve) => {
+        window.promise1 = new xxPromise(function(resolve) {
           setTimeout(() => {
             resolve('test')
           }, 1000)
         });
 
-
-        promise.then(function(data) {
+        window.promise3 = promise1.then(function(data) {
           console.log(data);
-          return new xxPromise(resolve => {
-            resolve('new promise')
+          window.promise2 = new xxPromise(function(resolve) {
+            setTimeout(() => {
+              resolve('done')
+            }, 1000)
           })
-        }).then(function(data) {
+          return promise2;
+        })
+
+        promise3.then(function(data) {
           console.log(data);
         })
       })(window)
