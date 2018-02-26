@@ -158,3 +158,15 @@ function QueueItem(promise, onFulfilled, onRejected) {
     }
   }
 }
+
+xxPromise.resolve = function(value) {
+  if(value instanceof this) {
+    return value;
+  }
+  return doResolve(new this(EMPTYFUNCTION), value);
+}
+
+xxPromise.reject = function(reason) {
+  var promise = new this(EMPTYFUNCTION);
+  return doReject(promisem, reason)
+}
