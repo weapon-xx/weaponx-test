@@ -9,24 +9,70 @@
     <script type="text/javascript" src="./immediate.js"></script>
     <script type="text/javascript">
       (global => {
-        window.promise1 = new xxPromise(function(resolve) {
-          setTimeout(() => {
-            resolve('test')
-          }, 1000)
-        });
+        // window.promise1 = new xxPromise(function(resolve) {
+        //   setTimeout(() => {
+        //     resolve('test')
+        //   }, 1000)
+        // });
+        //
+        // window.promise3 = promise1.then(function(data) {
+        //   console.log(data);
+        //   window.promise2 = new xxPromise(function(resolve) {
+        //     setTimeout(() => {
+        //       resolve('done')
+        //     }, 1000)
+        //   })
+        //   return promise2;
+        //   // return 'done';
+        // })
+        //
+        // promise3.then(function(data) {
+        //   console.log(data);
+        // })
 
-        window.promise3 = promise1.then(function(data) {
-          console.log(data);
-          window.promise2 = new xxPromise(function(resolve) {
+        // new xxPromise(function(resolve) {
+        //   setTimeout(() => {
+        //     resolve('test1')
+        //   }, 1000)
+        // }).then(data => {
+        //   console.log(data);
+        //   return xxPromise.resolve('promise resolve');
+        // }).then(data => {
+        //   console.log(data);
+        // });
+
+        // xxPromise.all([
+        //   new xxPromise(function(resolve) {
+        //     setTimeout(() => {
+        //       resolve('1');
+        //     }, 1000);
+        //   }),
+        //   new xxPromise(function(resolve) {
+        //     setTimeout(() => {
+        //       resolve('2');
+        //     }, 2000);
+        //   })
+        // ]).then(data => {
+        //   console.log(data);
+        // })
+
+        xxPromise.race([
+          new xxPromise(function(resolve) {
             setTimeout(() => {
-              resolve('done')
-            }, 1000)
+              resolve('1');
+            }, 1000);
+          }),
+          new xxPromise(function(resolve) {
+            setTimeout(() => {
+              resolve('2');
+            }, 2000);
+          }),
+          new xxPromise(function(resolve) {
+            setTimeout(() => {
+              resolve('3');
+            }, 500);
           })
-          return promise2;
-          // return 'done';
-        })
-
-        promise3.then(function(data) {
+        ]).then(data => {
           console.log(data);
         })
       })(window)

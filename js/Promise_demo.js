@@ -167,6 +167,75 @@ xxPromise.resolve = function(value) {
 }
 
 xxPromise.reject = function(reason) {
-  var promise = new this(EMPTYFUNCTION);
+  const promise = new this(EMPTYFUNCTION);
   return doReject(promisem, reason)
+}
+
+xxPromise.all = function(arr) {
+  if(!Array.isArray(arr)) {
+    doReject(new TypeError('arr is not iterable'));
+  }
+
+  const self = this;
+  const length = arr.length;
+  const values = new Array(length);
+  const promise = new this(EMPTYFUNCTION);
+  let called = false;
+  let resolved = 0;
+  let i = 0;
+
+  while(i < length) {
+    allResolver(arr[i], i);
+    i++;
+  }
+  return promise;
+
+  function allResolver(value, i) {
+    self.resolve(value).then(resolveFromAll, function(error) {
+      if(!called) {
+        called = true;
+        doReject(promise, error);
+      }
+    })
+
+    function resolveFromAll(value) {
+      values[i] = value;
+      if(++resolved === length && !called) {
+        called = true;
+        doResolve(promise, values);
+      }
+    }
+  }
+}
+
+xxPromise.race = function(arr) {
+  if(!Array.isArray(arr)) {
+    doReject(new TypeError('arr is not iterable'));
+  }
+
+  const self = this;
+  const length = arr.length;
+  const promise = new this(EMPTYFUNCTION);
+  let called = false;
+  let i = 0;
+
+  while(i < length) {
+    allResolver(arr[i], i);
+    i++;
+  }
+  return promise;
+
+  function allResolver(value, i) {
+    self.resolve(value).then(function(data) {
+      if(!called) {
+        called = true;
+        doResolve(promise, data);
+      }
+    }, function(error) {
+      if(!called) {
+        called = true;
+        doReject(promise, error);
+      }
+    })
+  }
 }
