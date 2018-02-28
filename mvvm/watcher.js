@@ -30,7 +30,7 @@ Watcher.prototype = {
   get() {
     // 传递watcher实例
     Dep.target = this;
-    // 触发get
+    // 触发get添加依赖
     const value = this.getVMVal();
     Dep.target = null;
     return value

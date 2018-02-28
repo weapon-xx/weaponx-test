@@ -4,7 +4,7 @@ function Compile(el,vm) {
 
   if(this.$el) {
     this.$fragment = this.node2Fragment(this.$el);
-    this.init();
+    this.compileElement(this.$fragment);
     // 插入文档片段
     this.$el.appendChild(this.$fragment);
   }
@@ -23,9 +23,6 @@ Compile.prototype = {
     }
 
     return fragment
-  },
-  init() {
-    this.compileElement(this.$fragment)
   },
   compileElement(el) {
     const childNodes = el.childNodes,
@@ -101,8 +98,10 @@ const compileUtil = {
   bind(node, vm ,exp, dir) {
     const updaterFn = updater[dir + 'Updater'];
 
-    updaterFn && updaterFn(node , this._getVMVal(vm,exp));
+    updaterFn && updaterFn(node, this._getVMVal(vm, exp));
 
+    // 解析模板得出依赖后，添加依赖
+    // 实例化 watcher
     new Watcher(vm, exp, (value, oldValue) => {
       updaterFn && updaterFn(node, value, oldValue)
     })

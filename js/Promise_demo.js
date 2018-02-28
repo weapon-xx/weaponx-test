@@ -21,7 +21,7 @@ const REJECTED = 2;
 
 function xxPromise(resolver) {
   if(!judgeType(resolver, 'function')) {
-    return new error('argument must be a function');
+    return new TypeError('resolver is not function');
   }
 
   this.state = PENDING;
@@ -103,7 +103,7 @@ function getThen(obj) {
 xxPromise.prototype.then = function(onFulfilled, onRejected) {
   if(!judgeType(onFulfilled, 'function') && this.state === FULFILLED ||
      !judgeType(onRejected, 'function') && this.state === REJECTED) {
-       return this;   // 实现值穿透
+       return this;   // 直接返回当前的 promise 实例，实现值穿透
   }
   const promise = new this.constructor(EMPTYFUNCTION);  // 子 promise 传入空函数作为回调
   // 如果状态发生改变，则调用 unwrap，否则将生成新的 promise 加入到当前 promise 的回调队列 queue 中
@@ -122,7 +122,6 @@ xxPromise.prototype.catch = (onRejected) => {
 
 
 function unwrap(promise, func, value) {
-  // immediate(function() {
     let returnValue;
     try {
       returnValue = func(value);
@@ -136,7 +135,6 @@ function unwrap(promise, func, value) {
       // 继续解子 promise
       doResolve(promise, returnValue);
     }
-  // })
 }
 
 function QueueItem(promise, onFulfilled, onRejected) {

@@ -26,19 +26,19 @@
         el: '#mvvm-app',
         data: {
             someStr: 'hello',
-            someHtml : '<p>v-html</p>',
-            someClass : 'test',
-            someModel :'test',
-            someArr : {
-              arr : [1,2,3,4]
-            }
+            someHtml: '<p>v-html</p>',
+            someClass: 'test',
+            someModel:'test',
+            someArr: {
+            arr: [1, 2, 3, 4]
+          }
         },
         methods: {
             clickBtn: function(e) {
                 var randomStrArr = ['childOne', 'childTwo', 'childThree'];
                 this.child.someStr = randomStrArr[parseInt(Math.random() * 3)];
             },
-            clickHandler: function(e){
+            clickHandler: function(e) {
               console.log(e);
               console.log(this);
             }
