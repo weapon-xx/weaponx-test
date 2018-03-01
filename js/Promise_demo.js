@@ -7,7 +7,7 @@ function judgeType(obj, type) {
     return false;
   }
   try {
-    return Object.prototype.toString.call(obj).toLocaleLowerCase().split(/\s/)[1].replace(']', '') === type;
+    return Object.prototype.toString.call(obj).toLocaleLowerCase().slice(8, -1) === type;
   } catch(e) {
     console.error(e);
   }
@@ -237,3 +237,13 @@ xxPromise.race = function(arr) {
     })
   }
 }
+
+var obj1 = {
+  name: 'obj1',
+  say() {
+    console.log(this.name);
+  }
+}
+
+var obj2 = {name: 'obj2'};
+var newFn = 

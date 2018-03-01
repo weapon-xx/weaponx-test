@@ -7,19 +7,20 @@
   <body>
     <script type="text/javascript">
       // 快排
-      function quickSort(arr){
+      function quickSort(arr) {
         if(arr.length <= 1){
           return arr
         }
+        var copyArr = Array.from(arr);
         var middleIndex = Math.floor(arr.length / 2)
-        var middleNum = arr.splice(middleIndex, 1)
+        var middleNum = copyArr.splice(middleIndex, 1)
         var left = []
         var right = []
-        for(var i=0, length = arr.length; i<length; i++){
-          if(middleNum > arr[i]){
-            left.push(arr[i])
-          }else{
-            right.push(arr[i])
+        for(var i = 0, length = copyArr.length; i < length; i++){
+          if(middleNum > copyArr[i]) {
+            left.push(copyArr[i])
+          } else {
+            right.push(copyArr[i])
           }
         }
 
@@ -49,9 +50,42 @@
         return arr
       }
 
-      console.log(quickSort([1,4,6,3,2,7,9,8]))
-      console.log(arraySort([1,4,6,3,2,7,9,8]));
-      console.log(propagtionSort([1,4,6,3,2,7,9,8]));
+      // 选择排序
+      function chooseSort(arr) {
+        for(var i = 0; i < arr.length; i++) {
+          var min = arr[i];
+          for(var j = i + 1; j < arr.length; j++) {
+            if(arr[j] < min) {
+              [min, arr[j]] = [arr[j], min];
+            }
+          }
+          arr[i] = min;
+        }
+        return arr;
+      }
+
+      // 插入排序
+      function insertSort(arr) {
+        // 第一个元素默认为有序，所以从第二个元素开始
+        for(var i = 1; i < arr.length; i++) {
+          var value = arr[i];
+          var j = i - 1;
+          while (j >= 0 && arr[j] > value) {
+            arr[j + 1] = arr[j];
+            j--;
+          }
+          arr[j + 1] = value;
+        }
+        return arr;
+      }
+
+      const arr = [1, 4, 6, 3, 2, 7, 9, 8];
+
+      console.log(quickSort(arr))
+      console.log(arraySort(arr));
+      console.log(propagtionSort(arr));
+      console.log(chooseSort(arr));
+      console.log(insertSort(arr));
 
     </script>
   </body>
