@@ -237,13 +237,3 @@ xxPromise.race = function(arr) {
     })
   }
 }
-
-var obj1 = {
-  name: 'obj1',
-  say() {
-    console.log(this.name);
-  }
-}
-
-var obj2 = {name: 'obj2'};
-var newFn = 

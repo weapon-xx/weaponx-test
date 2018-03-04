@@ -6,20 +6,20 @@
   </head>
   <body>
     <script type="text/javascript">
-      let p = new Proxy({}, {
-        get (target, name) {
-          return target[name] || '123'
+      const obj = new Proxy({}, {
+        get(target, key, receiver) {
+          console.log(`getting ${key}`);
+          return Reflect.get(target, key, receiver);
         },
-        set (target, name, value) {
-          target[name] = value || 'default'
+        set(target, key, value, receiver) {
+          console.log(`setting ${key}`);
+          return Reflect.set(target, key, value, receiver);
         }
-      })
+      });
 
-      p.a = 1;
-      p.b = undefined;
-
-      console.log(p.a, p.b, p.c)
-
+      console.log(obj);
+      obj.counter = 1;
+      obj.counter++;
     </script>
   </body>
 </html>
