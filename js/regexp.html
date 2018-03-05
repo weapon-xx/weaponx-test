@@ -7,23 +7,22 @@
   <body>
     <script type="text/javascript">
       // 3位逗号分隔
-      function millionFormat(num){
+      function millionFormat(num) {
         return num && num.toString()
-                .replace(/^\d+/g, (m)=>{
+                .replace(/^\d+/g, m => {
                   console.log(m);
                    return m.replace(/(?=(?!^)(\d{3})+$)/g, ',')
                 })
       }
 
-      console.log(millionFormat(1231231231.123123))
+      console.log(millionFormat(1231231231.123123));
 
-
-      function splitStr(str){
+      function splitStr(str) {
         var newStr = ''
-        str.replace(/\w(?!=\s)/g, function(m){
-          if(m !== str.charAt(str.length-1)){
+        str.replace(/\w(?!=\s)/g, function(m) {
+          if(m !== str.charAt(str.length - 1)) {
             newStr += m + ' '
-          }else{
+          } else {
             newStr += m
           }
         })
@@ -36,7 +35,11 @@
         return /\(\s*([\s\S]*?)\s*\)/.exec(fn)[1].split(/\s*,\s*/)
       }
 
-      console.log(getFnParams(test));
+      function fn(arr, str) {
+
+      }
+
+      console.log(getFnParams(fn));
     </script>
   </body>
 </html>
