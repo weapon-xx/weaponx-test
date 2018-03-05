@@ -15,7 +15,24 @@
                 })
       }
 
+      // 新增分隔解法
+      function millionFormat1(num) {
+        var splitArr = num.toString().split('.');
+        var head = splitArr[0];
+        var tail = splitArr[1];
+        var str = '';
+
+        while(head > 3) {
+          str = `,${head.slice(-3)}${str}`;
+          head = head.slice(0, head.length - 3);
+        }
+        str = head + str;
+        return tail ? `${str}.${tail}` : str;
+      }
+
       console.log(millionFormat(1231231231.123123));
+      console.log(millionFormat1(1231231231.123123));
+      console.log(millionFormat1(1234567891));
 
       function splitStr(str) {
         var newStr = ''
