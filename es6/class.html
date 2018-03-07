@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      class Person {
+        constructor({name, age}) {
+          this.name = name;
+          this.age = age;
+        }
+      }
+
+      class Student extends Person {
+        constructor({name, age, job}) {
+          super({name, age});
+          this.job = job;
+        }
+        say() {
+          console.log(`name: ${this.name}, age: ${this.age}, job: ${this.job}`);
+        }
+      }
+
+      class Doctor extends Person {
+        constructor({name, age, job, sex}) {
+          this.sex = sex;     // 在 super 之前不能使用 this 
+          super({name, age});
+          this.job = doctor;
+        }
+      }
+
+      var student = new Student({name: 'xx', age: 22, job: 'FE'});
+      student.say();
+
+      var doctor = new Doctor({name: 'tom', age: 30, job: 'doctor', sex: 'male'});
+
+    </script>
+  </body>
+</html>
