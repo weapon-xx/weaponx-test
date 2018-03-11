@@ -1,0 +1,184 @@
+array(9) {
+  ["opcfg"]=>
+  array(1) {
+    ["op"]=>
+    string(4) "null"
+  }
+  ["basic"]=>
+  array(17) {
+    ["qqlimit"]=>
+    string(7) "nolimit"
+    ["qqlimit_num"]=>
+    NULL
+    ["qqlimit_unit"]=>
+    string(1) "d"
+    ["qqlimit_per_num"]=>
+    NULL
+    ["qqlimit_totalnum"]=>
+    NULL
+    ["numlimit"]=>
+    string(7) "nolimit"
+    ["numlimit_num"]=>
+    NULL
+    ["numlimit_unit"]=>
+    string(1) "d"
+    ["numlimit_per_num"]=>
+    NULL
+    ["numlimit_totalnum"]=>
+    NULL
+
+array(23) {
+      ["pid"]=>
+      int(265698)
+      ["bus"]=>
+      int(16)
+      ["game"]=>
+      string(5) "Sgame"
+      ["name"]=>
+      string(3) "111"
+      ["start_time"]=>
+      int(1520352000)
+      ["end_time"]=>
+      int(1522511999)
+      ["dev"]=>
+      string(8) "88180569"
+      ["pdm"]=>
+      string(8) "88180569"
+      ["mp_list"]=>
+      string(0) ""
+      ["url"]=>
+      string(0) ""
+      ["create_user"]=>
+      string(8) "88180569"
+      ["create_time"]=>
+      int(1520476333)
+      ["modify_user"]=>
+      string(8) "88180569"
+      ["modify_time"]=>
+      int(1520476333)
+      ["appid"]=>
+      string(10) "1000000777"
+      ["uinpack"]=>
+      int(0)
+      ["source"]=>
+      int(2)
+      ["tlimit"]=>
+      string(7) "nolimit"
+      ["qqlimit"]=>
+      string(7) "nolimit"
+      ["qqlimit_step"]=>
+      string(1) "1"
+      ["numlimit"]=>
+      string(7) "nolimit"
+      ["numlimit_step"]=>
+      int(0)
+      ["actlimit"]=>
+      string(7) "nolimit"
+    }
+
+
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="opcfg[op]"
+
+null
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[qqlimit]"
+
+nolimit
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[qqlimit_num]"
+
+
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[qqlimit_unit]"
+
+d
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[qqlimit_per_num]"
+
+
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[qqlimit_totalnum]"
+
+
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[numlimit]"
+
+nolimit
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[numlimit_num]"
+
+
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[numlimit_unit]"
+
+d
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[numlimit_per_num]"
+
+
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[numlimit_totalnum]"
+
+
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[start_time]"
+
+2018-02-07 00:00:00
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[end_time]"
+
+2018-03-31 23:59:59
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[tlimit]"
+
+nolimit
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[act_name]"
+
+111
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[game]"
+
+Sgame
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[pdm]"
+
+v_xiexunxie
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="basic[dev]"
+
+v_xiexunxie
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="modifyTime"
+
+1520304344
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="actid"
+
+265016
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="pid"
+
+261686
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="_f"
+
+editSub
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="oaid"
+
+v_xiexunxie
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="appid"
+
+11
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="ts"
+
+1520476900
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI
+Content-Disposition: form-data; name="signature"
+
+6182f427dbb7aaf009f5b463a02b2be7
+------WebKitFormBoundarySkEQ8CBaBY5AfXPI--
