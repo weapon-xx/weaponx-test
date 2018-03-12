@@ -8,12 +8,16 @@ app.set('static', path.join(__dirname, './views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs-mate'));
 
-app.get('/',(req,res) => {
+app.get('/', (req,res) => {
   res.render('data', {
-    arr : [1,2,3,4,5,6]
+    arr: [1, 2, 3, 4, 5, 6]
   });
 })
 
-app.listen(8080,() => {
+app.get('/cookie', (req,res) => {
+  res.sendFile(__dirname + '/cookie.html')
+})
+
+app.listen(8080, () => {
   console.log(`app server run in 8080`);
 })

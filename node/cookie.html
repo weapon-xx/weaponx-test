@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>cookie 解析</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function setCookie(name, value, expires = null, path = '/', domain = null, secure = false) {
+         var expdate = new  Date();
+
+         if(expires) {
+             expdate.setTime(expdate.getTime() + parseInt(expires));
+         }
+         var cookietemp = escape(name) + '=' + escape(value) + (expires ? '; expires=' + expdate.toGMTString() : '')
+                          + (path ? '; path=' + path : '')
+                          + (domain ? '; domain=' + domain : '')
+                          + (secure ? '; secure' : '');
+
+         document.cookie = cookietemp;
+      }
+
+      function getCookie(key) {
+        var arr, reg = new RegExp('(^|; )' + key + '=([^;]*)(;|$)');
+        if(arr = document.cookie.match(reg)) {
+          return unescape(arr[2]);
+        } else {
+          return '';
+        }
+      }
+
+      function delCookie(name, path = "/", domain = null, secure = false) {
+        this.setCookie(name, '', -1e3, path, domain, secure);
+      }
+
+      setCookie('test_xx', '12312312', 60*12*30, '/')
+
+      console.log(getCookie('test_xx'));
+
+      delCookie(delCookie('test_xx'));
+      console.log(getCookie('test_xx'));
+
+    </script>
+  </body>
+</html>
