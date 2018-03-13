@@ -7,6 +7,7 @@
   <body>
     <script type="text/javascript">
       function co(gen) {
+        debugger
         const ctx = this;
         const args = Array.prototype.slice(arguments, 1);
         return new Promise((resolve, reject) => {
@@ -31,13 +32,15 @@
             if(ret.done) {
               return resolve(ret.value);  // 当 generator 完全处理完成时
             }
-            // 没有的话进行绑定状态处理函数
-            return ret.value.then(onFulfilled)
+            // 如果未完成的话，则为 value 注册监听函数
+            // 这里需要将 value 转换成 promise 对象，后续再补上
+            return ret.value.then && ret.value.then(onFulfilled)
           }
         })
       }
 
       co(function * () {
+
         var res = yield new Promise(resolve => {
           setTimeout(() => {
             resolve('this is Promise return value')
@@ -45,8 +48,18 @@
         }).then(data => {
           return data
         })
+
+        // yield 后面的代码会暂停执行，等到下一个 next 方法被调用
+        // 因为 javascript 提供了手动的 “惰性求值” Lazy Evaluation
         console.log(res)
         console.log(123123)
+
+        var foo = yield new Promise(resolve => {
+          setTimeout(resolve, 1000);
+        }).then(data => {
+          return 'foo'
+        })
+        console.log(foo)
         return 'done'
       }).then(data => {
         console.log(data);  // done
