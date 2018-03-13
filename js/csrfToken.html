@@ -2,13 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title> csrf token </title>
   </head>
   <body>
     <script type="text/javascript">
       function getCSRFToken() {
-        
+        var salt = 5381, key = '@HP369V0oK';
+        var md5key ='tencentQQVIP123443safde&!%^%1282';
+        var hash = [], ASCIICode;
+        var i = 0;
+        while(i < key.length) {
+          ASCIICode = key.charAt(i).charCodeAt(0);
+          hash.push((salt << 5) + ASCIICode);
+          salt = ASCIICode;
+          i++;
+        }
+        return hash.join('');
       }
+
+      console.log(getCSRFToken());
     </script>
   </body>
 </html>
