@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="foo">
+        <div class="bar">
+          <div class="emit">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var $foo = document.querySelector('.foo');
+      var $bar = document.querySelector('.bar');
+
+      $foo.addEventListener('click', e => {
+        var endTime = new Date().getTime();
+        // 先执行捕获
+        console.log( endTime - startTime);
+      }, true);
+
+      $bar.addEventListener('click', e => {
+        var endTime = new Date().getTime();
+        // 再执行冒泡
+        console.log( endTime - startTime);
+      }, false);
+
+      var startTime = new Date().getTime();
+
+      document.querySelector('.emit').click();
+
+
+    </script>
+  </body>
+</html>
