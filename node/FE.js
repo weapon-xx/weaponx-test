@@ -7,6 +7,14 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/FE.html')
 })
 
+app.get('/ajax', (req, res) => {
+  res.sendFile(__dirname + '/ajax.html')
+})
+
+app.get('/server', (req, res) => {
+  res.json({name: 'xx'})
+})
+
 app.listen(8000, () => {
   console.log(`web server running in 8000`);
 })

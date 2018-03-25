@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('GET', 'http://127.0.0.1:8000/server', true);
+
+
+      xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4) {
+          // 4 = "loaded"
+          if(xhr.status === 200) {
+            if(xhr.responseText) {
+              console.log(JSON.parse(xhr.responseText));
+            }
+          } else {
+
+          }
+        }
+      }
+
+      xhr.send();
+
+    </script>
+  </body>
+</html>
