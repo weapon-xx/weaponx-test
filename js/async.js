@@ -6,10 +6,6 @@ function ajax () {
   })
 }
 
-// ajax().then((data) => {
-//   console.log(data)
-// })
-
 async function rq() {
   console.log(1)
 
