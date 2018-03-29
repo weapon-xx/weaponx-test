@@ -70,7 +70,7 @@ Dep.prototype = {
   notify() {
     // 遍历执行更新
     this.subs.forEach(sub => {
-      sub.update();
+      sub.run();
     })
   }
 }

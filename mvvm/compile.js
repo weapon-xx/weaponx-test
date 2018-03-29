@@ -36,9 +36,9 @@ Compile.prototype = {
       if(_this.isElementNode(node)) {
         // 解析元素节点
         _this.compile(node);
-      }else if(_this.isTextNode(node) && reg.test(text)) {
+      } else if (_this.isTextNode(node) && reg.test(text)) {
         // 解析差值表达式
-        _this.compileText(node,RegExp.$1);
+        _this.compileText(node, RegExp.$1);
       }
 
       if(node.childNodes && node.childNodes.length) {
@@ -132,7 +132,7 @@ const compileUtil = {
         fn = vm.$options.methods && vm.$options.methods[exp];
 
     if(eventType && fn) {
-        node.addEventListener(eventType,fn.bind(vm),false);
+        node.addEventListener(eventType, fn.bind(vm), false);
     }
 
   },
