@@ -45,7 +45,6 @@
     "vue-lazyload": "^1.0.3",
     "vue-loader": "^13.5.0",
     "vue-template-compiler": "^2.5.8",
-    "webpack": "^3.6.0",
     "webpack-hot-middleware": "^2.20.0",
     "zepto": "^1.2.0"
   }

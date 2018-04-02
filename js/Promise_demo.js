@@ -64,9 +64,9 @@ function safelyResolveThen(self, resolver) {
 
 function doResolve(self, value) {
   try {
-    const then = getThen(value);
+    const then = getThen(value);       // 判断 value 是否有 then 函数，有则返回
     if(then) {
-      safelyResolveThen(self, then);   //** 假如返回值是 promise 则继续调用 **
+      safelyResolveThen(self, then);   //** 假如返回值是 promise 则注册 then 函数 **
     } else {
       self.state = FULFILLED;
       self.value = value;
@@ -171,7 +171,7 @@ xxPromise.reject = function(reason) {
 
 xxPromise.all = function(arr) {
   if(!Array.isArray(arr)) {
-    doReject(new TypeError('arr is not iterable'));
+    doReject(new TypeError('arguments is not iterable'));
   }
 
   const self = this;
@@ -195,7 +195,7 @@ xxPromise.all = function(arr) {
         doReject(promise, error);
       }
     })
-
+    
     function resolveFromAll(value) {
       values[i] = value;
       if(++resolved === length && !called) {

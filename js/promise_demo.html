@@ -40,22 +40,16 @@
         // }).then(data => {
         //   console.log(data);
         // });
-
-        // xxPromise.all([
-        //   new xxPromise(function(resolve) {
-        //     setTimeout(() => {
-        //       resolve('1');
-        //     }, 1000);
-        //   }),
-        //   new xxPromise(function(resolve) {
-        //     setTimeout(() => {
-        //       resolve('2');
-        //     }, 2000);
-        //   })
-        // ]).then(data => {
-        //   console.log(data);
-        // })
-
+        //
+        xxPromise.all([
+          '1',
+          new xxPromise(resolve => {
+            setTimeout(resolve('2'), 2000);
+          })
+        ]).then(data => {
+          console.log(data);
+        })
+        //
         // xxPromise.race([
         //   new xxPromise(function(resolve) {
         //     setTimeout(() => {
@@ -76,13 +70,13 @@
         //   console.log(data);
         // })
 
-        new xxPromise(function(resolve) {
-          resolve('value');
-        })
-        .then()
-        .then(data => {
-          console.log(data);
-        })
+        // new xxPromise(function(resolve) {
+        //   resolve('value');
+        // })
+        // .then()
+        // .then(data => {
+        //   console.log(data);    // 值穿透
+        // })
       })(window)
     </script>
   </body>

@@ -6,14 +6,14 @@
   </head>
   <body>
     <div class="container">
-      <div class="">
+      <!-- <div class="">
         {{title}}
       </div>
       <ul>
         <li v-for="(item, index) in list" @click="click(index)">
           {{item.text}}
         </li>
-      </ul>
+      </ul> -->
     </div>
     <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
@@ -36,7 +36,14 @@
             console.log(index);
           }
         },
-        render() {with(this){return _c('div',{staticClass:"container"},[_c('div',{},[_v("\n    "+_s(title)+"\n  ")]),_v(" "),_c('ul',_l((list),function(item,index){return _c('li',{on:{"click":function($event){click(index)}}},[_v("\n      "+_s(item.text)+"\n    ")])}))])}}
+        render() {
+          with(this){
+            debugger
+            return _c('div',
+            {staticClass:"container"},
+            [
+              _c('div',{},[
+                _v("\n    "+_s(title)+"\n  ")]),_v(" "),_c('ul',_l((list),function(item,index){return _c('li',{on:{"click":function($event){click(index)}}},[_v("\n      "+_s(item.text)+"\n    ")])}))])}}
       })
     </script>
   </body>

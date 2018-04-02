@@ -44,7 +44,7 @@
         var res = yield new Promise(resolve => {
           setTimeout(() => {
             resolve('this is Promise return value')
-          }, 500)
+          }, 3e3)
         }).then(data => {
           return data
         })
@@ -55,9 +55,9 @@
         console.log(123123)
 
         var foo = yield new Promise(resolve => {
-          setTimeout(resolve, 1000);
+          setTimeout(resolve, 1e3);
         }).then(data => {
-          return 'foo'
+          console.log(data);
         })
         console.log(foo)
         return 'done'
