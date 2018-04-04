@@ -23,7 +23,9 @@
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "bootstrap": "^3.3.7",
     "co": "^4.6.0",
     "ejs": "^2.5.2",
@@ -45,6 +47,8 @@
     "vue-lazyload": "^1.0.3",
     "vue-loader": "^13.5.0",
     "vue-template-compiler": "^2.5.8",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
     "webpack-hot-middleware": "^2.20.0",
     "zepto": "^1.2.0"
   }

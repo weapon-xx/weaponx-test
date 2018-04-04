@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      .color {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="color">
+
+      </div>
+    </div>
+    <script type="text/javascript">
+      const $color = document.querySelector('.color')
+
+      let previous;
+      function animate() {
+        if(!previous || Date.now() - previous > 100) {
+          previous = Date.now()
+          $color.style.backgroundColor = `#f${Math.ceil(Math.random() * 10)}${Math.ceil(Math.random() * 10)}${Math.ceil(Math.random() * 10)}${Math.ceil(Math.random() * 10)}${Math.ceil(Math.random() * 10)}`
+        }
+        requestAnimationFrame(animate)
+      }
+
+      requestAnimationFrame(animate)
+    </script>
+  </body>
+</html>

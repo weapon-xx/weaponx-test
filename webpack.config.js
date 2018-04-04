@@ -1,94 +1,73 @@
 'use strict'
 
 const path = require('path')
-const webpack = require("webpack")
-const ExtractTextPlugin = require("extract-text-webpack-plugin")    // 分离 css 样式文件
-const isProduction = function () {
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')    // 分离 css 样式文件
+const isProduction = () => {
     return process.env.NODE_ENV === 'production'
 }
 
 //webpack插件
-const plugins = [
+// const plugins = [
     //提公用js到common.js文件中
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    // new webpack.optimization.splitChunks('common.js'),
     //将样式统一发布到style.css中
-    new ExtractTextPlugin("style.css", {
-        allChunks: true,
-        disable: false
-    }),
-    // 使用 ProvidePlugin 加载使用率高的依赖库
-    new webpack.ProvidePlugin({
-      $: 'webpack-zepto'
-    }),
-    new webpack.EnvironmentPlugin([
-      "branch","NODE_ENV"
-    ])
-];
+    // new ExtractTextPlugin("style.css", {
+    //     allChunks: true,
+    //     disable: false
+    // }),
+    // // 使用 ProvidePlugin 加载使用率高的依赖库
+    // new webpack.ProvidePlugin({
+    //   $: 'webpack-zepto'
+    // }),
+    // new webpack.EnvironmentPlugin([
+    //   "branch","NODE_ENV"
+    // ])
+// ];
 
-    const  entry = [
-      './js/rxjs_demo.js'
-    ],
-    cdnPrefix = "",
-    buildPath = "/dist/",
-    publishPath = cdnPrefix + buildPath;
+const entry = [
+  './webpack/index.js'
+],
+cdnPrefix = '',
+buildPath = '/dist/',
+publishPath = cdnPrefix + buildPath;
+
 //生产环境js压缩和图片cdn
 if (isProduction()) {
     plugins.push(new webpack.optimize.UglifyJsPlugin())
-    cdnPrefix = ""
+    cdnPrefix = ''
     publishPath = cdnPrefix
 }
+
 //编译输出路径
 module.exports = {
     entry: entry,
     output: {
         path: __dirname + buildPath,
-        filename: '[name].build.js',
+        filename: '[name].build.js',0
         publicPath: publishPath,
-        chunkFilename:"[id].build.js?[chunkhash]"
+        chunkFilename: '[id].build.js?[chunkhash]'
     },
     module: {
-        loaders: [{
-            test: /\.vue$/,
-            loader: 'vue-loader',
-        }, {
-            test: /\.scss$/,
-            loader: ExtractTextPlugin.extract(
-                "style-loader", 'css-loader?sourceMap!sass-loader!cssnext-loader')
-        }, {
-            test: /\.css$/,
-            loader: ExtractTextPlugin.extract(
-                "style-loader", "css-loader?sourceMap!cssnext-loader")
-        },{
-            test: /\.less$/,
-            loader: ExtractTextPlugin.extract(
-                "style-loader", "css-loader?sourceMap!less-loader!cssnext-loader")
-        }, {
+        rules: [{
             test: /\.js$/,
             exclude: /node_modules|vue\/dist/,
             loader: 'babel-loader',
-        },{
-            test: /\.(jpg|png|gif)$/,
-            loader: "file-loader?name=images/[hash].[ext]"
-        }, {
-            test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: "url-loader?limit=10000&minetype=application/font-woff"
-        }, {
-            test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: "file-loader"
-        }, {
-            test: /\.json$/,
-            loader: 'json'
-        }, {
-            test: /\.(html|tpl)$/,
-            loader: 'html-loader'
-        },{ test: /iview\\.*?js$/, loader: 'babel' }]
+        }]
     },
-    resolve: {
-        alias: {
-            filter: path.join(__dirname, 'src/filters'),
-            vue: 'vue/dist/vue.js'
-        }
-    },
-    plugins: plugins,
+    // optimization: {
+    //     runtimeChunk: {
+    //         name: 'manifest'
+    //     },
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             commons: {
+    //                 test: /[\\/]node_modules[\\/]/,
+    //                 name: 'vendor',
+    //                 chunks: 'all'
+    //             }
+    //         }
+    //     }
+    // },
     devtool: '#source-map'
 };
