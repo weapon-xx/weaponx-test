@@ -4,7 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')    // 分离 css 样式文件
 const isProduction = () => {
-    return process.env.NODE_ENV === 'production'
+    return process.env.NODE_ENV === 'production' ? 'production' : 'development'
 }
 
 //webpack插件
@@ -25,26 +25,27 @@ const isProduction = () => {
     // ])
 // ];
 
-const entry = [
-  './webpack/index.js'
-],
-cdnPrefix = '',
+const cdnPrefix = '',
 buildPath = '/dist/',
 publishPath = cdnPrefix + buildPath;
 
 //生产环境js压缩和图片cdn
-if (isProduction()) {
-    plugins.push(new webpack.optimize.UglifyJsPlugin())
-    cdnPrefix = ''
-    publishPath = cdnPrefix
-}
+// if (isProduction()) {
+//     plugins.push(new webpack.optimize.UglifyJsPlugin())
+//     cdnPrefix = ''
+//     publishPath = cdnPrefix
+// }
 
 //编译输出路径
 module.exports = {
-    entry: entry,
+    mode: isProduction(),
+    entry: [
+      'babel-polyfill',
+      './webpack/index.js'
+    ],
     output: {
         path: __dirname + buildPath,
-        filename: '[name].build.js',0
+        filename: '[name].build.js',
         publicPath: publishPath,
         chunkFilename: '[id].build.js?[chunkhash]'
     },
@@ -69,5 +70,5 @@ module.exports = {
     //         }
     //     }
     // },
-    devtool: '#source-map'
+    devtool: 'source-map'
 };

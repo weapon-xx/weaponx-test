@@ -1,3 +1,8 @@
+import {say, name} from './util.js'
+
+say()
+console.log(name)
+
 let a = 1;
 console.log(a);
 
