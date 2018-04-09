@@ -17,3 +17,5 @@ new Promise(resolve => {
 }).then(data => {
   console.log('done')
 })
+
+console.log([1, 2, 3].includes(3))

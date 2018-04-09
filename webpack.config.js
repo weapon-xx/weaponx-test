@@ -3,9 +3,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')    // 分离 css 样式文件
-const isProduction = () => {
-    return process.env.NODE_ENV === 'production' ? 'production' : 'development'
-}
 
 //webpack插件
 // const plugins = [
@@ -38,9 +35,10 @@ publishPath = cdnPrefix + buildPath;
 
 //编译输出路径
 module.exports = {
-    mode: isProduction(),
+    mode: process.env.NODE_ENV ,
     entry: [
       'babel-polyfill',
+      'core-js/fn/promise',
       './webpack/index.js'
     ],
     output: {
