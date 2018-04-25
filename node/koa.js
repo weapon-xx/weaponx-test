@@ -3,7 +3,7 @@ const route = require('koa-route')
 
 const app = new koa()
 
-app.use(route.get('/', function *(){
+app.use(route.get('/', function *() {
   this.body = 'Hello World'
 }))
 

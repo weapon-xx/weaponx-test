@@ -32,14 +32,12 @@ publishPath = cdnPrefix + buildPath;
 //     cdnPrefix = ''
 //     publishPath = cdnPrefix
 // }
-
 //编译输出路径
 module.exports = {
-    mode: process.env.NODE_ENV ,
+    mode: 'development' ,
     entry: [
       'babel-polyfill',
-      'core-js/fn/promise',
-      './webpack/index.js'
+      './webpack/main.js'
     ],
     output: {
         path: __dirname + buildPath,
@@ -54,19 +52,22 @@ module.exports = {
             loader: 'babel-loader',
         }]
     },
-    // optimization: {
-    //     runtimeChunk: {
-    //         name: 'manifest'
-    //     },
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             commons: {
-    //                 test: /[\\/]node_modules[\\/]/,
-    //                 name: 'vendor',
-    //                 chunks: 'all'
-    //             }
-    //         }
-    //     }
-    // },
-    devtool: 'source-map'
+    optimization: {
+        // runtimeChunk: {
+        //     name: 'manifest'
+        // },
+        minimize:false,
+        splitChunks: {
+          chunks: 'all',
+          name: 'common',
+            // cacheGroups: {
+            //     commons: {
+            //         test: /[\\/]node_modules[\\/]/,
+            //         name: 'vendor',
+            //         chunks: 'all'
+            //     }
+            // }
+        }
+    },
+    devtool: 'cheap-module-eval-source-map' //'source-map'
 };

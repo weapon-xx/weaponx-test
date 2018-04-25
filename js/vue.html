@@ -6,15 +6,15 @@
   </head>
   <body>
     <div class="container">
-      <img :src="'www.qq.com/' + obj.name + '.jpg'" alt="">
+      <!-- <img :src="'www.qq.com/' + obj.name + '.jpg'" alt=""> -->
       <div id="app" :src="name" >
-        {{obj}}
+        {{name}}
       </div>
-      <div class=""  @click="change">
+      <!-- <div class=""  @click="change">
         click
-      </div>
+      </div> -->
     </div>
-    <script type="text/javascript" src="./vue.js"></script>
+    <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
       const vm = new Vue({
         el: '.container',
@@ -23,7 +23,8 @@
             $message : 'test',
             obj: {
               name: ''
-            }
+            },
+            name: ''
           }
         },
         methods: {

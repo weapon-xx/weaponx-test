@@ -11,6 +11,10 @@ app.get('/ajax', (req, res) => {
   res.sendFile(__dirname + '/ajax.html')
 })
 
+app.get('/iframe', (req, res) => {
+  res.sendFile(__dirname + '/iframe.html')
+})
+
 app.get('/server', (req, res) => {
   res.json({name: 'xx'})
 })
