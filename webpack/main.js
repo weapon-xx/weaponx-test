@@ -6,7 +6,7 @@ console.log(name)
 let a = 1;
 console.log(a);
 
-class Person {a
+class Person {
   constructor() {
     console.log(1123);
   }

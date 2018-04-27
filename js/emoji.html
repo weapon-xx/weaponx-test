@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function emojiToCodePoint(str) {
+            const mt = str.match(/\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]/g);
+            if(!!mt) {
+                mt.forEach((item, index) => {
+                    const code_point = `&#${item.codePointAt(0)};`
+                    str = str.replace(item, code_point)
+                })
+                return str
+            } else {
+                return str
+            }
+        }
+
+        function codePointToHtml(str) {
+            const dom = document.createElement('span')
+            dom.innerHTML = str
+            return dom.innerHTML
+        }
+
+        console.log(emojiToCodePoint('🎸🐣 '));
+        console.log(codePointToHtml('&#128518; &#128539;'))
+        
+    </script>
+</body>
+</html>
