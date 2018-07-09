@@ -10,12 +10,15 @@
       function millionFormat(num) {
         return num && num.toString()
                 .replace(/^\d+/g, m => {
-                  console.log(m);
                    return m.replace(/(?=(?!^)(\d{3})+$)/g, ',')
                 })
       }
 
-      // 新增分隔解法
+      function millionFormat1(num) {
+        return num.replace(/(?!^)(?=(\d{3})+$)/g, ',')          
+      }
+
+      // 新增分隔解法 
       function millionFormat1(num) {
         var splitArr = num.toString().split('.');
         var head = splitArr[0];

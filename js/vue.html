@@ -13,6 +13,11 @@
       <!-- <div class=""  @click="change">
         click
       </div> -->
+      <div>
+        <label for="">1</label><input type="checkbox" value="1" v-model="checkbox">
+        <label for="">2</label><input type="checkbox" value="2" v-model="checkbox">
+      </div>
+      <button @click="click">click</button>
     </div>
     <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
@@ -24,13 +29,22 @@
             obj: {
               name: ''
             },
-            name: ''
+            name: '',
+            checkbox: ['2']
+          }
+        },
+        watch: {
+          checkbox(nval) {
+            debugger
           }
         },
         methods: {
           change: function() {
             // this.name = '456';
             this.obj['name'] = '456';
+          },
+          click() {
+            console.log(this.checkbox);
           }
         }
       })
