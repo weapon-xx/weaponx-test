@@ -4,9 +4,11 @@
     </head>
     <body>
         <button id="create">click!</button>
+        <button id="grow">grow!</button>
         <script>
-            var detachedTree;
 
+            // 已分离 DOM 节点导致的内存泄露
+            var detachedTree;
             function create() {
                 var ul = document.createElement('ul');
                 for (var i = 0; i < 10; i++) {
@@ -15,8 +17,14 @@
                 }
                 // detachedTree = ul;
             }
-
             document.getElementById('create').addEventListener('click', create);
+
+            // 全局变量内存泄露
+            var x = [];                
+            function grow() {
+                x.push(new Array(1000000).join('x'));
+            }
+            document.getElementById('grow').addEventListener('click', grow);
         </script>
     </body>
 </html>
