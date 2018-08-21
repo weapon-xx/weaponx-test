@@ -37,6 +37,13 @@
       console.log(millionFormat1(1231231231.123123));
       console.log(millionFormat1(1234567891));
 
+      // 新增 api 解法
+      function millionFormat2(param) {
+        return param.toLocaleString();
+      }
+
+      console.log(`api: ${millionFormat2(1234567891)}`)
+
       function splitStr(str) {
         var newStr = ''
         str.replace(/\w(?!=\s)/g, function(m) {
