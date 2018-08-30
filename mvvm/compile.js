@@ -1,4 +1,4 @@
-function Compile(el,vm) {
+function Compile(el, vm) {
   this.$vm = vm;
   this.$el = this.isElementNode(el) ? el : document.querySelector(el);
 
@@ -70,7 +70,7 @@ Compile.prototype = {
       }
     })
   },
-  compileText(node,exp) {
+  compileText(node, exp) {
     // 处理差值表达式
     compileUtil.text(node, this.$vm, exp)
   },
@@ -106,7 +106,7 @@ const compileUtil = {
       updaterFn && updaterFn(node, value, oldValue)
     })
   },
-  _getVMVal(vm,exp) {
+  _getVMVal(vm, exp) {
     // 获取 vm[exp]
     var val = vm._data;
     exp = exp.split('.')
@@ -115,7 +115,7 @@ const compileUtil = {
     })
     return val
   },
-  _setVMVal(vm,exp,value) {
+  _setVMVal(vm, exp, value) {
     var val = vm._data;
     exp = exp.split('.');
     exp.forEach(function(key,i) {
@@ -127,7 +127,7 @@ const compileUtil = {
        }
     })
   },
-  eventHandler(node,vm,exp,dir) {
+  eventHandler(node, vm, exp, dir) {
     var eventType = dir.split(':')[1],
         fn = vm.$options.methods && vm.$options.methods[exp];
 
@@ -136,16 +136,16 @@ const compileUtil = {
     }
 
   },
-  html(node,vm,exp) {
+  html(node, vm, exp) {
     this.bind(node, vm, exp, 'html');
   },
-  class(node,vm,exp) {
+  class(node, vm, exp) {
     this.bind(node, vm, exp, 'class');
   },
-  text(node,vm,exp) {
+  text(node, vm, exp) {
     this.bind(node, vm, exp, 'text');
   },
-  model(node,vm,exp) {
+  model(node, vm, exp) {
     this.bind(node, vm, exp, 'model');
 
     var _this = this,

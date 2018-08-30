@@ -9,26 +9,26 @@
     <script type="text/javascript" src="./immediate.js"></script>
     <script type="text/javascript">
       (global => {
-        // window.promise1 = new xxPromise(function(resolve) {
-        //   setTimeout(() => {
-        //     resolve('test')
-        //   }, 1000)
-        // });
-        //
-        // window.promise3 = promise1.then(function(data) {
-        //   console.log(data);
-        //   window.promise2 = new xxPromise(function(resolve) {
-        //     setTimeout(() => {
-        //       resolve('done')
-        //     }, 1000)
-        //   })
-        //   return promise2;
-        //   // return 'done';
-        // })
-        //
-        // promise3.then(function(data) {
-        //   console.log(data);
-        // })
+        window.promise1 = new xxPromise(function(resolve) {
+          setTimeout(() => {
+            resolve('test')
+          }, 1000)
+        });
+        
+        window.promise3 = promise1.then(function(data) {
+          console.log(data);
+          window.promise2 = new xxPromise(function(resolve) {
+            setTimeout(() => {
+              resolve('done')
+            }, 1000)
+          })
+          return promise2;
+          // return 'done';
+        })
+        
+        promise3.then(function(data) {
+          console.log(data);
+        })
 
         // new xxPromise(function(resolve) {
         //   setTimeout(() => {
@@ -41,14 +41,14 @@
         //   console.log(data);
         // });
         //
-        xxPromise.all([
-          '1',
-          new xxPromise(resolve => {
-            setTimeout(resolve('2'), 2000);
-          })
-        ]).then(data => {
-          console.log(data);
-        })
+        // xxPromise.all([
+        //   '1',
+        //   new xxPromise(resolve => {
+        //     setTimeout(resolve('2'), 2000);
+        //   })
+        // ]).then(data => {
+        //   console.log(data);
+        // })
         //
         // xxPromise.race([
         //   new xxPromise(function(resolve) {
