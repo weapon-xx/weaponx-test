@@ -19,7 +19,7 @@
       </div>
       <button @click="click">click</button>
     </div>
-    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript" src="../lib/vue-2.5.16.js"></script>
     <script type="text/javascript">
       const vm = new Vue({
         el: '.container',
@@ -29,7 +29,7 @@
             obj: {
               name: ''
             },
-            name: '',
+            name: undefined,
             checkbox: ['2']
           }
         },
@@ -46,6 +46,13 @@
           click() {
             console.log(this.checkbox);
           }
+        },
+        mounted() {
+            Vue.nextTick(() => {
+              console.log(this.name);   // 123
+            })
+            console.log(this.name)      // undefined
+            this.name = '123';
         }
       })
 
