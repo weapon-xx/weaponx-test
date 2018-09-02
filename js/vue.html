@@ -7,7 +7,7 @@
   <body>
     <div class="container">
       <!-- <img :src="'www.qq.com/' + obj.name + '.jpg'" alt=""> -->
-      <div id="app" :src="name" >
+      <div id="app" :src="name" ref="name">
         {{name}}
       </div>
       <!-- <div class=""  @click="change">
@@ -50,6 +50,7 @@
         mounted() {
             Vue.nextTick(() => {
               console.log(this.name);   // 123
+              console.log(this.$refs.name);
             })
             console.log(this.name)      // undefined
             this.name = '123';
