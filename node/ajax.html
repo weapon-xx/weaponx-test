@@ -9,11 +9,16 @@
       var xhr = new XMLHttpRequest();
 
       xhr.open('GET', 'http://127.0.0.1:8000/server', true);
-
+      // xhr.open('POST', 'http://127.0.0.1:8000/server', true);
+      // xhr.send(JSON.stringify({name: 'jackson'})); 
 
       xhr.onreadystatechange = function() {
         if(xhr.readyState === 4) {
-          // 4 = "loaded"
+          // 0 = "UNSENT" 代理被创建，但尚未调用 open() 方法
+          // 1 = "OPENED" open() 方法已经被调用。
+          // 2 = "HEADERS_RECEIVED" send() 方法已经被调用，并且头部和状态已经可获得。
+          // 3 = "LOADING" 下载中； responseText 属性已经包含部分数据。
+          // 4 = "loaded" 下载操作已完成。
           if(xhr.status === 200) {
             if(xhr.responseText) {
               console.log(JSON.parse(xhr.responseText));
