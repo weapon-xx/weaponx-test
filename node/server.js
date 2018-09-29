@@ -18,6 +18,14 @@ app.get('/cookie', (req,res) => {
   res.sendFile(__dirname + '/cookie.html')
 })
 
+app.get('/localStorage1', (req,res) => {
+  res.sendFile(path.resolve('../js/localStorage1.html'))
+})
+
+app.get('/localStorage2', (req,res) => {
+  res.sendFile(path.resolve('../js/localStorage2.html'))
+})
+
 app.listen(8080, () => {
   console.log(`app server run in 8080`);
 })
