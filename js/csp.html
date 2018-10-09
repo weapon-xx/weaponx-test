@@ -1,9 +1,11 @@
 <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src https://www.baidu.com; child-src 'none'; object-src 'none'">
+        <title>内容安全策略 demo</title>
+        <meta http-equiv="Content-Security-Policy" content="default-src *.baidu.com; child-src http://*.baidu.com; object-src 'none'">
         <link rel="stylesheet" href="http://mat1.gtimg.com/www/qq_index/css/qq_5f87ec9f.css">
     </head>
     <body>
         <iframe src="http://www.qq.com" frameborder="0"></iframe>
+        <iframe src="http://www.baidu.com" frameborder="0"></iframe>
     </body>
 </html>
