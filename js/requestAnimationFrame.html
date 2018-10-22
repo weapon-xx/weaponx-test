@@ -20,8 +20,18 @@
       const $color = document.querySelector('.color')
 
       let previous;
+
+      Promise.resolve().then(() => {
+        console.log('Promise')
+      })
+
+      setTimeout(() => {
+        console.log('setTimeout')
+      })
+
       function animate() {
-        if(!previous || Date.now() - previous > 100) {
+        console.log('requestAnimationFrame')
+        if(!previous || Date.now() - previous > 500) {
           previous = Date.now()
           $color.style.backgroundColor = `#f${Math.ceil(Math.random() * 10)}${Math.ceil(Math.random() * 10)}${Math.ceil(Math.random() * 10)}${Math.ceil(Math.random() * 10)}${Math.ceil(Math.random() * 10)}`
         }
