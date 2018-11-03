@@ -13,11 +13,7 @@
       <!-- <div class=""  @click="change">
         click
       </div> -->
-      <div>
-        <label for="">1</label><input type="checkbox" value="1" v-model="checkbox">
-        <label for="">2</label><input type="checkbox" value="2" v-model="checkbox">
-      </div>
-      <button @click="click">click</button>
+      <!-- <button @click="click">click</button> -->
     </div>
     <script type="text/javascript" src="../lib/vue-2.5.16.js"></script>
     <script type="text/javascript">
@@ -26,34 +22,51 @@
         data() {
           return {
             $message : 'test',
-            obj: {
-              name: ''
-            },
-            name: undefined,
-            checkbox: ['2']
+            name: 111,
           }
         },
         watch: {
-          checkbox(nval) {
-            debugger
+          name(nval) {
+            // 当值多次修改时，只会进入 watch 回调
+            console.log(nval)
           }
         },
-        methods: {
-          change: function() {
-            // this.name = '456';
-            this.obj['name'] = '456';
-          },
-          click() {
-            console.log(this.checkbox);
-          }
+        methods: {},
+        beforeCreate() {
+          // console.log(this.name)      // undefined
+        },
+        created() {
+          // console.log(this.name)      // 111
+        },
+        beforeMount() {
+          // console.log(this.name)      // 111
+        },
+        beforeUpdate() {
+          // console.log(this.name)
+        },
+        updated() {
+          // console.log(this.name)
         },
         mounted() {
-            Vue.nextTick(() => {
-              console.log(this.name);   // 123
-              console.log(this.$refs.name);
-            })
-            console.log(this.name)      // undefined
-            this.name = '123';
+            this.name = '123'   // 第一次更新
+            this.name = '456'   // 第二次更新
+            // console.log(this.$refs.name.innerText)
+            Vue.nextTick(nextTickCb.bind(this))
+            function nextTickCb() {
+              console.log(this.$refs.name.innerText)
+            }
+            // 为什么 nextTick 回调中，DOM 就进行了更新？
+            // 1.因为数据进行修改时，会向异步队列插入一个修改的「任务a」，而 nextTick 也是向异步队列中插入一个异步任务b？？？
+            // 是的，都会向 callbacks 数组中插入一个回调函数。
+            // 2.为什么在 123 修改被推入到异步队列后，在执行 456 更新的时候又更新了异步队列？？？
+            // 因为每个 watcher 都有自己的 id，这个 id 是自增并且唯一的，当我们修改多次 data（name）时，框架会判断当前队列 queue 中是否
+            // 存在这个 id，当存在时不会再推入到队列当中
+            // 3.那么 vue 是如何保证 nextTick 总是在数据更新之后运行的呢？
+            // 并不能保证，nextTick 必须要在数据更新之后调用，在回调函数才能获取更新后数据
+            // 4.在 microTask/macroTask 中，框架会执行 flushCallbacks 函数，在函数中会调用 flushSchedulerQueue 函数，
+            // 在 flushSchedulerQueue 函数中会调用 wathcer get 方法，就执行了 virtual dom 的 patch 和渲染，进行视图的更新。
+            // 
+            
         }
       })
 

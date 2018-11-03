@@ -16,4 +16,8 @@ process.nextTick(() => {
     console.log('nextTick')
 })
 
+Promise.resolve().then(data => {
+    console.log('promise')
+})
+
 console.log('end')
