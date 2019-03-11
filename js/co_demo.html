@@ -6,11 +6,11 @@
   </head>
   <body>
     <script type="text/javascript">
-      function co(gen) {
+      function co(gen, ...args) {
         const ctx = this;
-        const args = Array.prototype.slice(arguments, 1);
+        // 返回一个promise ，以方便链式 then 调用
         return new Promise((resolve, reject) => {
-          gen = gen.apply(ctx, arguments);
+          gen = gen.apply(ctx, args);
 
           onFulfilled();
 
@@ -28,8 +28,8 @@
 
           function next(ret) {
             // 判断 gen 对象是否完成
-            if(ret.done) {
-              return resolve(ret.value);  // 当 generator 完全处理完成时
+            if (ret.done) {
+              return resolve(ret.value);  // 当 generator 完全处理完成时，调用 resolve 向外抛出返回值
             }
             // 如果未完成的话，则为 value 注册监听函数
             // 这里需要将 value 转换成 promise 对象，后续再补上
@@ -39,6 +39,7 @@
       }
 
       co(function * () {
+          console.log('start')
           var res = yield new Promise(resolve => {
             setTimeout(() => {
               resolve('this is Promise return value')
@@ -55,12 +56,13 @@
           var foo = yield new Promise(resolve => {
             setTimeout(resolve, 1e3);
           }).then(data => {
-            console.log(data);
+            console.log(data)
           })
           console.log(foo)
-          return 'done'
+          console.log('end')
+          return 'end'
         }).then(data => {
-          console.log(data);  // done
+          console.log(data);  // end
         })
     </script>
   </body>

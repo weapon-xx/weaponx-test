@@ -14,7 +14,7 @@ function judgeType(obj, type) {
 }
 
 
-// promise 状态 PENDING -> resolved 或者 PENDING -> REJECTED
+// promise 状态 PENDING -> RESOLVED 或者 PENDING -> REJECTED
 const PENDING = 0;
 const FULFILLED = 1;
 const REJECTED = 2;

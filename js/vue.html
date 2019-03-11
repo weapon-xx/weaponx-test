@@ -10,6 +10,16 @@
       <div id="app" :src="name" ref="name">
         {{name}}
       </div>
+      <div>
+        <button @click="changeArr">click</button>
+        <ul>
+          <li :key="index" v-for="(item, index) in arr">
+            <xx :text="item">
+              
+            </xx>
+          </li>
+        </ul>
+      </div>
       <!-- <div class=""  @click="change">
         click
       </div> -->
@@ -19,19 +29,32 @@
     <script type="text/javascript">
       const vm = new Vue({
         el: '.container',
+        components: {
+          xx: {
+            template: `<div>
+                <input type="text" v-model="text">
+              </div>`,
+              props: ['text']
+          }
+        },
         data() {
           return {
-            $message : 'test',
+            message : 'test',
             name: 111,
+            arr: [1, 2, 3, 4, 5, 6]
           }
         },
-        watch: {
-          name(nval) {
-            // 当值多次修改时，只会进入 watch 回调
-            console.log(nval)
+        // watch: {
+        //   name(nval) {
+        //     // 当值多次修改时，只会进入 watch 回调
+        //     console.log(nval)
+        //   }
+        // },
+        methods: {
+          changeArr() {
+            this.arr = [8, 9, 10, 11, 12, 13]
           }
         },
-        methods: {},
         beforeCreate() {
           // console.log(this.name)      // undefined
         },
