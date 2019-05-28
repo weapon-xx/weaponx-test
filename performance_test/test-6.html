@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', e => {
+        console.log(new Date().getTime());
+        console.log(document.querySelector('.test'))    // dom 加载完成输出的是 dom 节点
+      })
+    </script>
+    <!-- <script type="text/javascript" src="./js1.js">
+      // 默认情况下，script 阻塞 dom 的解析和渲染，所以这里输出的是 null
+    </script> -->
+    <script type="text/javascript"  src="../js1.js" defer>
+      // console.log(new Date().getTime());
+      console.log(document.querySelector('.test'));
+      // defer script 的加载和 dom 解析是并行执行的，但是会等到 dom 解析完成才执行，在 DOMContentLoaded 事件之前，输出的 dom 节点
+      // 但是注意如果
+    </script>
+    <!-- <script type="text/javascript" async>
+      console.log(document.querySelector('.test'))
+      // async script 的加载和 dom 解析也是并行执行的，但是与 defer 不同的是，async script 在加载完成后会立刻执行
+    </script> -->
+    <div class="test">
+      11111
+    </div>
+  </body>
+</html>

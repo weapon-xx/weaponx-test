@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+    <head>
+        <title>ESLint Report</title>
+        <style>
+            body {
+                font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;
+                font-size:16px;
+                font-weight:normal;
+                margin:0;
+                padding:0;
+                color:#333
+            }
+            #overview {
+                padding:20px 30px
+            }
+            td, th {
+                padding:5px 10px
+            }
+            h1 {
+                margin:0
+            }
+            table {
+                margin:30px;
+                width:calc(100% - 60px);
+                max-width:1000px;
+                border-radius:5px;
+                border:1px solid #ddd;
+                border-spacing:0px;
+            }
+            th {
+                font-weight:400;
+                font-size:normal;
+                text-align:left;
+                cursor:pointer
+            }
+            td.clr-1, td.clr-2, th span {
+                font-weight:700
+            }
+            th span {
+                float:right;
+                margin-left:20px
+            }
+            th span:after {
+                content:"";
+                clear:both;
+                display:block
+            }
+            tr:last-child td {
+                border-bottom:none
+            }
+            tr td:first-child, tr td:last-child {
+                color:#9da0a4
+            }
+            #overview.bg-0, tr.bg-0 th {
+                color:#468847;
+                background:#dff0d8;
+                border-bottom:1px solid #d6e9c6
+            }
+            #overview.bg-1, tr.bg-1 th {
+                color:#f0ad4e;
+                background:#fcf8e3;
+                border-bottom:1px solid #fbeed5
+            }
+            #overview.bg-2, tr.bg-2 th {
+                color:#b94a48;
+                background:#f2dede;
+                border-bottom:1px solid #eed3d7
+            }
+            td {
+                border-bottom:1px solid #ddd
+            }
+            td.clr-1 {
+                color:#f0ad4e
+            }
+            td.clr-2 {
+                color:#b94a48
+            }
+            td a {
+                color:#3a33d1;
+                text-decoration:none
+            }
+            td a:hover {
+                color:#272296;
+                text-decoration:underline
+            }
+        </style>
+    </head>
+    <body>
+        <div id="overview" class="bg-2">
+            <h1>ESLint Report</h1>
+            <div>
+                <span>43 problems (34 errors, 9 warnings)</span> - Generated on Thu Nov 17 2016 09:05:10 GMT+0800 (CST)
+            </div>
+        </div>
+        <table>
+            <tbody>
+                <tr class="bg-2" data-group="f-0">
+    <th colspan="4">
+        [+] /Users/jackson/projecct/weaponx-test/node/async_await.js
+        <span>17 problems (14 errors, 3 warnings)</span>
+    </th>
+</tr>
+<tr style="display:none" class="f-0">
+    <td>1:7</td>
+    <td class="clr-2">Error</td>
+    <td>&#39;git&#39; is assigned a value but never used.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-unused-vars" target="_blank">no-unused-vars</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>1:13</td>
+    <td class="clr-2">Error</td>
+    <td>&#39;shell&#39; should be listed in the project&#39;s dependencies. Run &#39;npm i -S shell&#39; to add it</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/import/no-extraneous-dependencies" target="_blank">import/no-extraneous-dependencies</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>1:21</td>
+    <td class="clr-2">Error</td>
+    <td>Unable to resolve path to module &#39;shell&#39;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/import/no-unresolved" target="_blank">import/no-unresolved</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>3:1</td>
+    <td class="clr-2">Error</td>
+    <td>Move the invocation into the parens that contain the function.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/wrap-iife" target="_blank">wrap-iife</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>3:2</td>
+    <td class="clr-1">Warning</td>
+    <td>Missing function expression name.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/func-names" target="_blank">func-names</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>3:16</td>
+    <td class="clr-2">Error</td>
+    <td>Missing space before function parentheses.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/space-before-function-paren" target="_blank">space-before-function-paren</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>3:18</td>
+    <td class="clr-2">Error</td>
+    <td>Missing space before opening brace.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/space-before-blocks" target="_blank">space-before-blocks</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>4:9</td>
+    <td class="clr-2">Error</td>
+    <td>&#39;commitMsg&#39; is assigned a value but never used.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-unused-vars" target="_blank">no-unused-vars</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>6:3</td>
+    <td class="clr-2">Error</td>
+    <td>Expected space(s) after &quot;try&quot;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/keyword-spacing" target="_blank">keyword-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>7:23</td>
+    <td class="clr-2">Error</td>
+    <td>Missing space before =&gt;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/arrow-spacing" target="_blank">arrow-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>7:26</td>
+    <td class="clr-2">Error</td>
+    <td>Missing space after =&gt;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/arrow-spacing" target="_blank">arrow-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>8:7</td>
+    <td class="clr-1">Warning</td>
+    <td>Unexpected console statement.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-console" target="_blank">no-console</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>9:6</td>
+    <td class="clr-2">Error</td>
+    <td>A space is required after &#39;,&#39;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/comma-spacing" target="_blank">comma-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>10:4</td>
+    <td class="clr-2">Error</td>
+    <td>Expected space(s) after &quot;catch&quot;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/keyword-spacing" target="_blank">keyword-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>10:4</td>
+    <td class="clr-2">Error</td>
+    <td>Expected space(s) before &quot;catch&quot;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/keyword-spacing" target="_blank">keyword-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>10:14</td>
+    <td class="clr-2">Error</td>
+    <td>Missing space before opening brace.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/space-before-blocks" target="_blank">space-before-blocks</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-0">
+    <td>11:5</td>
+    <td class="clr-1">Warning</td>
+    <td>Unexpected console statement.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-console" target="_blank">no-console</a>
+    </td>
+</tr>
+
+<tr class="bg-2" data-group="f-1">
+    <th colspan="4">
+        [+] /Users/jackson/projecct/weaponx-test/node/co.js
+        <span>26 problems (20 errors, 6 warnings)</span>
+    </th>
+</tr>
+<tr style="display:none" class="f-1">
+    <td>1:1</td>
+    <td class="clr-2">Error</td>
+    <td>Expected empty line after require statement not followed by another require.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/import/newline-after-import" target="_blank">import/newline-after-import</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>1:12</td>
+    <td class="clr-2">Error</td>
+    <td>&#39;co&#39; should be listed in the project&#39;s dependencies, not devDependencies.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/import/no-extraneous-dependencies" target="_blank">import/no-extraneous-dependencies</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>2:4</td>
+    <td class="clr-1">Warning</td>
+    <td>Missing function expression name.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/func-names" target="_blank">func-names</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>2:16</td>
+    <td class="clr-2">Error</td>
+    <td>Missing space before opening brace.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/space-before-blocks" target="_blank">space-before-blocks</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>3:29</td>
+    <td class="clr-2">Error</td>
+    <td>A space is required after &#39;,&#39;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/comma-spacing" target="_blank">comma-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>3:30</td>
+    <td class="clr-2">Error</td>
+    <td>&#39;reject&#39; is defined but never used.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-unused-vars" target="_blank">no-unused-vars</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>5:7</td>
+    <td class="clr-1">Warning</td>
+    <td>Unexpected console statement.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-console" target="_blank">no-console</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>6:23</td>
+    <td class="clr-2">Error</td>
+    <td>Missing semicolon.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/semi" target="_blank">semi</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>7:6</td>
+    <td class="clr-2">Error</td>
+    <td>A space is required after &#39;,&#39;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/comma-spacing" target="_blank">comma-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>7:12</td>
+    <td class="clr-2">Error</td>
+    <td>Missing semicolon.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/semi" target="_blank">semi</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>8:10</td>
+    <td class="clr-2">Error</td>
+    <td>There should be no spaces inside this paren.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/space-in-parens" target="_blank">space-in-parens</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>8:12</td>
+    <td class="clr-2">Error</td>
+    <td>Expected parentheses around arrow function argument having a body with curly braces.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/arrow-parens" target="_blank">arrow-parens</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>8:19</td>
+    <td class="clr-2">Error</td>
+    <td>Missing space after =&gt;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/arrow-spacing" target="_blank">arrow-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>9:5</td>
+    <td class="clr-1">Warning</td>
+    <td>Unexpected console statement.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-console" target="_blank">no-console</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>12:29</td>
+    <td class="clr-2">Error</td>
+    <td>A space is required after &#39;,&#39;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/comma-spacing" target="_blank">comma-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>12:30</td>
+    <td class="clr-2">Error</td>
+    <td>&#39;reject&#39; is defined but never used.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-unused-vars" target="_blank">no-unused-vars</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>14:7</td>
+    <td class="clr-1">Warning</td>
+    <td>Unexpected console statement.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-console" target="_blank">no-console</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>15:23</td>
+    <td class="clr-2">Error</td>
+    <td>Missing semicolon.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/semi" target="_blank">semi</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>16:6</td>
+    <td class="clr-2">Error</td>
+    <td>A space is required after &#39;,&#39;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/comma-spacing" target="_blank">comma-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>16:12</td>
+    <td class="clr-2">Error</td>
+    <td>Missing semicolon.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/semi" target="_blank">semi</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>17:10</td>
+    <td class="clr-2">Error</td>
+    <td>There should be no spaces inside this paren.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/space-in-parens" target="_blank">space-in-parens</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>17:12</td>
+    <td class="clr-2">Error</td>
+    <td>Expected parentheses around arrow function argument having a body with curly braces.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/arrow-parens" target="_blank">arrow-parens</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>17:19</td>
+    <td class="clr-2">Error</td>
+    <td>Missing space after =&gt;.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/arrow-spacing" target="_blank">arrow-spacing</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>18:5</td>
+    <td class="clr-1">Warning</td>
+    <td>Unexpected console statement.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-console" target="_blank">no-console</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>21:3</td>
+    <td class="clr-1">Warning</td>
+    <td>Unexpected console statement.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/no-console" target="_blank">no-console</a>
+    </td>
+</tr>
+
+<tr style="display:none" class="f-1">
+    <td>22:3</td>
+    <td class="clr-2">Error</td>
+    <td>Missing semicolon.</td>
+    <td>
+        <a href="http://eslint.org/docs/rules/semi" target="_blank">semi</a>
+    </td>
+</tr>
+
+            </tbody>
+        </table>
+        <script type="text/javascript">
+            var groups = document.querySelectorAll("tr[data-group]");
+            for (i = 0; i < groups.length; i++) {
+                groups[i].addEventListener("click", function() {
+                    var inGroup = document.getElementsByClassName(this.getAttribute("data-group"));
+                    this.innerHTML = (this.innerHTML.indexOf("+") > -1) ? this.innerHTML.replace("+", "-") : this.innerHTML.replace("-", "+");
+                    for (var j = 0; j < inGroup.length; j++) {
+                        inGroup[j].style.display = (inGroup[j].style.display !== "none") ? "none" : "table-row";
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

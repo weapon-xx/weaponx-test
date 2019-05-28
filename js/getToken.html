@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <ul>
+      <% for(var i=0;i<arr;i++){ %>
+        <li><%= arr[i] %></li>
+      <% } %>
+    </ul>
+    <style media="screen">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      div{
+        width: 200px;
+        height: 200px;
+        background-color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="" style="float: left">
+
+    </div>
+    <div class="">
+
+    </div>
+    <script type="text/javascript">
+      (function(){
+
+        function passAccessData(token){
+          console.log(token);
+          alert(token);
+        }
+
+        window.passAccessData = passAccessData;
+      })()
+
+      window.onload = function(){
+        // do something
+        console.log('load success');
+      }
+
+    </script>
+  </body>
+</html>

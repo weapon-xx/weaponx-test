@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>map,set</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      (function(){
+        var s = new Set();
+        [1,23,4,5,6,5,7].map(x => s.add(x));
+        console.log(s);   //
+        console.log([...s]);  // [1, 23, 4, 5, 6, 7] Set结构不会添加重复的值。
+        console.log(Array.from(s)); // Array.from方法可以将Set结构转为数组。
+        console.log(s.size);  // 6
+
+        var arr = [1,2,2,3,3,4,4,5];
+        console.log([...new Set(arr)]); // 去除数组的重复成员
+
+        console.log(s.has(1));  // true
+        console.log(s.has(8));  // false
+        console.log(s.delete(7)); // true
+        console.log(s.delete(8)); // false
+        console.log(s.has(7));  // false
+
+        var m = new Map([
+          [true,'foo'],
+          ['true','bar']
+        ]);
+
+        console.log(m.get(true)); // foo
+        console.log(m.get('true')); // bar
+
+        var k1 = ['a'];
+        var k2 = ['a'];
+        // set方法设置key所对应的键值，然后返回整个Map结构。如果key已经有值，则键值会被更新，否则就新生成该键。
+        // set方法返回的是Map本身，因此可以采用链式写法。
+        m
+        .set(k1,111)
+        .set(k2,222);
+
+        console.log(m.get(k1)); // 111
+        console.log(m.get(k2)); // 222
+        // Map的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。
+
+        m.set(NaN,123);
+        console.log(m.get(NaN));  // 123
+        m.set(0,321);
+        console.log(m.get(-0)); // 321
+        // 只要两个值严格相等，Map将其视为一个键，包括0和-0。另外，虽然NaN不严格相等于自身，但Map将其视为同一个键。
+
+        console.log(m.size);  // size属性返回Map结构的成员总数
+
+        console.log(m.has(0));  //  has方法返回一个布尔值，表示某个键是否在Map数据结构中。
+
+        console.log(m.delete(0)); // true delete方法删除某个键，返回true。如果删除失败，返回false。
+
+        console.log(m.clear()); // clear方法清除所有成员，没有返回值。
+        console.log(m.size);  // 0
+
+        let map = new Map([
+          ['F', 'no'],
+          ['T',  'yes'],
+        ]);
+
+        for(var key of map.keys()){
+          console.log(key);   // F T
+        }
+
+        for(var value of map.values()){
+          console.log(value); // no yes
+        }
+
+        for(var item of map.entries()){
+          console.log(item);  // ["F", "no"] ["T", "yes"]
+        }
+
+        // Map结构转为数组结构，比较快速的方法是结合使用扩展运算符（...）。
+        console.log(map);
+        console.log([...map]);
+
+        map.forEach((value,key,map)=>{
+          console.log(`value:${value},key:${key},map:${map}`);
+          //value:no,key:F,map:[object Map]
+          //value:yes,key:T,map:[object Map]
+        });
+
+        
+
+      })()
+    </script>
+  </body>
+</html>

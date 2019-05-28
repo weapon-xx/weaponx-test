@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <panel :items="items">1231231</panel>
+      <h3>{{items}}</h3>
+    </div>
+    <script type="text/javascript" src="./vue.js"></script>
+    <script type="text/javascript">
+
+      Vue.component('textbox', {
+        template: `
+          <input :value="value"/>
+        `,
+        data() {
+          return {
+
+          }
+        },
+        props: ['value']
+      })
+
+      Vue.component('myselect', {
+        template: `
+          <select>
+            <option v-for="option in options" :value="option.val">{{option.text}}</option>
+          </select>
+        `,
+        data() {
+          return {
+
+          }
+        },
+        props: ['options']
+      })
+
+      Vue.component('panel', {
+        render: function (createElement) {
+          var me = this;
+          return createElement(
+            'div',
+            {
+              'class': {
+                foo: true,
+                active: true
+              },
+              style: {
+                color: 'blue',
+                fontSize: '20px'
+              },
+              attrs: {
+                dataId: 'test'
+              }
+            },
+            this.items.map((item) => {
+              return createElement(item.type, {
+                on: item.on,
+                props: item.props
+              })
+            })
+          )
+        },
+        props: {
+          items: {
+            type: Array,
+            default: []
+          }
+        }
+      })
+
+      const vm = new Vue({
+        el: '#example',
+        data() {
+          return {
+            items: [{
+              text: '1',
+              type: 'textbox',
+              props: {
+                value: '1'
+              }
+            }, {
+              text: '2',
+              type: 'textbox',
+              props: {
+                value: '2'
+              }
+            }, {
+              text: '3',
+              type: 'myselect',
+              on: {
+                change: function () {
+                  console.log(12312)
+                }
+              },
+              props: {
+                options: [
+                  {text: 1, val: 1},
+                  {text: 2, val: 2},
+                  {text: 3, val: 3}
+                ]
+              }
+            }]
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+      <div class="container">
+          <input v-model="parentMsg">
+          <br>
+          <button type="button" name="button" @click="clickHandler">click</button>
+          <child :name="parentMsg"></child>
+      </div>
+      <script type="text/javascript" src="./vue-2.5.16.js"></script>
+      <script type="text/javascript">
+        ;(function() {
+          Vue.component('child', {
+            props: ['name'],
+            template: '<span>{{ name }}</span>'
+          });
+          window.vm = new Vue({
+            el: '.container',
+            data: {
+              index: 1,
+              parentMsg: undefined,
+              arr: [],
+              people: {name: 'xx'}
+            },
+            watch: {
+                // people(nval, oval) {
+                //     console.log(nval)
+                //     console.log(oval)
+                // },
+                people: {
+                  handler: function (nval,oval) {
+                    console.log(nval)
+                    console.log(oval)
+                  },
+                  deep: true
+                }
+            },
+            methods: {
+              clickHandler() {
+                  this.people = {name: '一张劵'};
+                  // this.$set(this.people, 'name', this.index++)
+                  // this.arr.push(this.index++)
+              }
+            },
+            beforeCreate() {
+              this.parentMsg = 'beforeCreate'
+            },
+            created() {
+            },
+            mounted() {
+              console.log(this.parentMsg)
+            }
+          });
+
+          // vm.$watch('people', (nval, oval) => {
+          //   console.log(nval)
+          //   console.log(oval)
+          // }, {
+          //   deep: true
+          // })
+          // vm.people.name = 123
+        })()
+      </script>
+  </body>
+</html>

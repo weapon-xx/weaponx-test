@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+<div id="mvvm-app">
+  <p v-text="someStr"></p>
+  <h2 v-html="someHtml"></h2>
+  <p v-class="someClass" v-text="someClass"></p>
+  <input type="text" name="" value="" v-model="someModel">
+  <p>{{someModel}}</p>
+  <button v-on:click="clickHandler">Click</button>
+  <ul>
+    <li v-for="item in someArr">{{item}}</li>
+  </ul>
+</div>
+<!-- <script src="http://cdn.bootcss.com/vue/1.0.25/vue.js"></script> -->
+<script src="./observe.js"></script>
+<script src="./watcher.js"></script>
+<script src="./compile.js"></script>
+<script src="./mvvm.js"></script>
+<script>
+    var vm = new Mvvm({
+        el: '#mvvm-app',
+        data: {
+            someStr: 'hello',
+            someHtml: '<p>v-html</p>',
+            someClass: 'test',
+            someModel:'test',
+            someArr: {
+            arr: [1, 2, 3, 4]
+          }
+        },
+        methods: {
+            clickBtn: function(e) {
+                var randomStrArr = ['childOne', 'childTwo', 'childThree'];
+                this.child.someStr = randomStrArr[parseInt(Math.random() * 3)];
+            },
+            clickHandler: function(e) {
+              console.log(e);
+              console.log(this);
+            }
+        }
+    });
+    // vm.$watch('child.someStr', function() {
+    //     console.log(arguments);
+    // });
+</script>
+
+</body>
+</html>

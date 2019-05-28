@@ -1,0 +1,17 @@
+<html>
+    <head></head>
+    <body>
+        <iframe id="iframe" src="http://127.0.0.1:8000/postMessage1" frameborder="0"></iframe>
+        <script>
+            const iFrame = document.getElementById('iframe')
+
+            iFrame.onload = function() {
+                iFrame.contentWindow.postMessage('parent message', '*')
+            }
+
+            window.addEventListener('message', e => {
+                console.log(e.data)
+            }, false)
+        </script>
+    </body>
+</html>

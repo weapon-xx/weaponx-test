@@ -1,0 +1,1 @@
+{"dependencies":[{"name":"./util.js"}],"generated":{"js":"\"use strict\";var r=require(\"./util.js\");(0,r.say)();"},"hash":"554d9450edd2f3d9dce182978537bd73"}

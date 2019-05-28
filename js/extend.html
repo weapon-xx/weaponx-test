@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="" id="test">
+      123123321
+    </div>
+    <script type="text/javascript" src="./jquery-3.1.1.js">
+    </script>
+    <script type="text/javascript">
+      //console.log($.extend)
+
+      var a = {
+        name: 'xx'
+      }
+
+      var b = {
+        age: 20,
+        job: {
+          type: 'internet',
+          name: 'FE-enginner'
+        },
+        arr: [1,2,3,4]
+      }
+
+      var c
+
+      var c = $.extend({}, a, b)
+      console.log(c);
+
+      c.job = {}
+      console.log(a);
+      console.log(b);
+
+    </script>
+  </body>
+</html>

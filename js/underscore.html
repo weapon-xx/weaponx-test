@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>functional progammming</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="./underscore.js"></script>
+    <script type="text/javascript">
+      /*
+      *
+      * 集合
+      *
+      */
+      // _.reduce(list, iteratee, [memo], [context]) 把list中元素归结为一个单独的数值
+      console.log(_.reduce([1, 2, 3], function(memo, num) {
+        return memo + num
+      }, 0));   // 6
+
+      // _.find(list, predicate, [context])
+      // 在list中逐项查找，返回第一个通过predicate迭代函数真值检测的元素值，如果没有值传递给测试迭代器将返回undefined。 如果找到匹配的元素，函数将立即返回，不会遍历整个list。
+      console.log(_.find(['a' , 'b', 3, 'd' , 6], _.isNumber)) // 3
+
+      // _.filter(list, predicate, [context]) 遍历list中的每个值，返回包含所有通过predicate真值检测的元素值
+      console.log(_.filter(['a' , 'b', 3, 'd' , 6], _.isNumber)) // [3, 6]
+
+      // _.reject(list, predicate, [context]) 返回list中没有通过predicate真值检测的元素集合，与filter相反。
+      console.log(_.reject(['a' , 'b', 3, 'd' , 6], _.isNumber)) // ['a', 'b', 'd']
+
+      // _.pluck(list, propertyName)  萃取数组对象中某属性值，返回一个数组。
+      console.log(_.pluck([{name: 'xx', age: '21'}, {name: 'john', age: '26'}], 'name')) // ["xx", "john"]
+
+      // _.sortBy(list, iteratee, [context]) 传递iteratee参数，iteratee将作为list中每个值的排序依据
+      console.log(_.sortBy([{name: 'john', age: 26}, {name: 'xx', age: 21}], function(item) { return item.age }));
+
+      // _.countBy(list, iteratee, [context]) 排序一个列表组成一个组，并且返回各组中的对象的数量的计数
+      console.log(_.countBy([{job: 'fe'}, {job: 'be'}, {job: 'fe'}], (item) =>{return item.job})); // {fe: 2, be: 1}
+
+      // _.toArray(list) 把list(任何可以迭代的对象)转换成一个数组，在转换 arguments 对象时非常有用。
+      console.log((function(){ return _.toArray(arguments) })(1, 2, 3, 4)) // [1, 2, 3, 4]
+
+      // _.where(list, properties) 遍历list中的每一个值，返回一个数组，这个数组包含properties所列出的属性的所有的 键 - 值对
+      console.log(_.where([{name: 'xx', age: '21'}, {name: 'john', age: '26'}], {name: 'xx'})) // [{name: 'xx', age: '21'}]
+
+      // _.map(list, iteratee, [context]) 通过转换函数(iteratee迭代器)映射列表中的每个值产生价值的新数组
+      console.log(_.map([1, 2, 3,], function(num) {
+        return num * 3
+      }));  // [3, 6, 9]
+
+      // _.each(list, iteratee, [context]) 遍历list中的所有元素，按顺序用遍历输出每个元素。
+      console.log(_.each([1, 2, 3], function(num) {
+        return num * 3
+      }, 12312));
+
+      // _.pluck(list, propertyName)  pluck也许是map最常使用的用例模型的简化版本，即萃取数组对象中某属性值，返回一个数组。
+      console.log(_.pluck([{name: 'jackson'}, {name: 'john'}], 'name')); // ["jackson", "john"]
+
+      //
+      /*
+      *
+      * 对象
+      *
+      */
+      // _.has(object, key) 等同于object.hasOwnProperty(key)
+      console.log(_.has({name: 'xx', age: '21'}, 'name')) // true
+
+      // _.omit(object, *keys) 返回一个object副本，只过滤出除去keys(有效的键组成的数组)参数指定的属性值
+      console.log(_.omit({name: 'xx', age: '21'}, 'name')) // {age: '21'}
+
+      // _.pick(object, *keys) 返回一个object副本，只过滤出keys(有效的键组成的数组)参数指定的属性值
+      console.log(_.pick({name: 'xx', age: '21'}, 'name'))  // {name: 'xx'}
+
+      // _.keys(object)  检索object拥有的所有可枚举属性的名称。
+      console.log(_.keys({name: 'xx', age: '21'})) // ["name", "age"]
+
+      // _.values(object) 返回object对象所有的属性值。
+      console.log(_.values({name: 'xx', age: '21'})) // ["xx", "21"]
+
+      // _.pairs(object)  把一个对象转变为一个[key, value]形式的数组。
+      console.log(_.pairs({name: 'xx', age: '21'})) // [['name', 'xx'], ['age', '21']]
+
+
+      /*
+      *
+      * 数组
+      *
+      */
+      // _.first(array, [n]) 返回数组第一个下标值, 传递 n参数将返回数组中从第一个元素开始的n个元素
+      console.log(_.first([1, 2, 3, 4, 5, 6])) // 1
+
+      // _.last(array, [n])  返回array（数组）的最后一个元素
+      console.log(_.last([1, 2, 3, 4, 5, 6])); // 6
+
+      // _.rest(array, [index])  默认返回数组中除了第一个元素外的其他全部元素。传递 index 参数将返回从index开始的剩余所有元素 。
+      console.log(_.rest([5, 4, 3, 2, 1])); // [4, 3, 2, 1]
+
+      // _.object(list, [values]) 将数组转换为对象。传递任何一个单独[key, value]对的列表，或者一个键的列表和一个值得列表
+      console.log(_.object(['name', 'age'], ['xx', '21'])) // {name: 'xx', age: '21'}
+
+      // _.without(array, *values)  返回一个删除所有values值后的 array副本。
+      console.log(_.without([1, 2, 3, 4, 5, 6, 1], 1)); // [2, 3, 4, 5, 6]
+
+      // _.range([start], stop, [step]) 创建整数灵活编号的列表的函数，便于each 和 map循环。如果省略start则默认为 0；step 默认为 1.返回一个从start 到stop的整数的列表，用step来增加 （或减少）独占
+      console.log(_.range(0, 11, 5)); // [0, 5, 10]
+      console.log(_.range(5)) // [0, 1, 2, 3, 4]
+
+      /*
+      *
+      * 实用功能
+      *
+      */
+      // _.identity(value) 返回与传入参数相等的值. 相当于数学里的: f(x) = x
+      var str = '123'
+      console.log(str === _.identity(str));   // true
+
+      // _.iteratee(value, [context]) 一个重要的内部函数用来生成可应用到集合中每个元素的回调， 返回想要的结果 - 无论是等式，任意回调，属性匹配，或属性访问。
+      console.log(_.map([{age: 21}, {age: 22}], _.iteratee('age')));  // [21, 22]
+
+      // _.chain(obj)  返回一个封装的对象. 在封装的对象上调用方法会返回封装的对象本身, 直道 value 方法调用为止.
+      console.log(_.chain([{name: 'curly', age: 25}, {name: 'moe', age: 21}, {name: 'larry', age: 23}])
+                   .sortBy(function(stooge){ return stooge.age; })
+                   .map(function(stooge){ return stooge.name + ' is ' + stooge.age; })
+                   .first()
+                   .value()); // moe is 21
+
+      function finder(valueFn, bestFun, coll) {
+        return _.reduce(coll, function(best, current) {
+          var bestValue = valueFn(best)
+          var currentValue = valueFn(current)
+
+          return (bestValue === bestFun(bestValue, currentValue)) ? best : current
+        })
+      }
+
+      console.log(finder(_.identity, Math.max, [1,2,3,4,5,3]));
+
+
+      console.log(_.reduce([1, 2, 3, null, 5], function(total, n){
+        return total * n
+      }));
+
+
+
+      function fnull(fun /* , defaults */) {
+        var defaults = _.rest(arguments)
+
+        return function() {
+          var args = _.map(arguments, function(e, i) {
+            return e !== void 0 ? e : defaults[i]
+          })
+
+          return fun.apply(null, args)
+        }
+      }
+
+      function defaults(defaultObj) {
+        return function(obj, key) {
+          var val = fnull(_.identity, defaultObj[key])
+          return obj && val(obj[key])
+        }
+      }
+
+      function dosomething(config) {
+
+        var lookup = defaults({'test': 111})
+        return lookup(config, 'test')
+      }
+
+
+      console.log(dosomething({'test': 123}));
+      console.log(dosomething({}));
+
+
+      function checker() {
+        var validators = _.toArray(arguments)
+        return function(obj) {
+          return _.reduce(validators, function(errs, check) {
+            if(check(obj)) {
+              return errs
+            }else {
+              return _.chain(errs).push(check.message).value()
+            }
+          }, [])
+        }
+      }
+
+      function validator(msg, fn) {
+        var f = function() {
+          return fn.apply(fn, arguments)
+        }
+        f.message = msg
+        return f
+      }
+
+      function amap(obj) {
+        return _.isObject(obj)
+      }
+
+      function hasKeys() {
+        var keys = _.toArray(arguments)
+
+        var fn = function(obj) {
+          return _.every(keys, function(k) {
+            return _.has(obj, k)
+          })
+        }
+
+        fn.message = ['Must have values for keys:'].concat(keys).join('')
+        return fn
+      }
+
+      var checkCommand = checker(validator('must be a map', amap), hasKeys('msg', 'type'))
+      console.log(checkCommand({}));
+      console.log(checkCommand(42));
+      console.log(checkCommand({msg: 'test', type: 'test'}));
+
+
+      function partial1(fun, arg1) {
+        return function() {
+          // var args = _.toArray(arg1).concat(_.toArray(arguments))
+          return fun.call(fun, arg1, arguments[0])
+        }
+      }
+
+      function contidition() {
+        var validators = _.toArray(arguments)
+        return function(fun, arg) {
+          // var errors = _.map(validators, function(isValid) {
+          //   return isValid(arg) ? [] : isValid['message']
+          // })
+
+          var errors = _.reduce(validators, function(errs, check) {
+            if(check(arg)) {
+              return errs
+            }else {
+              return _.chain(errs).push(check.message).value()
+            }
+          }, [])
+          if(!_.isEmpty(errors)) {
+            throw new Error(errors.join(', '))
+          }
+          return fun(arg)
+        }
+      }
+
+      var validateCommand = contidition(
+        validator('arg must be a object', _.isObject),
+        validator('arg must have corrent keys', hasKeys('msg', 'name'))
+      )
+
+      var createCommand = partial1(validateCommand, _.identity)
+      // console.log(createCommand({msg: '123'}));
+
+      function myLength(arr) {
+        if(_.isEmpty(arr)) {
+          return 0
+        } else {
+          return 1 + myLength(_.rest(arr))
+        }
+      }
+
+      console.log(myLength([1,2,3,4]));
+
+
+      // 生成器
+      function generator(seed, current, step) {
+        return {
+          head: current(seed),
+          tail: function() {
+            return generator(step(seed), current, seed)
+          }
+        }
+      }
+
+      function genHead(gen) { return gen.head }
+      function genTail(gen) { return gen.tail() }
+
+      var init = generator(0, _.identity, function(n) { return n + 1 ;})
+
+      console.log(genHead(init))
+      console.log(genTail(init))
+
+
+      function LazyChain(obj) {
+        this._call = [];
+        this._target = obj;
+      }
+
+      LazyChain.prototype.invoke = function(methodName) {
+        var args = _.rest(arguments);
+
+        this._call.push(function(target) {
+          var meth = target[methodName];
+          return meth.apply(target, args);
+        })
+        return this;
+      }
+
+      LazyChain.prototype.force = function() {
+        _.reduce(this._calls, function(target, thunk) {
+          return thunk(target)
+        }, this._target)
+      }
+      console.log(new LazyChain([2, 1, 3]).invoke('sort').force());
+
+
+    </script>
+    <!-- <script type="text/javascript" src="./xx-underscore.js"></script> -->
+
+  </body>
+</html>

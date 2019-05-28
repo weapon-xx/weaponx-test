@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript" src="../lib/dataCenter.js"></script>
+    <script type="text/javascript">
+      function cb(val) {
+        console.log('cb:')
+        console.log(val)
+      }
+      dataCenter.on('people', cb)
+      dataCenter.on('people', cb)
+
+
+      dataCenter.set('people', {name: 'xx'})
+      // dataCenter.get('people', cb)
+      // dataCenter.set('people', {name: 'jackson'})
+
+      function InverseFizzBuzz(list) {
+        this.list = list;
+      }
+
+      InverseFizzBuzz.prototype.sequence = function() {
+        this.list = this.translate();
+
+        if(this.list.length === 1) {
+          return this.list
+        }
+
+
+      };
+
+      InverseFizzBuzz.prototype.translate = function() {          
+        return this.list.map(item => {
+          if(item === 'fizz') {
+            return 3
+          } else {
+            return 5
+          }
+        })
+      }
+
+      InverseFizzBuzz.prototype.findShortest = function() {
+
+      }
+
+      inverseFizzBuzz = new InverseFizzBuzz(['fizz', 'buzz', 'fizz'])
+
+      console.log(inverseFizzBuzz.sequence())
+
+
+    </script>
+  </body>
+</html>

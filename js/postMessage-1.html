@@ -1,0 +1,13 @@
+<html>
+    <head></head>
+    <body>
+        <div style="background-color: #ccc; width: 200px; height: 200px;"></div>
+        <script>
+            window.parent.postMessage('son message', '*')
+
+            window.addEventListener('message', e => {
+                console.log(e.data)
+            }, false)
+        </script>
+    </body>
+</html>

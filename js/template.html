@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <ul id="list">
+      <% for(var i=0;i<8;i++){ %>
+        <li><%= arr[i]%></li>
+      <% } %>
+    </ul>
+    <script type="text/javascript">
+      function tmpl(str, obj){
+        if(typeof str === 'string'){
+          var str = str.replace(/<%\s*([^=][^%>]*)\s*%>/g, function(){
+            var key = arguments[1]
+            return "';" + key + " tmp+= '"
+          })
+
+          tm = str.replace(/<%=\s*([^>%]+)\s*%>/g, function(){
+            var key = arguments[1].trim()
+            return "' + " + key + " +'"
+          })
+        }
+
+        //  tm  = "return '" + tm
+        tm = "var tmp = \"\";with(obj){ tmp = '" + tm +  "'};return tmp;"
+        console.log(tm);
+
+        var compile = new Function('obj', tm)
+        return compile(obj)
+      }
+
+      // var str = 'hello, my name is <%= name %>'
+      var str = "<% for(var i=0;i<8;i++){ if(arr[i]){ %><li><%= obj[i]%></li><% }}%>"
+      var obj = {name: 'jackson'}
+      var arr = [1,2,3,4]
+
+      console.log(tmpl(str, arr))
+
+      var nodeStr = tmpl(str, arr)
+
+
+      var list = document.getElementById('list')
+      list.innerHTML = nodeStr
+
+    </script>
+  </body>
+</html>

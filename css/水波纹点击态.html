@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      .ripple-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn {
+        width:150px;
+        height:40px;
+        border:1px solid #d9d9d9;
+        outline:none;
+        background:#008DC5;
+        color:#fff;
+      }
+      .ripple{
+         border-radius: 50%;
+         background: rgba(0, 0, 0, .2);
+         -webkit-transform: scale(0);
+         transform: scale(0);
+         position: absolute;
+         opacity: 1;
+      }
+
+      .rippleEffect {
+          -webkit-animation: rippleEffect 2s cubic-bezier(0.23, 1, 0.32, 1);
+          animation: rippleEffect 2s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      @keyframes rippleEffect {
+          100% {
+              -webkit-transform: scale(2);
+              transform: scale(2);
+              opacity: 0;
+          }
+      }
+    </style>
+  </head>
+  <body>
+    <button type="button" name="button" class="btn btn-default ripple-effect">
+      Click!
+      <!-- <div class="ripple"></div> -->
+    </button>
+    <script type="text/javascript">
+      ;(function() {
+        var $btn = document.querySelectorAll('.btn')[0];
+        $btn.addEventListener('click', function(e) {
+           ripple(e, this);
+        },false)
+
+        function ripple(event, $this) {
+          event = event || window.event;
+          //  获取鼠标位置
+          var x = event.pageX || document.documentElement.scrollLeft + document.body.scrollLeft + event.clientX;
+          var y = event.pageY || document.documentElement.scrollTop + document.body.scrollTop + event.clientY;
+          var wx = $this.offsetWidth;
+          x = x - $this.offsetLeft - wx / 2;
+          y = y - $this.offsetTop - wx / 2;
+          // 添加.ripple元素
+          var ripple = document.createElement('span');
+          ripple.className = 'ripple';
+          var firstChild = $this.firstChild;
+          if (firstChild) {
+              $this.insertBefore(ripple, firstChild);
+          } else {
+              $this.appendChild(ripple);
+          };
+          ripple.style.cssText = 'width: ' + wx + 'px;height: ' + wx + 'px;top: ' + y + 'px;left: ' + x + 'px';
+          ripple.classList.add('rippleEffect');
+          //  监听动画结束，删除波纹元素
+          $btn.addEventListener('webkitAnimationEnd', function(){
+            console.log('animation end');
+            $this.removeChild(ripple)
+          })
+        };
+      })()
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var module = (function(){
+        let modules = {};
+
+        function define(name, deps, fn){
+          deps.forEach(function(item, index){
+            deps[index] = modules[item]
+          })
+          modules[name] = fn.apply(fn, deps)
+        }
+
+        function getModule(){
+          return modules
+        }
+
+        return {
+          define: define,
+          getModule: getModule
+        }
+      })()
+
+      module.define('bar', [], ()=>{
+        return {
+          hello: function hello(name){
+            return `let me introduce ${name}`
+          }
+        }
+      })
+
+      module.define('foo', ['bar'], (bar)=>{
+        console.log(bar.hello('jackson'));
+      })
+    </script>
+  </body>
+</html>

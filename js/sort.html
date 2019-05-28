@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // 快排
+      function quickSort(arr) {
+        if(arr.length <= 1){
+          return arr
+        }
+        var copyArr = Array.from(arr);
+        var middleIndex = Math.floor(arr.length / 2)
+        var middleNum = copyArr.splice(middleIndex, 1)
+        var left = []
+        var right = []
+        for(var i = 0, length = copyArr.length; i < length; i++){
+          if(middleNum > copyArr[i]) {
+            left.push(copyArr[i])
+          } else {
+            right.push(copyArr[i])
+          }
+        }
+
+        return quickSort(left).concat(middleNum, quickSort(right))
+      }
+
+      // 数组sort
+      function arraySort(arr) {
+        return arr.sort((x, y) => {
+          return x - y
+        })
+      }
+
+      // 冒泡
+      function propagtionSort(arr) {
+        var cache
+        var length = arr.length - 1
+        for(var i = 0; i < length; i++) {
+          for(var j = 0; j < length - i; j++) {
+            if(arr[j] > arr[j + 1]) {
+              cache = arr[j]
+              arr[j] = arr[j + 1]
+              arr[j + 1] = cache
+            }
+          }
+        }
+        return arr
+      }
+
+      // 选择排序
+      function chooseSort(arr) {
+        for(var i = 0; i < arr.length; i++) {
+          var min = arr[i];
+          for(var j = i + 1; j < arr.length; j++) {
+            if(arr[j] < min) {
+              [min, arr[j]] = [arr[j], min];
+            }
+          }
+          arr[i] = min;
+        }
+        return arr;
+      }
+
+      // 插入排序
+      function insertSort(arr) {
+        // 第一个元素默认为有序，所以从第二个元素开始
+        for(var i = 1; i < arr.length; i++) {
+          var value = arr[i];
+          var j = i - 1;
+          while (j >= 0 && arr[j] > value) {
+            arr[j + 1] = arr[j];
+            j--;
+          }
+          arr[j + 1] = value;
+        }
+        return arr;
+      }
+
+      const arr = [1, 4, 6, 3, 2, 7, 9, 8];
+
+      console.log(quickSort(arr))
+      console.log(arraySort(arr));
+      console.log(propagtionSort(arr));
+      console.log(chooseSort(arr));
+      console.log(insertSort(arr));
+
+    </script>
+  </body>
+</html>

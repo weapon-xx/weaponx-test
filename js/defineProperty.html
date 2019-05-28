@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>defineProperty demo</title>
+    </head>
+    <body>
+        <script>
+            var obj
+            var obj = {
+                arr: []
+            }
+            Object.defineProperty(obj, 'arr', {
+                configurable: true,
+                enumerable: false,
+                get() {
+                    console.log('get method')
+                },
+                set(val) {
+                    console.log('set method')
+                }
+            })
+        </script>
+    </body>
+</html>

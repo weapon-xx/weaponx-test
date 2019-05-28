@@ -1,0 +1,62 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div class="outer" style="width: 300px; height: 200px; background-color: #ccc;">
+            <div class="inner" style="width: 200px; height: 100px; background-color: #000;"></div>
+        </div>
+        <script>
+            console.log('script start');
+            setTimeout(() => {
+                console.log('setTimeout');
+                Promise.resolve().then(data => {
+                    console.log('promise3')
+                })
+            }, 0);
+            Promise.resolve().then(() => {
+                console.log('promise1');
+            }).then(() => {
+                console.log('promise2');
+            });
+            setTimeout(() => {
+                console.log('setTimeout1')
+            }, 0)
+            console.log('script end');
+
+            // 在每一次事件循环中，macrotask 只会提取一个执行，
+            // 而 microtask 会一直提取，直到 microtasks 队列清空
+
+            var outer = document.querySelector('.outer');
+            var inner = document.querySelector('.inner');
+
+            // 监听 ui
+            new MutationObserver(function() {
+                console.log('mutate');
+            }).observe(outer, {
+                attributes: true
+            });
+
+            function onClick() {
+                console.log('click');
+
+                setTimeout(() => {
+                    console.log('timeout');
+                }, 0);
+
+                Promise.resolve().then(() => {
+                    console.log('promise');
+                });
+
+                outer.setAttribute('data-random', Math.random());
+                outer.setAttribute('style', '');
+            }
+
+            inner.addEventListener('click', onClick);
+            outer.addEventListener('click', onClick);
+
+            // inner.click();
+
+        </script>
+    </body>
+</html>

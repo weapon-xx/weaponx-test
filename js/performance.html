@@ -1,0 +1,46 @@
+<html>
+<head>
+    <style>
+        body {
+            background: yellowgreen;
+        }
+    </style>
+    <script>
+        const observer = new PerformanceObserver((list) => {
+            list.getEntries().forEach((entry) => {
+                // Display each reported measurement on console
+                if (console) {
+                    console.log(`
+                        Name: ${entry.name},
+                        Type: ${entry.entryType},
+                        Start: ${entry.startTime},
+                        Duration: ${entry.duration}
+                    `);
+                }
+            });
+        });
+        observer.observe({entryTypes: ['paint']});
+    </script>
+    <script>
+        // const observer = new PerformanceObserver((list) => {
+        //     for (const entry of list.getEntries()) {
+        //         // `name` will be either 'first-paint' or 'first-contentful-paint'.
+        //         const metricName = entry.name;
+        //         const time = Math.round(entry.startTime + entry.duration);
+
+        //         console.log(`
+        //             eventCategory: 'Performance Metrics',
+        //             eventAction: ${metricName},
+        //             eventValue: ${time},
+        //         `);
+        //     }
+        // });
+
+        // // Start observing paint entries.
+        // observer.observe({entryTypes: ['paint']});
+    </script>
+</head>
+<body>
+    <h3>test</h3>
+</body>
+</html>

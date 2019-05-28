@@ -1,0 +1,31 @@
+<html>
+    <head></head>
+    <body>
+        
+        <script>
+            console.log('task begin');
+
+            setTimeout(() => {
+                console.log('setTimeout 1');
+            }, 0)
+
+            Promise.resolve().then(data => {
+                console.log('promise');
+            })
+            
+            var channel = new MessageChannel();
+            var port = channel.port2;
+            channel.port1.onmessage = (...args) => {
+                console.log(args);
+            };
+
+            port.postMessage(1);
+
+            setTimeout(() => {
+                console.log('setTimeout 2');
+            }, 0)
+
+            console.log('task end');
+        </script>
+    </body>
+</html>

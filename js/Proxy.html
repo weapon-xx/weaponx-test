@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const obj = new Proxy({}, {
+        get(target, key, receiver) {
+          console.log(`getting ${key}`);
+          return Reflect.get(target, key, receiver);
+        },
+        set(target, key, value, receiver) {
+          console.log(`setting ${key}`);
+          return Reflect.set(target, key, value, receiver);
+        }
+      });
+
+      console.log(obj);
+      obj.counter = 1;
+      obj.counter++;
+    </script>
+  </body>
+</html>

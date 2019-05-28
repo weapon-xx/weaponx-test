@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+      .container{
+        width: 100%;
+        float: left;
+        position: relative;
+        overflow: hidden;
+      }
+      .content{
+        list-style: none;
+        clear: left;
+         float: left;
+         position: relative;
+         left: 50%;/*整个分页向右边移动宽度的50%*/
+         text-align: center;
+      }
+      .content li{
+        float: left;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        background-color: #eee;
+        text-align: center;
+        line-height: 25px;
+         margin: 0 5px;
+        display: block;
+         position: relative;
+         right: 50%;/*将每个分页项向左边移动宽度的50%*/
+      }
+      .box1{
+          width: fit-content;
+        width: 400px;
+        height: 400px;
+        background-color: #ccc;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <ul class="content">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+      </ul>
+    </div>
+
+    <div class="box1">
+
+    </div>
+  </body>
+</html>

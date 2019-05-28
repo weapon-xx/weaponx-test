@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <style>
+            .light {
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <div class="light"></div>
+        <script>
+            function stay(duration) {
+                return new Promise((resolve) => {
+                    setTimeout(resolve, duration);
+                })
+            }
+
+            function run() {
+                const light = document.querySelector('.light');
+                light.style.background = 'green';
+                stay(3e3).then(() => {
+                    light.style.background = 'yellow';
+                    return stay(1e3);
+                }).then(() => {
+                    light.style.background = 'red';
+                    return stay(2e3);
+                }).then(() => {
+                    run();
+                });
+            }
+
+            run();
+        </script>
+    </body>
+</html>

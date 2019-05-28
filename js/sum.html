@@ -1,0 +1,41 @@
+<html>
+    <head></head>
+    <body>
+        <script>
+            const search = (arr, count, sum) => {
+                let result = [];
+                const { length } = arr, total = 1 << length;
+
+                function statistics(num) {
+                    // 正则
+                    // return num.toString(2).replace(/0/, '').length
+                    let count = 0;
+                    while(num) {
+                        num &= num - 1;
+                        count++;
+                    }
+                    return count
+                }
+
+                // 遍历所有情况
+                for(let i = 1; i < total; i += 1) {
+                    if (statistics(i) === count) {
+                        let s = 0, tmp = [];
+                        for (let j = 0; j < arr.length; j += 1) {
+                            if ((i & (1 << j)) !== 0) {
+                                s += arr[j];
+                                tmp.push(arr[j]);
+                            }
+                        }
+                        if (s === sum) {
+                            result.push(tmp);
+                        }
+                    }
+                }
+                return result;
+            }
+
+            console.log(search([1, 2, 3, 4], 3, 9))
+        </script>
+    </body>
+</html>

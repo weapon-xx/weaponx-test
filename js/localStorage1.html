@@ -1,0 +1,12 @@
+<html>
+    <head></head>
+    <body>
+        <button class="btn">点击!</button>
+        <script>
+            // 触发 storage 修改
+            document.querySelector('.btn').addEventListener('click', e => {
+                localStorage.setItem('message', Date.now())
+            }, false)
+        </script>  
+    </body>
+</html>

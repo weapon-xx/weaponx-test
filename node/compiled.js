@@ -1,0 +1,2 @@
+var render = function () {with(this){return _c('div',{staticClass:"container"},[_c('div',{},[_v("\n    "+_s(title)+"\n  ")]),_v(" "),_c('ul',_l((list),function(item,index){return _c('li',{on:{"click":function($event){click(index)}}},[_v("\n      "+_s(item.text)+"\n    ")])}))])}}
+var staticRenderFns = []

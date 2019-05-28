@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- <img :src="'www.qq.com/' + obj.name + '.jpg'" alt=""> -->
+      <div id="app" :src="name" ref="name">
+        {{name}}
+      </div>
+      <div>
+        <button @click="changeArr">click</button>
+        <ul>
+          <li :key="index" v-for="(item, index) in arr">
+            <xx :text="item">
+              
+            </xx>
+          </li>
+        </ul>
+      </div>
+      <!-- <div class=""  @click="change">
+        click
+      </div> -->
+      <!-- <button @click="click">click</button> -->
+    </div>
+    <script type="text/javascript" src="../lib/vue-2.5.16.js"></script>
+    <script type="text/javascript">
+      const vm = new Vue({
+        el: '.container',
+        components: {
+          xx: {
+            template: `<div>
+                <input type="text" v-model="text">
+              </div>`,
+              props: ['text']
+          }
+        },
+        data() {
+          return {
+            message : 'test',
+            name: 111,
+            arr: [1, 2, 3, 4, 5, 6]
+          }
+        },
+        // watch: {
+        //   name(nval) {
+        //     // 当值多次修改时，只会进入 watch 回调
+        //     console.log(nval)
+        //   }
+        // },
+        methods: {
+          changeArr() {
+            this.arr = [8, 9, 10, 11, 12, 13]
+          }
+        },
+        beforeCreate() {
+          // console.log(this.name)      // undefined
+        },
+        created() {
+          // console.log(this.name)      // 111
+        },
+        beforeMount() {
+          // console.log(this.name)      // 111
+        },
+        beforeUpdate() {
+          // console.log(this.name)
+        },
+        updated() {
+          // console.log(this.name)
+        },
+        mounted() {
+            this.name = '123'   // 第一次更新
+            this.name = '456'   // 第二次更新
+            // console.log(this.$refs.name.innerText)
+            Vue.nextTick(nextTickCb.bind(this))
+            function nextTickCb() {
+              console.log(this.$refs.name.innerText)
+            }
+            // 为什么 nextTick 回调中，DOM 就进行了更新？
+            // 1.因为数据进行修改时，会向异步队列插入一个修改的「任务a」，而 nextTick 也是向异步队列中插入一个异步任务b？？？
+            // 是的，都会向 callbacks 数组中插入一个回调函数。
+            // 2.为什么在 123 修改被推入到异步队列后，在执行 456 更新的时候又更新了异步队列？？？
+            // 因为每个 watcher 都有自己的 id，这个 id 是自增并且唯一的，当我们修改多次 data（name）时，框架会判断当前队列 queue 中是否
+            // 存在这个 id，当存在时不会再推入到队列当中
+            // 3.那么 vue 是如何保证 nextTick 总是在数据更新之后运行的呢？
+            // 并不能保证，nextTick 必须要在数据更新之后调用，在回调函数才能获取更新后数据
+            // 4.在 microTask/macroTask 中，框架会执行 flushCallbacks 函数，在函数中会调用 flushSchedulerQueue 函数，
+            // 在 flushSchedulerQueue 函数中会调用 wathcer get 方法，就执行了 virtual dom 的 patch 和渲染，进行视图的更新。
+            // 
+            
+        }
+      })
+
+      // var data = {name : 'xx'}
+      // observe(data)
+      //
+      // function observe(data){
+      //   if(!data || typeof data !== 'object'){
+      //     return
+      //   }
+      //   Object.keys(data).forEach(function(key){
+      //     defineReactive(data,key,data[key])
+      //   })
+      // }
+      //
+      // function defineReactive(data,key,val){
+      //   var dep = new Dep();
+      //   observe(val)
+      //   Object.defineProperty(data,key,{
+      //     enumerable : true,
+      //     configurable : false,
+      //     get : function(){
+      //       return val
+      //     },
+      //     set : function(newVal){
+      //       console.log(`oldVal : ${val};newVal : ${newVal}`);
+      //       if(val === newVal){
+      //         return
+      //       }
+      //       dep.notify()
+      //       console.log('data is change');
+      //       val = newVal
+      //     }
+      //   })
+      // }
+      //
+      // function Dep(){
+      //   this.subs = []
+      // }
+      //
+      // Dep.prototype = {
+      //   addSub : function(sub){
+      //     this.subs.push(sub)
+      //   },
+      //   notify : function(){
+      //     this.subs.forEach(function(sub){
+      //       sub.update()
+      //     })
+      //   }
+      // }
+
+    </script>
+  </body>
+</html>
