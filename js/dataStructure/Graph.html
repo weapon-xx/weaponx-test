@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>图</title>
+    </head>
+    <body>
+        <script>
+            var tree = {
+                name: 'root',
+                children: [
+                    {
+                        name: 'child1',
+                        children: [
+                            {
+                                name: 'child1_1',
+                                children: [],
+                            },
+                            { 
+                                name: 'child1_2',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        name: 'child2',
+                        children: [
+                            {
+                                name: 'child2_1',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        name: 'child3',
+                        children: [
+                            {
+                                name: 'child3_1',
+                                children: [],
+                            },
+                        ],
+                    },
+                ]
+            };
+
+            // 图广度遍历
+            function breadthTravers(graph) {
+                const nodes = [];
+                if (graph) {
+                    const queue = [];
+                    queue.unshift(graph);
+                    while (queue.length !== 0) {
+                        const item = queue.shift();
+                        const { name, children } = item;
+                        nodes.push(name);
+                        for (let i = 0; i < children.length; i++) {
+                            queue.push(children[i]);
+                        }
+                    }
+                }
+                return nodes;
+            }
+
+            // console.log(breadthTravers(tree));
+
+            // 图深度遍历
+            function deepTravers(tree) {
+                let nodes = [];
+                nodes.push(tree.name);
+            
+                if (tree) {
+                    const { children } = tree;
+                    children.forEach((child) => {
+                        nodes = nodes.concat(deepTravers(child));
+                    });
+                }
+                return nodes;
+            }
+            console.log(deepTravers(tree));
+        </script>
+    </body>
+</html>
