@@ -1,0 +1,208 @@
+<html>
+    <head>
+        <title>水波效果</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                padding: 20px;
+            }
+            .canvas {
+                display: block;
+                width: 300px;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <canvas class="canvas"></canvas>
+        </div>
+        <script>
+            class Water {
+                constructor({
+                    el,
+                    width = 300,
+                    height = 300,
+                    lines = [],
+                    shape = 'circle',
+                    riseAnimation = false,
+                    container = {},
+                    ...args
+                }) {
+                    let canvas;
+                    if(typeof el === 'string') {
+                        canvas = document.querySelector('canvas');
+                        if (!canvas) {
+                            throw new Error(`el: ${el} is not found`);
+                        }
+                    } else if (el instanceof HTMLElement) {
+                        canvas = el;
+                    } else {
+                        throw new TypeError('argument el error');
+                    }
+                    
+                    canvas.height = width;
+                    canvas.width = height;
+                    this.canvas = canvas;
+                    this.riseAnimation = riseAnimation;
+                    this.canvasWidth = canvas.width;
+                    this.canvasHeight = canvas.height;
+                    this.ctx = canvas.getContext('2d');
+                    this.text = args.text;
+
+                    this.lines = this.initLines(lines);
+                    switch (container.shape) {
+                        case 'circle':
+                            this.drawCircle(container);
+                            break;
+                    }
+                }
+
+                initLines(lines) {
+                    return lines.map((line) => {
+                        return Object.assign({}, {
+                            xOffset: 0,
+                            direction: 'left',
+                            speed: 0.05,
+                            startX: 0,
+                            currentLevel: 0, // 当前水位
+                            waterLevel: 0.5, // 目标水位
+                            waveHeight: 5, // 波浪高度，数越大越高
+                            waveWidth: 0.05, // 波浪宽度，数越小越宽
+                            lineWidth: 1, // 线条宽度
+                            fillStyle: '#eee', // 线条颜色
+                            alpha: 1, // 颜色透明度
+                        }, line);
+                    });
+                }
+
+                drawCircle(container) {
+                    const { ctx, canvasWidth, canvasHeight } = this;
+                    const r = canvasWidth / 2;
+                    const lineWidth = container.lineWidth || 3;
+                    const cR = r - (lineWidth);
+                    ctx.lineWidth = lineWidth;
+                    ctx.strokeStyle = container.color;
+                    ctx.beginPath();
+                    ctx.arc(r, r, cR, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    ctx.clip();
+                }
+
+                drawText() {
+                    let { ctx, text } = this;
+                    if(text) {
+                        text.position = text.position || [0, 0];
+                        text.content = text.content || 'This is TEXT';
+                        ctx.font = text.font || '60px New Roman';
+                        ctx.fillStyle = text.color || '#fff';
+                        ctx.globalAlpha = text.alpha || 1;
+                        
+                        ctx.fillText(text.content, ...text.position);
+                    }
+                }
+
+                move() {
+                    const { ctx, canvasWidth, canvasHeight } = this;
+                    this.drawLine();
+                    this.drawText();
+                    this.lines = this.lines.map((line) => {
+                        const { direction } = line;
+                        // 波峰位移
+                        if (direction === 'random') {
+                            line.speed = Math.random() > 0.5 ? line.speed : -line.speed;
+                        } else if (direction === 'right') {
+                            line.speed = -line.speed;
+                        } else {
+                            line.speed = line.speed;
+                        }
+                        line.xOffset += line.speed;
+
+                        // 水位上升动画
+                        if (this.riseAnimation) {
+                            if (line.currentLevel < line.waterLevel) {
+                                line.currentLevel += 0.01;
+                            }
+                        } else {
+                            line.currentLevel = line.waterLevel;
+                        }
+
+                        return line;
+                    });
+                    requestAnimationFrame(this.move.bind(this));
+                }
+
+                drawLine() {
+                    const points = [];
+                    const { ctx, canvasWidth, canvasHeight } = this;
+
+                    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+                    this.lines.forEach((line) => {
+                        const { startX, currentLevel, waveWidth, waveHeight, xOffset, fillStyle, lineWidth, alpha } = line;
+                        const waterHeight = (1 - currentLevel) * canvasHeight;
+                        ctx.lineWidth = lineWidth;
+
+                        // var lineargradient = ctx.createLinearGradient(0, 100, 300, 300);
+                        // lineargradient.addColorStop(0, '#60b3effa');
+                        // lineargradient.addColorStop(0.5, '#90d1ff73');
+                        // lineargradient.addColorStop(1, '#60b3effa');
+
+                        ctx.fillStyle = fillStyle;
+                        ctx.globalAlpha = alpha;
+                        ctx.beginPath(startX, waterHeight);
+                        for (let x = startX; x < startX + canvasWidth; x += 10 / canvasWidth ) {
+                            const y = waveHeight * Math.sin((startX + x) * waveWidth + xOffset);
+                            ctx.lineTo(x, waterHeight + y); // 绘制曲线
+                            points.push(y);
+                        }
+                        ctx.lineTo(canvasWidth, canvasHeight);
+                        ctx.lineTo(0, canvasHeight);
+                        ctx.lineTo(startX, waterHeight);
+                        // ctx.closePath();
+                        ctx.fill(); // 填充
+                    });
+                }
+            }
+
+            const w = new Water({
+                el: 'canvas',
+                width: 300,
+                height: 300,
+                riseAnimation: true,
+                text: {
+                    content: 'TEST',
+                    position: [80, 220],
+                },
+                lines : [
+                    { 
+                        xOffset: 1,
+                        direction: 'left',
+                        fillStyle: '#90d1ff73',
+                        waveWidth: 0.03,
+                        waveHeight: 10,
+                        speed: 0.04,
+                        waterLevel: 0.6,
+                    }, 
+                    { 
+                        xOffset: 200,
+                        direction: 'left',
+                        fillStyle: '#60b3effa',
+                        waveHeight: 8,
+                        speed: 0.03,
+                        alpha: 0.8,
+                        waterLevel: 0.6,
+                    },
+                ],
+                container: {
+                    shape: 'circle',
+                    lineWidth: 3,
+                    color: '#60b3effa',
+                },
+            });
+            w.move();
+        </script>
+    </body>
+</html>
