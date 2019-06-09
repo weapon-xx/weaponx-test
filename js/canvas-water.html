@@ -64,10 +64,10 @@
                 initLines(lines) {
                     return lines.map((line) => {
                         return Object.assign({}, {
-                            xOffset: 0,
-                            direction: 'left',
-                            speed: 0.05,
-                            startX: 0,
+                            xOffset: 0, // x轴偏移
+                            direction: 'left', // left: 向左流动；right: 向右流动
+                            speed: 0.05, // 水流速度
+                            startX: 0, // 水位开始横轴坐标
                             currentLevel: 0, // 当前水位
                             waterLevel: 0.5, // 目标水位
                             waveHeight: 5, // 波浪高度，数越大越高
@@ -87,7 +87,7 @@
                     ctx.lineWidth = lineWidth;
                     ctx.strokeStyle = container.color;
                     ctx.beginPath();
-                    ctx.arc(r, r, cR, 0, 2 * Math.PI);
+                    ctx.arc(r, r, cR, 0, 2 * Math.PI); // 绘制圆形容器
                     ctx.stroke();
                     ctx.clip();
                 }
@@ -112,12 +112,10 @@
                     this.lines = this.lines.map((line) => {
                         const { direction } = line;
                         // 波峰位移
-                        if (direction === 'random') {
-                            line.speed = Math.random() > 0.5 ? line.speed : -line.speed;
+                        if (direction === 'left') {
+                            line.speed = line.speed;
                         } else if (direction === 'right') {
                             line.speed = -line.speed;
-                        } else {
-                            line.speed = line.speed;
                         }
                         line.xOffset += line.speed;
 
