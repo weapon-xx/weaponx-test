@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>自定义事件</title>
+    </head>
+    <body>
+        <button id="btn">click</button>
+        <button id="btn1">click</button>
+
+        <script>
+            // Event
+            let btn = document.querySelector('#btn');
+            let ev = new Event('alert', {
+                bubbles: true,    //事件是否冒泡;默认值false
+                cancelable: true, //事件能否被取消;默认值false
+                composed: false
+            });
+
+            btn.addEventListener('alert', function (event) {
+                console.log(event.bubbles); //true
+                console.log(event.cancelable); //true
+                console.log(event.detail); //undefined
+            }, false);
+            btn.dispatchEvent(ev);
+
+            // createEvent
+            var btn1 = document.querySelector('#btn1');
+            /*
+            * 第一个参数是事件类型
+            * 第二个参数是一个对象
+            */
+            var ev1 = new CustomEvent('alert1', {
+                bubbles: 'true',
+                cancelable: 'true',
+                detail: 'button'
+            });
+            btn1.addEventListener('alert1', function (event) {
+                console.log(event.bubbles); //true
+                console.log(event.cancelable);//true
+                console.log(event.detail); //button
+            }, false);
+            btn1.dispatchEvent(ev1);
+
+
+        </script>
+    </body>
+</html>

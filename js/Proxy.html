@@ -6,20 +6,28 @@
   </head>
   <body>
     <script type="text/javascript">
-      const obj = new Proxy({}, {
-        get(target, key, receiver) {
-          console.log(`getting ${key}`);
-          return Reflect.get(target, key, receiver);
-        },
-        set(target, key, value, receiver) {
-          console.log(`setting ${key}`);
-          return Reflect.set(target, key, value, receiver);
-        }
+      let obj = {name: 'Yvette', hobbits: ['travel', 'reading'], info: {
+          age: 20,
+          job: 'engineer'
+      }};
+
+      let p = new Proxy(obj, {
+          get(target, key) { //第三个参数是 proxy， 一般不使用
+              console.log('读取成功');
+              return Reflect.get(target, key);
+          },
+          set(target, key, value) {
+              if(key === 'length') return true; //如果是数组长度的变化，返回。
+              console.log('设置成功');
+              return Reflect.set([target, key, value]);
+          }
       });
 
-      console.log(obj);
-      obj.counter = 1;
-      obj.counter++;
+      p.name = 20; //设置成功
+      p.age = 20; //设置成功; 不需要事先定义此属性
+      p.hobbits.push('photography'); //读取成功;注意不会触发设置成功
+      p.info.age = 18; //读取成功;不会触发设置成功
+
     </script>
   </body>
 </html>
