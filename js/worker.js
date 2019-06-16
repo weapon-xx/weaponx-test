@@ -1,5 +1,6 @@
 //worker.js
-onmessage = function (e) {
+let time = 1;
+onmessage = (e) => {
     console.log(e.data); // Hello
-    postMessage('Hi'); // 向主进程发送消息
+    postMessage(`Hi ${time++}`); // 向主进程发送消息
 };

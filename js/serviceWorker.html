@@ -1,0 +1,39 @@
+<html>
+    <head>  
+        <title>service worker</title>
+    </head>
+    <body>
+        <p class="status"></p>
+        <script>
+            const p = document.querySelector('.status');
+            if ('serviceWorker' in navigator) {
+                console.log('register service worker');
+                navigator.serviceWorker.register('/js/sw.js')
+                .then((reg) => {
+                    // register success
+                    console.log('success');
+                    if (reg.installing) {
+                        p.textContent = 'installing';
+                    } else if (reg.waiting) {
+                        p.textContent = 'waiting';
+                    } else if (reg.active) {
+                        p.textContent = 'active';
+                    }
+                    
+                    
+                }).catch((err) => {
+                    // register error
+                    console.log(`error: ${err}`);
+                });
+            } else {
+                // no support
+            }
+
+            setTimeout(() => {
+                            fetch('/js/async.js').then((data) => {
+                                console.log(data.text());
+                            });
+                        }, 5e3);
+        </script>
+    </body>
+</html>

@@ -3,12 +3,22 @@
         <title>webWroker demo</title>
     </head>
     <body>
+        <button class="btn">Click PostMessage!</button>
+        <p class="receive">
+
+        </p>
         <script>
+            const btn = document.querySelector('.btn');
+            const p = document.querySelector('.receive');
             const worker = new Worker('./js/worker.js');
-            worker.postMessage('hello');
+            btn.addEventListener('click', (event) => {
+                worker.postMessage('hello');
+            });
+
             worker.onmessage = (e) => {
                 console.log(e.data);
-                worker.terminate(); // 结束子线程
+                p.innerText = e.data;
+                // worker.terminate(); // 结束子线程
             };
         </script>
     </body>
