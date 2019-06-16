@@ -20,6 +20,19 @@ this.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', event => {
     console.log('fetch event');
+    const url = new URL(event.request.url);
+    console.log(url);
+
+    event.respondWith(
+        caches.match(event.request).then(response => {
+            // cache hit
+            if (response) {
+                return response;
+            }
+
+            return fetch(event.request.clone());
+        })
+    );
 });
 
 
