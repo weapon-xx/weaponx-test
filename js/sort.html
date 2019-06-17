@@ -79,13 +79,57 @@
         return arr;
       }
 
+      // 堆排序
+      function heapSort(arr) {
+        function buildHeap(arr, i, size) {
+          // 找出左、右子节点的下标
+          const left = 2 * i + 1;
+          const right = 2 * i + 2;
+          let large = i;
+
+          // 若子节点比父节点大，则标记下标
+          if(left <= size && arr[left] > arr[large]) {
+            large = left;
+          }
+          if(right <= size && arr[right] > arr[large]) {
+            large = right;
+          }
+
+          // 交换父子节点，再往深度递归计算
+          if(large !== i) {
+            [arr[i], arr[large]] = [arr[large], arr[i]];
+            buildHeap(arr, large, size);
+          }
+        }
+        
+        const { length } = arr;
+        if(length <= 1) {
+          return arr;
+        } else {
+          // 从第一个非叶子节点开始建堆得到「大顶堆」
+          for (let i = Math.floor(length / 2 - 1); i >= 0; i--) {
+            buildHeap(arr, i, length);
+          }
+          
+          for (let j = 0; j < length; j++) {
+            const lastIndex = length - j -1;
+            // 交换根节点和尾节点
+            [arr[0], arr[lastIndex]] = [arr[lastIndex], arr[0]];
+            // 去除尾节点后再重新建堆
+            buildHeap(arr, 0, length - j - 2);
+          }
+          return arr;
+        }
+      }
+
       const arr = [1, 4, 6, 3, 2, 7, 9, 8];
 
       console.log(quickSort(arr))
-      console.log(arraySort(arr));
-      console.log(propagtionSort(arr));
-      console.log(chooseSort(arr));
-      console.log(insertSort(arr));
+      // console.log(arraySort(arr));
+      // console.log(propagtionSort(arr));
+      // console.log(chooseSort(arr));
+      // console.log(insertSort(arr));
+      console.log(heapSort(arr));
 
     </script>
   </body>
