@@ -29,11 +29,9 @@
                 // no support
             }
 
-            setTimeout(() => {
-                            fetch('/js/async.js').then((data) => {
-                                console.log(data.text());
-                            });
-                        }, 5e3);
+            fetch('/js/async.js').then((data) => {
+                console.log(data.text());
+            });
         </script>
     </body>
 </html>
