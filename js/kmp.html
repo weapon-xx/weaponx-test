@@ -12,9 +12,64 @@
         const target = `ABCDABD`;
 
         function kmp(target, source) {
-            const arr = target.split('');
-            
+            const map = target.split('').map(() => 0);
+
+            for (let i = 0; i < target.length; i++) {
+                const str = target.slice(0, i + 1);
+                if (str.length === 1) {
+                    map[i] = 0;
+                    continue;
+                }
+
+                let prefixs = [];
+                let suffixs = [];
+                for (let j = 0; j < str.length; j++) {
+                    const prefix = str.slice(0, j + 1);
+                    const suffix = str.slice(j + 1);
+                    if (prefix && suffix) {
+                        prefixs.push(prefix);
+                        suffixs.push(suffix);
+                    }
+                }
+                for (let x = 0; x < prefixs.length; x++) {
+                    if(suffixs.includes(prefixs[x])) {
+                        if (map[i] < prefixs[x].length) {
+                            map[i] = prefixs[x].length;
+                        }
+                    }
+                }
+            }
+            return map;
         }
+
+        function isSubstring(target, source) {
+            const map = kmp(target);
+            let matched = false;
+            for (let i = 0; i < source.length; i++) {
+                if (matched) {
+                    break;
+                }
+                let index = i;
+                for (let j = 0; j < target.length; j++) {
+                    if (source[index] !== target[j]) {
+                        if (j !== 0) {
+                            // 移动位数 = 已匹配的字符数 - 最后一个匹配字符的对应值
+                            // 最后 - 1 是为了抵消循环中的 i 自增
+                            i += j - map[j - 1] - 1;
+                        }
+                        break;
+                    } else if (source[index] === target[j]) {
+                        if (j === target.length - 1) {
+                            matched = true;
+                            break;
+                        }
+                        index++;
+                    }
+                }
+            }
+            return matched;
+        }
+        console.log(isSubstring(target, source));
     </script>
 </body>
 </html>
