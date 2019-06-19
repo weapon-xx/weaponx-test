@@ -1,7 +1,11 @@
-import {say, name} from './util.js'
+if ( process.env.NODE_ENV === 'development' ) {
+  console.log('jacksonx');
+}
 
-say()
-console.log(name)
+import { say, name } from './util.js';
+
+say();
+console.log(name);
 
 let a = 1;
 console.log(a);
@@ -10,12 +14,17 @@ class Person {
   constructor() {
     console.log(1123);
   }
+};
+
+async function test() {
+  const res = await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('done');
+    })
+  });
+  console.log(res);
 }
 
-new Promise(resolve => {
-  setTimeout(resolve, 1e3)
-}).then(data => {
-  console.log('done')
-})
+test();
 
-console.log([1, 2, 3].includes(3))
+console.log([1, 2, 3].includes(3));

@@ -10,10 +10,10 @@ const cdnPrefix = '',
 
 //编译输出路径
 module.exports = {
-    mode: 'development' ,
+    mode: 'development',
     entry: [
-      'babel-polyfill',
-      './webpack/main.js'
+        'babel-polyfill',
+        './webpack/main.js'
     ],
     output: {
         path: __dirname + buildPath,
@@ -26,24 +26,50 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules|vue\/dist/,
             loader: 'babel-loader',
+            options: {
+                
+                presets: [
+                    [
+                        '@babel/preset-env',
+                        {
+                            "useBuiltIns": "entry",
+                        }
+                    ],
+                    // [
+                    //     "env", {
+                    //     "modules": false
+                    //     }
+                    // ],
+                    // "stage-2"
+                ],
+                plugins: [
+                    [
+                        'test',
+                        {
+                            'a': 'jacksonx',
+                        },
+                    ],
+                    // "transform-runtime",
+                ],
+            },
         }]
     },
     optimization: {
         // runtimeChunk: {
         //     name: 'manifest'
         // },
-        minimize:false,
+        // minimize:false,
         splitChunks: {
           chunks: 'all',
           name: 'common',
-            // cacheGroups: {
-            //     commons: {
-            //         test: /[\\/]node_modules[\\/]/,
-            //         name: 'vendor',
-            //         chunks: 'all'
-            //     }
-            // }
-        }
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor',
+                    chunks: 'all',
+                },
+            },
+        },
     },
     devtool: 'cheap-module-eval-source-map' //'source-map'
 };

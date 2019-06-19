@@ -3,4 +3,5 @@ node_modules
 npm-debug.log
 .vscode
 /parcel/dist
-/dist
+dist
+

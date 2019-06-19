@@ -1,7 +1,5 @@
-function say() {
-    console.log('this is util say method')
+export function say() {
+    console.log('this is util say method');
 }
 
-const name = 'xx'
-
-export {say, name}
+export const name = 'xx';
