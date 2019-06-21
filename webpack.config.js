@@ -1,12 +1,8 @@
 'use strict'
-
-const path = require('path')
-const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')    // 分离 css 样式文件
-
-const cdnPrefix = '',
-      buildPath = '/dist/',
-      publishPath = cdnPrefix + buildPath;
+const cdnPrefix = '';
+const buildPath = '/dist/';
+const publishPath = cdnPrefix + buildPath;
+const HelloWorldPlugin = require('./webpack/plugin/HelloWorldPlugin.js');
 
 //编译输出路径
 module.exports = {
@@ -29,12 +25,12 @@ module.exports = {
             options: {
                 
                 presets: [
-                    [
-                        '@babel/preset-env',
-                        {
-                            "useBuiltIns": "entry",
-                        }
-                    ],
+                    // [
+                    //     '@babel/preset-env',
+                    //     {
+                    //         "useBuiltIns": "entry",
+                    //     }
+                    // ],
                     // [
                     //     "env", {
                     //     "modules": false
@@ -49,7 +45,7 @@ module.exports = {
                             'a': 'jacksonx',
                         },
                     ],
-                    // "transform-runtime",
+                    "@babel/transform-runtime",
                 ],
             },
         }]
@@ -71,5 +67,8 @@ module.exports = {
             },
         },
     },
-    devtool: 'cheap-module-eval-source-map' //'source-map'
+    devtool: 'cheap-module-eval-source-map', //'source-map'
+    plugins: [
+        new HelloWorldPlugin({ option: true }),
+    ],
 };
