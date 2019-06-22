@@ -1,4 +1,5 @@
 'use strict'
+const path = require('path');
 const cdnPrefix = '';
 const buildPath = '/dist/';
 const publishPath = cdnPrefix + buildPath;
@@ -23,7 +24,6 @@ module.exports = {
             exclude: /node_modules|vue\/dist/,
             loader: 'babel-loader',
             options: {
-                
                 presets: [
                     // [
                     //     '@babel/preset-env',
@@ -48,7 +48,13 @@ module.exports = {
                     "@babel/transform-runtime",
                 ],
             },
+        }, {
+            test: /\.html$/,
+            use: ['html-loader', 'HelloWorldLoader'],
         }]
+    },
+    resolveLoader: {
+        modules: [path.join(__dirname, './webpack/loader'), 'node_modules']
     },
     optimization: {
         // runtimeChunk: {

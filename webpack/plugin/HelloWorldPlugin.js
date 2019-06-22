@@ -14,6 +14,7 @@ class HelloWorldPlugin {
         console.log('解析钩子');
       });
 
+      
       compiler.hooks.emit.tapAsync('async plugin', (compilation, callback) => {
         // @see https://webpack.docschina.org/api/compilation-hooks/#src/components/Sidebar/Sidebar.jsx
         console.log('异步钩子\n');

@@ -4,6 +4,9 @@ if ( process.env.NODE_ENV === 'development' ) {
 
 import { say, name } from './util.js';
 
+const html = require('./index.html');
+
+
 say();
 console.log(name);
 
