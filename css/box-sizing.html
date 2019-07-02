@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>box-sizing</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            .box1, .box2 {
+                width: 300px;
+                height: 200px;
+                padding: 10;
+                margin: 20px;
+            }
+
+            .box1 {
+                box-sizing: content-box;
+                background: yellow;
+            }
+
+            .box2 {
+                box-sizing: border-box;
+                background: grey;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box1"></div>
+        <div class="box2"></div>
+    </body>
+</html>

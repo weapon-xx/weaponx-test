@@ -45,7 +45,8 @@ module.exports = {
                             'a': 'jacksonx',
                         },
                     ],
-                    "@babel/transform-runtime",
+                    '@babel/transform-runtime',
+                    '@babel/plugin-syntax-dynamic-import',
                 ],
             },
         }, {
