@@ -1,4 +1,6 @@
 console.log('script start1111');
+console.log(1);
+console.log(2);
 
 process.nextTick(() => {
     console.log('nextTick 执行1');
