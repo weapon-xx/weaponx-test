@@ -6,7 +6,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
 // 指定静态资源路径
-app.use(express.static('../'));      
+app.use(express.static(path.resolve(__dirname)));      
 
 // 设置渲染引擎
 app.set('view engine', 'html');

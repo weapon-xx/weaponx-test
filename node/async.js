@@ -3,3 +3,7 @@ async function f() {
 }
 
 f().then(v => console.log(v))
+
+const test = require('../node_modules/npm-test-xx/index')
+
+test()
