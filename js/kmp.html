@@ -14,16 +14,19 @@
         function kmp(target, source) {
             const map = target.split('').map(() => 0);
 
-            for (let i = 0; i < target.length; i++) {
+            // 切分目标字符串
+            for (let i = 0; i < target.length - 1; i++) {
                 const str = target.slice(0, i + 1);
+                // 假如切分字符串长度为 1，就没有前后缀之分，匹配数为 0
                 if (str.length === 1) {
                     map[i] = 0;
                     continue;
                 }
 
+                // 计算出切分字符串的所有前缀 & 后缀
                 let prefixs = [];
                 let suffixs = [];
-                for (let j = 0; j < str.length; j++) {
+                for (let j = 0; j < str.length - 1; j++) {
                     const prefix = str.slice(0, j + 1);
                     const suffix = str.slice(j + 1);
                     if (prefix && suffix) {

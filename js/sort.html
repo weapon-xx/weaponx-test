@@ -106,7 +106,7 @@
         if(length <= 1) {
           return arr;
         } else {
-          // 从第一个非叶子节点开始建堆得到「大顶堆」
+          // 从最后一个非叶子节点开始建堆得到「大顶堆」
           for (let i = Math.floor(length / 2 - 1); i >= 0; i--) {
             buildHeap(arr, i, length);
           }

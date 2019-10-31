@@ -18,6 +18,39 @@
             .box1 { 
                 flex-shrink: 2; 
             }
+            .container {
+                display: flex;
+                width: 600px;
+                height: 200px;
+                background: #ccc;
+            }
+            .first-child {
+                width: 500px;
+                height: 200px;
+                flex-shrink: 1;
+                background-color: aqua;
+            }
+            .last-child {
+                width: 400px;
+                height: 200px;
+                flex-shrink: 2;
+                background-color: blueviolet;
+            }
+            .rotate {
+                height: 100px;
+                width: 100px;
+                background: red;
+                /* transition: all 3s linear; */
+                animation: rotate 3s infinite linear;
+            }
+            @keyframes rotate {
+                0%{
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
         </style>
     </head>
     <body>
@@ -28,6 +61,17 @@
             <div class="box1" style="background-color:brown;">D</div>
             <div class="box1" style="background-color:lightgreen;">E</div>
         </div>
+
+        <!-- 1.先计算出溢出部分宽度为:400 + 500 - 600 = 300 -->
+        <!-- 2.计算出总权重:500 * 1(flex-shrink) + 400 * 2(flex-shrink) = 1300 -->
+        <!-- 3.计算出需要减去的部分: -->
+        <!-- 300 * 500 * 1(flex-shrink) / 1300 = 115 -->
+        <!-- 300 * 400 * 2 / 130 = 185 -->
+        <div class="container">
+            <div class="first-child"></div>
+            <div class="last-child"></div>
+        </div>
+        <div class="rotate"></div>
         <script>
             
         </script>

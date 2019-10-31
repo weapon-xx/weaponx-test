@@ -23,6 +23,7 @@
             const outer = document.querySelector('.outer')
             const inner = document.querySelector('.inner')
 
+            // 非目标元素，事件触发从捕获 -> 冒泡
             outer.addEventListener('click', function() {
                 console.log('outer true');
             }, true)
@@ -31,7 +32,7 @@
                 console.log('outer flase');
             }, false)
 
-
+            // 目标元素，事件触发按照绑定顺序来触发
             inner.addEventListener('click', function() {
                 console.log('inner false');
             }, false)
