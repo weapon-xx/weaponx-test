@@ -1,0 +1,34 @@
+<html>
+    <head></head>
+    <body>
+        <script>
+            // 二分查找
+            function binarySearch(arr, target) {
+                while (arr.length) {
+                    if (arr.length === 1) return arr[0] === target
+                    let left = [];
+                    let right = [];
+                    let pivot = arr[Math.floor(arr.length / 2 - 1)];
+                    for (let i = 0; i < arr.length; i += 1) {
+                        if (pivot < arr[i]) {
+                            right.push(arr[i]);
+                        } else {
+                            left.push(arr[i]);
+                        }
+                    }
+
+                    if (target === pivot) {
+                        return true;
+                    } else if (target > pivot) {
+                        arr = right;
+                    } else {
+                        arr = left;
+                    }
+                }
+            }
+            
+            console.log(binarySearch([1, 4, 6, 3, 7, 9, 5, 8], 7));
+            console.log(binarySearch([1, 4, 6, 3, 7, 9, 5, 8], 2));
+        </script>
+    </body>
+</html>
