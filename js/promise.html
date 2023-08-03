@@ -32,15 +32,59 @@
 
 
 
-      [1, 3, 2, 4].reduce((pre, next) => {
-      	const p = new Promise(rs => setTimeout(rs, next*1000))
-      	return pre.then(() => {
-          return p
-        }).then(() => {
-          console.log(next)   // 1,3,2,4
-        })
-      }, Promise.resolve())
+      // [1, 3, 2, 4].reduce((pre, next) => {
+      // 	const p = new Promise(rs => setTimeout(rs, next*1000))
+      // 	return pre.then(() => {
+      //     return p
+      //   }).then(() => {
+      //     console.log(next)   // 1,3,2,4
+      //   })
+      // }, Promise.resolve())
 
+      // new Promise(resolve => {
+      //     resolve(1);
+      //     Promise.resolve().then(() => console.log(2));
+      //     console.log(4)
+      // }).then(t => console.log(t));
+      // console.log(3);
+
+      const messages = [];
+      setTimeout(() => {
+        // Schedule a microtask
+        Promise.resolve().then(() => {
+          log("microtask");
+          document.body.style.background = "red";
+        });
+        
+        // Schedule animation frame callback
+        requestAnimationFrame(() => {
+          log("requestAnimationFrame");
+          document.body.style.background = "yellow";
+        });
+        
+        // Schedule a (macro)task
+        setTimeout(() => {
+          log("(macro)task");
+          document.body.style.background = "blue";
+        }, 0);
+        
+        // Schedule a callback to dump the messages
+        setTimeout(() => {
+          messages.forEach(msg => {
+            console.log(msg);
+          });
+        }, 200);
+
+        // Busy-wait for a 10th of a second; the browser will be eager to repaint when this task completes
+        const stop = Date.now() + 100;
+        while (Date.now() < stop) {
+        }
+        
+      }, 100);
+
+      function log(msg) {
+        messages.push(Date.now() + ": " + msg);
+      }
 
     </script>
   </body>

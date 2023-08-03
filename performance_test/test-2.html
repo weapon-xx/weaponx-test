@@ -7,7 +7,7 @@
   <body>
     <!--
      1、css 会阻塞 dom 解析吗？
-     答：不会，我们可以看到异步 js 在一秒后输出了 dom 节点，而 script 是会阻塞解析的，浏览器是会一边加载 css 一边解析 dom。
+     答：会阻塞，可以看到异步 js 在一秒后输出试，找不到 dom 节点。
      5 节点是在 css 加载完成后才出现，说明了 css 阻塞了页面渲染。
      并且会发现，最后的 js 代码会等 css 文件加载完成了才输出 finish，假如 js 代码中包含有操作样式的代码，就必须要等到 css 样式文件加载完才能执行了。
     -->
@@ -29,7 +29,7 @@
         console.log(document.querySelector('.test'))
       }, 1e3)
     </script>
-    <link rel="stylesheet" href="./sleepCss1.css" >
+    <link rel="stylesheet" href="//127.0.0.1:8000/sleepCss1.css" >
     <div class="test">
       55555
     </div>
