@@ -10,7 +10,8 @@
       <div id="app" :src="name" ref="name">
         {{name}}
       </div>
-      <div>
+      <div>{{message}}</div>
+      <!-- <div>
         <button @click="changeArr">click</button>
         <ul>
           <li :key="index" v-for="(item, index) in arr">
@@ -19,11 +20,11 @@
             </xx>
           </li>
         </ul>
-      </div>
+      </div> -->
       <!-- <div class=""  @click="change">
         click
       </div> -->
-      <!-- <button @click="click">click</button> -->
+      <button @click="click">click</button>
     </div>
     <script type="text/javascript" src="../lib/vue-2.5.16.js"></script>
     <script type="text/javascript">
@@ -53,7 +54,10 @@
         methods: {
           changeArr() {
             this.arr = [8, 9, 10, 11, 12, 13]
-          }
+          },
+          click() {
+            this.name++
+          },
         },
         beforeCreate() {
           // console.log(this.name)      // undefined
@@ -73,6 +77,7 @@
         mounted() {
             this.name = '123'   // 第一次更新
             this.name = '456'   // 第二次更新
+            this.message = 'test 6666'
             // console.log(this.$refs.name.innerText)
             Vue.nextTick(nextTickCb.bind(this))
             function nextTickCb() {

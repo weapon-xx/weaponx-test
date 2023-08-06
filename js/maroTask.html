@@ -1,0 +1,107 @@
+<html>
+    <head></head>
+    <body>
+        <script>
+        function test() {
+            const now = Date.now();
+            document.body.style.backgroundColor = 'red';
+            while(Date.now() - now <= 2000) {}
+            document.body.style.backgroundColor = 'blue';
+            while(Date.now() - now <= 4000) {}
+            document.body.style.backgroundColor = 'yellow';
+        }
+        // test();
+
+        async function aa() {
+            const res = await new Promise((resolve) => resolve(1));
+            return res;
+        }
+        const a = aa();
+        console.log(a, a.then((res) => {
+            console.log(1111, res)
+        }));
+
+
+        function request(urls, maxNum) {
+            if (urls.length > maxNum) {
+                // const arr = urls.slice(0, maxNum);
+                const all = urls.length;
+                const arr = new Array(all).fill(void 0);
+                let count = maxNum;
+                let finish = 0;
+
+                function flushQueue() {
+                    while (count && urls.length ) {
+                        const url = urls.shift();
+                        const index = all - urls.length - 1;
+                        console.log('request: ', url, index, count);
+                        fetch(url).then((response) => {
+                            count += 1;
+                            finish += 1;
+                            arr[index] = response;
+                            if (finish >= all) {
+                                arr.forEach((data) => {
+                                    console.log(data);
+                                });
+                            } else {
+                                flushQueue();
+                            }
+                        });
+                        count -= 1;
+                    }
+                }
+
+                flushQueue();
+            } else {
+                // maxNum 较大，直接一次并发完成请求
+                Promise.all(urls.map((url) => {
+                    return fetch(url);
+                })).then((data) => {
+                    data.forEach((response) => {
+                        console.log(response);
+                    })
+                })
+            }
+        }
+
+        request([
+            'https://test-headicon.trovo.live/default/1.png',
+            'https://test-headicon.trovo.live/default/2.png',
+            'https://test-headicon.trovo.live/default/3.png',
+            'https://test-headicon.trovo.live/default/4.png',
+            'https://test-headicon.trovo.live/default/5.png',
+            'https://test-headicon.trovo.live/default/6.png',
+            'https://test-headicon.trovo.live/default/7.png',
+            'https://test-headicon.trovo.live/default/8.png',
+            'https://test-headicon.trovo.live/default/9.png',
+        ], 3);
+
+        function deepClone(obj) {
+            const newObj = {};
+            for (const key in obj) {
+                const item = obj[key];
+                if (Array.isArray(item)) {
+                    newObj[key] = item.reduce((arr, val, index ) => {
+                        if (val instanceof Object) {
+                            arr[index] = deepClone(val);
+                        } else {
+                            arr[index] = val;
+                        }
+                        return arr;
+                    }, [])
+                } else if (item instanceof Set) {
+                    newObj[key] = new Set(Array.from(item));
+                } else if (item instanceof Map) {
+                    newObj[key] = new Map(item);
+                } else if (item instanceof Object) {
+                    newObj[key] = deepClone(item);
+                } else {
+                    newObj[key] = item;
+                }
+            }
+            
+            return newObj;
+        }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+        function deepClone(obj) {
+            const newObj = {};
+            Object.keys(obj).forEach((key) => {
+                const item = obj[key];
+                if (Array.isArray(item)) {
+                    newObj[key] = [...item];
+                } else if (typeof item === 'function') {
+                    newObj[key] = new Function(`return function ` +  item.toString())();
+                } else if (item instanceof Set) {
+                    newObj[key] = new Set([...item]);
+                } else if (item instanceof RegExp) {
+                    newObj[key] = new RegExp(item.toString())
+                } else if (item instanceof Date) {
+                    newObj = new Date();
+                } if (typeof item === 'object' && item !== null) {
+                    newObj[key] = deepClone(item);
+                } else {
+                    newObj[key] = item;
+                }
+            })
+
+            return newObj;
+        }
+
+        var obj = {
+            a: {
+                b: 1,
+                c: 2,
+                e(foo, bar) {
+                    return foo + bar;
+                }
+            },
+            d: 3
+        };
+        console.log(deepClone(obj));
+
+        function merge(obj1, obj2) {
+            if (!obj1 || !obj2) return obj1 || obj2;
+            const newObj = {};
+
+            for (const key in obj1) {
+                const item = obj1[key];
+                if (!obj2[key]) {
+                    newObj[key] = item;
+                } else {
+                    const obj2Item = obj2[key];
+                    if (Array.isArray(item) && Array.isArray(obj2Item)) {
+                        newObj[key] = item.concat(obj2Item);
+                    } else if (typeof item === 'object' && typeof obj2Item === 'object') {
+                        newObj[key] = merge(item, obj2Item);
+                    } else {
+                        newObj[key] = obj2Item;
+                    }
+                }
+            }
+
+            for (const key in obj2) {
+                const item = obj2[key];
+                if (!obj1[key]) {
+                    newObj[key] = item;
+                }
+            }
+
+            return newObj;
+        }
+
+        var obj1 = {
+            a: {
+                b: '1',
+                c: [1, 2, 3],
+            },
+            d() {
+                return 'aa'
+            }
+        };
+
+        var obj2 = {
+            a: {
+                c: [4],
+                e: 5,
+            },
+            d: 6
+        }
+
+        console.log(merge());
+    </script>
+  </body>
+</html>
