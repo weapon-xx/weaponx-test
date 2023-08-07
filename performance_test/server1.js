@@ -11,7 +11,7 @@ app.get('/Css1.css', (req, res) => {
 })
 
 app.get('/sleepCss1.css', (req, res) => {
-  console.log('css: ' + new Date().getTime())
+  console.log('css: ' + new Date().getTime());
 
   new Promise(resolve => {
     setTimeout(() => {

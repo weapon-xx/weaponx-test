@@ -35,14 +35,32 @@
             template: `<div>
                 <input type="text" v-model="text">
               </div>`,
-              props: ['text']
+            props: ['text'],
+            beforeCreate() {
+              console.log('component beforeCreate')      // undefined
+            },
+            created() {
+              console.log('component create')      // 111
+            },
+            beforeMount() {
+              console.log('component beforeMount')      // 111
+            },
+            beforeUpdate() {
+              console.log('component beforeUpdate')
+            },
+            updated() {
+              console.log('component updated')
+            },
+            mounted() {
+              console.log('component mounted')
+            }
           }
         },
         data() {
           return {
             message : 'test',
             name: 111,
-            arr: [1, 2, 3, 4, 5, 6]
+            arr: [1]
           }
         },
         // watch: {
@@ -60,29 +78,30 @@
           },
         },
         beforeCreate() {
-          // console.log(this.name)      // undefined
+          console.log('parent beforeCreate')      // undefined
         },
         created() {
-          // console.log(this.name)      // 111
+          console.log('parent create')      // 111
         },
         beforeMount() {
-          // console.log(this.name)      // 111
+          console.log('parent beforeMount')      // 111
         },
         beforeUpdate() {
-          // console.log(this.name)
+          console.log('parent beforeUpdate')
         },
         updated() {
-          // console.log(this.name)
+          console.log('parent updated')
         },
         mounted() {
-            this.name = '123'   // 第一次更新
-            this.name = '456'   // 第二次更新
-            this.message = 'test 6666'
-            // console.log(this.$refs.name.innerText)
-            Vue.nextTick(nextTickCb.bind(this))
-            function nextTickCb() {
-              console.log(this.$refs.name.innerText)
-            }
+          console.log('parent mounted')
+          // this.name = '123'   // 第一次更新
+          // this.name = '456'   // 第二次更新
+          // console.log(this.$refs.name.innerText)
+          Vue.nextTick(nextTickCb.bind(this))
+          function nextTickCb() {
+            this.changeArr();
+            console.log(this.$refs.name.innerText)
+          }
             // 为什么 nextTick 回调中，DOM 就进行了更新？
             // 1.因为数据进行修改时，会向异步队列插入一个修改的「任务a」，而 nextTick 也是向异步队列中插入一个异步任务b？？？
             // 是的，都会向 callbacks 数组中插入一个回调函数。

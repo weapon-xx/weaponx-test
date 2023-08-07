@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+            <!-- <img :src="'www.qq.com/' + obj.name + '.jpg'" alt=""> -->
+            <div id="app" :src="name" ref="name">
+                {{ message }}
+            </div>
+            <div>
+                <button @click="changeArr">click</button>
+                <ul>
+                    <li :key="index" v-for="(item, index) in arr">
+                        {{ item }}
+                    </li>
+                </ul>
+            </div>
+            <h1>{{ obj.name }}</h1>
+            <h1>{{ obj.info.height }}</h1>
+        </div>
+        <script type="text/javascript" src="../lib/vue-3.34.js"></script>
+        <script>
+            const { createApp, ref, reactive } = Vue
+
+            createApp({
+                setup() {
+                    const message = ref('Hello vue!');
+                    const arr = ref([1, 2, 3, 4]);
+                    const obj = reactive({
+                        name: 'x',
+                        age: 20,
+                        info: {
+                            height: 180,
+                        }
+                    });
+
+                    setTimeout(() => {
+                        arr.value.push(5);
+                    }, 3e3);
+
+                    return {
+                        message,
+                        arr,
+                        obj,
+                    };
+                }
+            }).mount('.container')
+        </script>
+    </body>
+</html>
