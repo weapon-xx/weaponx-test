@@ -1,0 +1,25 @@
+<html>
+    <body>
+        <div class="container">
+            <p>{{ msg }}</p>
+            <p>{{ computedMsg }}</p>
+        </div>
+        <script type="text/javascript" src="../../lib/vue-2.5.16.js"></script>
+        <script>
+            const vm = new Vue({
+                el: '.container',
+                data() {
+                    return {
+                        msg: 'test',
+                        num: 123,
+                    };
+                },
+                computed: {
+                    computedMsg() {
+                        return `${this.msg}-${this.num}`;
+                    },  
+                },
+            });
+        </script>
+    </body>
+</html>

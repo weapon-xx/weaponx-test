@@ -8,6 +8,5 @@
     "tabWidth": 4,
     "printWidth": 120,
     "proseWrap": "preserve",
-    "eslintIntegration": true,
     "htmlWhitespaceSensitivity": "strict"
 }
